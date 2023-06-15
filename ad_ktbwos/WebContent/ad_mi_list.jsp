@@ -66,6 +66,15 @@ try {
 <form name="frmSch">
 <fieldset>
 	<legend></legend>
+	<div style="float:left;">
+	<select title="상태 선택" >
+			<option value="">전체</option>
+			<option value="a">정상</option>
+			<option value="b">휴면</option>
+			<option value="c">탈퇴</option>
+	</select>
+	</div>
+	<div style="float:right;">
 	<select name="schtype">
 		<option value="all" <% if(schtype.equals("all")) { %>selected="selected"<% } %>>전체</option>
 		<option value="id" <% if(schtype.equals("id")) { %>selected="selected"<% } %>>아이디</option>
@@ -73,6 +82,7 @@ try {
 	</select>
 	<input type="text" name="keyword" value="<%=keyword %>" />
 	<input type="submit" value="검색" />&nbsp;&nbsp;&nbsp;&nbsp;
+	</div>
 </fieldset>
 </form>
 </div>

@@ -48,10 +48,6 @@ try {
 	String rl_isview = rs.getString("rl_isview");
 	String rl_date = rs.getString("rl_date");
 	
-	
-	
-	
-	
 	sql = "create table t_" + rl_table_name + "_list (" +
 			rl_table_name + "_idx int primary key auto_increment,rl_idx int not null,"+
 			rl_table_name + "_ctgr char(1) not null,"+
@@ -74,7 +70,9 @@ try {
 	
 	if (rl_reply_use.equals("y")) {
 		sql = "create table t_"+ rl_table_name + "_reply (" +
-		rl_table_name + "r_idx int primary key auto_increment,"+ rl_table_name + "_idx int not null," +
+		rl_table_name + "r_idx int primary key auto_increment,"+
+		rl_table_name + "_idx int not null," +
+		rl_table_name + "r_ismem char(1) default 'y'," +
 		rl_table_name + "r_writer varchar(20) not null," +
 		rl_table_name + "r_pw varchar(20)," +
 		rl_table_name + "r_content varchar(200) not null," +
@@ -84,12 +82,6 @@ try {
 	    "constraint " + rl_table_name + "_idx foreign key(" + rl_table_name + "_idx) references t_"+ rl_table_name + "_list(" + rl_table_name + "_idx))";
 		stmt.executeUpdate(sql);
 	}
-	
-	
-	
-	
-	
-	
 	rs = stmt.executeQuery("show tables");
 	while (rs.next()) count2++;			
 	if (count != count2 ) {

@@ -20,6 +20,10 @@ if (rl_reply_use.equals("y"))
 	rl_reply_write = request.getParameter("rl_reply_write");
 
 try {
+	stmt = conn.createStatement();
+	sql = "update t_member_info set mi_count = mi_count +1 where mi_nick = '" + rl_writer + "' ";
+	stmt.executeUpdate(sql);
+	
 	sql = "insert into t_request_list (rl_ctgr, rl_title, rl_name, rl_writer, rl_write, rl_reply_use, rl_reply_write, rl_content) values (?, ?, ?, ?, ?, ?, ?, ?)";
 	PreparedStatement pstmt = conn.prepareStatement(sql);
 

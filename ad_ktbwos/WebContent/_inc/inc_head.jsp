@@ -53,7 +53,7 @@ function isDel(link) {
 	border-collapse : collapse;
 	}
 	tr { height:30px;}
-	th { background-color:#5B9BD5; color:white;}
+	th { background-color:#ffffff; color:black;}
 	td { text-align:center;}
 </style>
 <title>1석2조</title>
@@ -70,12 +70,13 @@ function isDel(link) {
 
 <table width="1100" align="center">
 	<tr>
-		<th><a style="color:white;" href="/ad_ktbwos/bbs/notice_list.jsp">공지사항 관리</a></th>
-		<th><a style="color:white;" href="/ad_ktbwos/bbs/free_list.jsp">자유게시판 관리</a></th>
-		<th><a style="color:white;" href="/ad_ktbwos/bbs/pds_list.jsp">자료실 관리</a></th>
-		<th><a style="color:white;" href="/ad_ktbwos/bbs/request_list.jsp">게시판 요청 관리</a></th>
-		<th><a style="color:white;" href="/ad_ktbwos/bbs/ctgr_list.jsp">카테고리 게시판 관리</a></th>
-		<th><a style="color:white;" href="/ad_ktbwos/bbs/qna_list.jsp">QnA 관리</a></th>
+		<th><a href="/ad_ktbwos/bbs/ad_notice_list.jsp">공지사항 관리</a></th>
+		<th><a href="/ad_ktbwos/bbs/ad_free_list.jsp">자유게시판 관리</a></th>
+		<th><a href="/ad_ktbwos/bbs/ad_pds_list.jsp">자료실 관리</a></th>
+		<th><a href="/ad_ktbwos/bbs/request_list.jsp">게시판 요청 관리</a></th>
+		<th><a href="/ad_ktbwos/bbs/ad_ctgr_list.jsp">카테고리 게시판 관리</a></th>
+		<th><a href="/ad_ktbwos/bbs/ad_qna_list.jsp">QnA 관리</a></th>
+		<th><a href="/ad_ktbwos/ad_mi_list.jsp">회원 관리</a></th>
 	</tr>
 </table>
 

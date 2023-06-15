@@ -3,9 +3,8 @@
 <%
 request.setCharacterEncoding("utf-8");
 String kind = request.getParameter("kind");
-String caption = "등록";		// 버튼에 사용할 캡션 문자열
-String action = "request_proc_in.jsp";	
-String rl_ctgr = "",rl_title = "",rl_name = "",rl_writer = "",rl_write = "",rl_reply_use = "",rl_reply_write = "", rl_content = "", rl_status = "";
+String action = "ad_request_proc_appr.jsp";
+String rl_ctgr = "",rl_title = "",rl_name = "",rl_writer = "",rl_write = "",rl_reply_use = "",rl_reply_write = "", rl_content = "", rl_status = "", rl_table_name = "", rl_reason = "";
 int idx = 0;	// 글번호를 저장할 변수로 '수정'일 경우에만 사용됨
 int cpage = 1;	// 페이지번호를 저장할 변수로 '수정'일 경우에만 사용됨
 
@@ -20,13 +19,14 @@ if (schtype != null && !schtype.equals("") && keyword != null && !keyword.equals
 	cpage = Integer.parseInt(request.getParameter("cpage"));
 	String where = " where rl_idx = " + idx;
 	sql = "select * from t_request_list " + where;
-	System.out.println(args);
 	try {
 		stmt = conn.createStatement();
 		rs = stmt.executeQuery(sql);
 		if (rs.next()) {
 			rl_ctgr = rs.getString("rl_ctgr");
 			rl_title = rs.getString("rl_title");
+			rl_table_name = rs.getString("rl_table_name");
+			rl_reason = rs.getString("rl_reason");
 			rl_name = rs.getString("rl_name");
 			rl_writer = rs.getString("rl_writer");
 			rl_write = rs.getString("rl_write");
@@ -59,11 +59,23 @@ if (schtype != null && !schtype.equals("") && keyword != null && !keyword.equals
 function rl_statusChk (rl_status) {
 	if (rl_status == "y") {
 		document.getElementById("rl_table_name").style.display="";
-		document.getElementById("rl_rl_reason").style.display="none";
+		document.getElementById("rl_reason").style.display="none";
 	} else {
 		document.getElementById("rl_table_name").style.display="none";
-		document.getElementById("rl_rl_reason").style.display="";
+		document.getElementById("rl_reason").style.display="";
 	}
+}
+function isDel() {
+	if (confirm("정말 미승인하시겠습니까?")) {
+		var reason = document.frmSch.rl_reason;
+		alert(reason);
+		document.frmSch.action = "ad_request_proc_del.jsp";
+//		document.frmSch.submit();
+	}
+}
+function isAppr() {
+	document.frmSch.action = "ad_request_proc_appr.jsp";
+	document.frmSch.submit();
 }
 </script>
 
@@ -76,11 +88,12 @@ function rl_statusChk (rl_status) {
 <div style="width:1100px; margin:0 auto;">
 	<a href="/ktbwos/bbs/request_list.jsp" class="alltext">전체글</a>
 	<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">자유게시판</span>
-	<form name="frmSch" style="margin-bottom:0;" action="ad_request_proc_appr.jsp">
+	<form name="frmSch" style="margin-bottom:0;" action="<%=action %>" method="post">
 	<input type="hidden" name="cpage" value="<%=cpage %>">
 	<input type="hidden" name="schtype" value="<%=schtype %>">
 	<input type="hidden" name="keyword" value="<%=keyword %>">
 	<input type="hidden" name="idx" value="<%=idx %>">
+	<input type="hidden" name="rl_title" value="<%=rl_title %>">
 	<table width="1100" >	
 		<tr>
 			<td>제목</td>
@@ -109,33 +122,28 @@ function rl_statusChk (rl_status) {
 			<td>게시판 이름</td>
 			<td colspan="3"><%=rl_name %></td>
 		</tr>
-		<tr>		
+		<tr>
+			<% if (rl_status.equals("y")) { %>
+			<td>테이블 이름</td>
+			<td colspan="3" id="rl_table_name"><%=rl_table_name %></td>
+			<% } else if(rl_status.equals("n")) { %>
+			<td>미승인 사유</td>
+			<td colspan="3" id="rl_reason"><%=rl_reason %></td>
+			<% } else { %>
 			<td>
 				<label>테이블 이름<input type="radio" name="rl_status" value="y" onclick="rl_statusChk(this.value)" checked="checked"/></label>
 				<label>미승인 사유<input type="radio" name="rl_status" value="n" onclick="rl_statusChk(this.value)" /></label>
             </td>
 			<td colspan="3" id="rl_table_name"><input name="rl_table_name"  type="text" placeholder="테이블 이름을 입력 해주세요" style="width:850px;"></td>
-			<td colspan="3" id="rl_rl_reason" style="display:none;"><input name="rl_rl_reason"  type="text" placeholder="미승인 사유를 입력해주세요" style="width:850px; "></td>
+			<td colspan="3" id="rl_reason" style="display:none;"><input name="rl_reason"  type="text" placeholder="미승인 사유를 입력해주세요" style="width:850px; "></td>
+			<% } %>
 		</tr>
 	</table><br />
 	
 	
 	<span style="display:inline-block; float:right; margin-top:5px; margin-left:10px;">
-	
-	<%	
-	String upapprlLink = "request_proc_del.jsp?idx=" + idx;
-	%>
-	
-	
-<script>
-function isDel() {
-	if (confirm("정말 삭제하시겠습니까?\\n삭제된 글은 복구 불가합니다.")) {
-		location.href = "<%=upapprlLink %>";
-	}
-}
-</script>
 <% if (rl_status.equals("a")){ %>
-	<input type="submit" value="승인" />
+	<input type="button" value="승인" onclick="isAppr();"/>
 	<input type="button" value="미승인" onclick="isDel();" />
 <% } %>
 		<input type="button" value="뒤로" onclick="history.back();">
