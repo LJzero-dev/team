@@ -51,6 +51,8 @@ try {
 		// 로그인한 회원 정보를 담은 MemberInfo형 인스턴스 mi를
 		// 세션에 "loginInfo"라는 이름의 속성으로 저장
 		
+		sql = "update t_member_info set mi_lastlogin = curdate() where mi_id = '" + mi_id + "'";
+		stmt.executeUpdate(sql);
 		response.sendRedirect(url);
 		
 	} else {	// 로그인 실패시

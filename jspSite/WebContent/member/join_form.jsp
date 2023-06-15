@@ -30,8 +30,6 @@ function chkVal(frm) {
 	}
 	return true;
 }
-function chkPw() {
-}
 </script>
 <iframe src="" id="dup" style="width:500px; height:200px; border:1px black solid; display:block;"></iframe>
 <form name="frmJoin" action="join_proc.jsp" method="post" onsubmit="return chkVal(this);">

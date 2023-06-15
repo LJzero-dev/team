@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <%@ include file="../_inc/inc_head.jsp" %>
 <%
 request.setCharacterEncoding("utf-8");
@@ -56,6 +57,7 @@ try {
 	e.printStackTrace();
 }
 %>
+
 <div style="width:1100px; margin:0 auto;">  <!--목록화면 인클루드랑 간격 맞추기  -->
 <style>
 	input[type="submit"] {border:1px solid #000; width:60px; background:transparent; cursor:pointer; background:#fff;}
@@ -63,10 +65,10 @@ try {
 </style>
 
 <div style="width:1100px; margin:0 auto;">
-	<a href="/ktbwos/bbs/notice_list.jsp" class="alltext">전체글</a>
-	<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">공지사항</span> <!--  현재 게시판 위치 표시  -->
+	<a href="/ad_ktbwos/bbs/ad_notice_list.jsp" class="alltext">전체글</a>
+	<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">공지사항관리</span> <!--  현재 게시판 위치 표시  -->
 	<form name="frmSch" style="margin-bottom:0;">
-		<fieldset style=" width:335px; margin-left:737px; background:#1E4B79;"> <!--  게시판 내 검색창 -->
+		<fieldset style=" width:335px; margin-left:737px; background:#d3d3d3;"> <!--  게시판 내 검색창 -->
 			<select name="schtype">
 				<option>전체</option>
 				<option>제목</option>
@@ -79,20 +81,21 @@ try {
 
 <table width="1100" border="0" cellpadding="0" cellspacing="0" id="list">
 <tr height="30">
-<th width="10%">번호</th><th width="*">제목</th>
-<th width="10%">작성자</th><th width="15%">작성일</th>
+<th width="10%" style="background-color: #d3d3d3;">번호</th><th width="*" style="background-color: #d3d3d3;">제목</th>
+<th width="10%" style="background-color: #d3d3d3;">작성자</th><th width="15%" style="background-color: #d3d3d3;">작성일</th>
 </tr>
+
 <%
 if (rs.next()) {
 	int num = rcnt - ((cpage -1) * psize);
 	do {
 		String title = rs.getString("nl_title");
 		String allTitle = null, title2 = "";
-		if (title.length() > 23) {
+		if (title.length() > 23) {	
 			allTitle = title;
 			title = title.substring(0, 22) + "...";
 		}
-		title2 = "<a href='notice_view.jsp?idx=" + rs.getInt("nl_idx") + "&cpage=" + cpage + schargs + "'";
+		title2 = "<a href='ad_notice_view.jsp?idx=" + rs.getInt("nl_idx") + "&cpage=" + cpage + schargs + "'";
 		if (allTitle != null) title2 += " title='" + allTitle + "'";
 		title2 += ">" + title + "</a>";
 		// title에 링크걸기 테이블안에서도 할수있지만 복잡함
@@ -113,7 +116,16 @@ if (rs.next()) {
 }
 %>
 </table>
-
+<br>
+<table style="width:1100px; border:0;">  <!--  글등록 버튼 -->
+	<tr>
+		<td style="width:900px; border:0;">
+		</td>
+		<td width="*" style="text-align:right; border:0;">
+		<input type="button" value="글등록" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" onclick="location.href='ad_notice_form.jsp?kind=in';" />
+		</td>
+		</tr>
+</table>
 <br>
 <div align="center"> <!--  페이지 테이블 -->
 <table width="1100" border="0" cellpadding="5">
@@ -156,5 +168,6 @@ if (rcnt > 0) {
 </div>
 
 
-</div>
+
+
 <%@ include file="../_inc/inc_foot.jsp" %>

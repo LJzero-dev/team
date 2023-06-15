@@ -1,3 +1,4 @@
+AdminInfo.java
 package vo;
 public class AdminInfo {
 	private String ai_id, ai_pw, ai_name, ai_use, ai_date; 

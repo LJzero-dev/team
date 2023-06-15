@@ -68,26 +68,61 @@ if (kind.equals("up")) {	// 게시글 수정 폼일 경우
 %>
 
 <script>
-	function rl_reply_use_show (rl_reply_use) {
-		if (rl_reply_use == "y") {
-			document.getElementById("rl_reply_write").style.display="";
-			document.getElementById("rl_reply_write2").style.display="";
-		} else {
-			document.getElementById("rl_reply_write").style.display="none";
-			document.getElementById("rl_reply_write2").style.display="none";
-		}
+function rl_reply_use_show (rl_reply_use) {
+	if (rl_reply_use == "y") {
+		document.getElementById("rl_reply_write").style.display="";
+		document.getElementById("rl_reply_write2").style.display="";
+	} else {
+		document.getElementById("rl_reply_write").style.display="none";
+		document.getElementById("rl_reply_write2").style.display="none";
 	}
+}
+function dupName(name) {
+	document.getElementById("dup").src = "dup_name_chk.jsp?rl_name=" + name;
+}
+function chkVal(frm) {
+	var isDup = frm.isDup.value;
+	if (isDup == "n") {
+		alert("게시판 이름 중복확인을 하세요.");
+		frm.rl_name.focus();
+		return false;
+	}
+	if (isDup == "") {
+		alert("게시판 이름을 작성하세요.");
+		frm.rl_title.focus();
+		return false;
+	}
+	if (frm.rl_title.value == "") {
+		alert("게시글 제목을 작성하세요.");
+		frm.rl_title.focus();
+		return false;
+	}
+	if (frm.rl_write.value == "") {
+		alert("게시글 작성 권한을 설정하세요.");
+		return false;
+	}
+	if (frm.rl_reply_use.value == "") {
+		alert("댓글기능 사용여부를 설정하세요.");
+		return false;
+	}
+	if (frm.rl_reply_use.value == "y" && frm.rl_reply_write.value == "") {
+		alert("댓글기능 사용일 시 댓글 권한을 필히 설정하셔야 합니다.");
+		return false;
+	}
+	return true;
+}
 </script>
+<iframe src="" id="dup" style="width:500px; height:200px border:1px black solid; display:none;"></iframe>
 <style>
 	input[type="submit"] {border:1px solid #000; width:60px; background:transparent; cursor:pointer; background:#fff;}
 	input[type="button"] {border:1px solid #000; width:60px; background:transparent; cursor:pointer; background:#fff;}
 	.alltext {display:inline-block; float:left; width:80px; padding:5px 0; border:1px solid #000; text-align:center;}
 </style>
-
 <div style="width:1100px; margin:0 auto;">
 	<a href="/ktbwos/bbs/request_list.jsp" class="alltext">전체글</a>
 	<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">요청 게시판</span>
-<form action="<%=action %>" >
+<form name="frm" action="<%=action %>" onsubmit="return chkVal(this);">
+<input type="hidden" name="isDup" value="n">
 <input type="hidden" name="idx" value="<%=idx %>">
 <input type="hidden" name="cpage" value="<%=cpage %>">
 	<table width="1100" >	
@@ -127,7 +162,8 @@ if (kind.equals("up")) {	// 게시글 수정 폼일 경우
 		</tr>		
 		<tr>
 			<td>게시판 이름</td>
-			<td colspan="3"><input name="rl_name" type="text" placeholder="게시판 이름을 입력하세요" style="width:850px;" value="<%=rl_name %>"></textarea></td>
+			<td colspan="2" align="left"><input name="rl_name" type="text" onkeyup="dupName(this.value);" placeholder="게시판 이름을 입력하세요" style="width:450px;" value="<%=rl_name %>"></textarea></td>
+			<td><span id="msg">게시판 이름은 1~50 글자 입니다.</span></td>
 		</tr>
 		<tr>
 			<td>요청 내용</td>
@@ -146,5 +182,8 @@ if (kind.equals("up")) {	// 게시글 수정 폼일 경우
 	</span>
 </form>
 </div>
+
+
+
 
 <%@ include file="../_inc/inc_foot.jsp" %>

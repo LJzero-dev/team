@@ -7,7 +7,7 @@
 <a href="logout.jsp">로그아웃</a>
 <% } else { %>
 <a href="login_form.jsp">로그인</a><br /><hr />
-<a href="join_form.jsp">회원가입</a>
+<a href="/jspSite/member/join_form.jsp">회원가입</a>
 <% } %>
 <hr />
 <a href="bbs/notice_list.jsp">공지 사항</a>
