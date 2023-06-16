@@ -60,23 +60,24 @@ function rl_statusChk (rl_status) {
 	if (rl_status == "y") {
 		document.getElementById("rl_table_name").style.display="";
 		document.getElementById("rl_reason").style.display="none";
+		document.frmSch.rl_reason.value = "";
 	} else {
 		document.getElementById("rl_table_name").style.display="none";
 		document.getElementById("rl_reason").style.display="";
+		document.frmSch.rl_table_name.value = "";
 	}
 }
 function isDel() {
 	if (confirm("정말 미승인하시겠습니까?")) {
-		var reason = document.frmSch.rl_reason;
-		alert(reason);
 		document.frmSch.action = "ad_request_proc_del.jsp";
-//		document.frmSch.submit();
+		document.frmSch.submit();
 	}
 }
 function isAppr() {
 	document.frmSch.action = "ad_request_proc_appr.jsp";
 	document.frmSch.submit();
 }
+
 </script>
 
 <style>
@@ -93,7 +94,7 @@ function isAppr() {
 	<input type="hidden" name="schtype" value="<%=schtype %>">
 	<input type="hidden" name="keyword" value="<%=keyword %>">
 	<input type="hidden" name="idx" value="<%=idx %>">
-	<input type="hidden" name="rl_title" value="<%=rl_title %>">
+	<input type="hidden" name="rl_name" value="<%=rl_name %>">
 	<table width="1100" >	
 		<tr>
 			<td>제목</td>
@@ -120,7 +121,9 @@ function isAppr() {
 		</tr>		
 		<tr>
 			<td>게시판 이름</td>
-			<td colspan="3"><%=rl_name %></td>
+			<td colspan="3"><%=(rl_status.equals("n") && rl_name.startsWith((""+idx)) && rl_name.endsWith((""+idx))) ? rl_name.substring((""+idx).length(),rl_name.lastIndexOf((""+idx))) : rl_name %></td>
+			<% System.out.println(rl_name.substring((""+idx).length(),rl_name.lastIndexOf((""+idx)))); %>
+			<% System.out.println(rl_status); %>
 		</tr>
 		<tr>
 			<% if (rl_status.equals("y")) { %>

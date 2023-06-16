@@ -19,9 +19,9 @@ if (schtype != null && !schtype.equals("") && keyword != null && !keyword.equals
 
 try {
 	stmt = conn.createStatement();
-	sql = "update t_request_list set rl_status = 'n', rl_title = '" + idx + request.getParameter("rl_title") + "', rl_reason = '" + request.getParameter("rl_reason") + "' where rl_idx = " + idx;
+	sql = "update t_request_list set rl_status = 'n', rl_name = '" + idx + request.getParameter("rl_name") + idx + "', rl_reason = '" + request.getParameter("rl_reason") + "' where rl_idx = " + idx;
 	System.out.println(sql);
-/*	int result = stmt.executeUpdate(sql);
+	int result = stmt.executeUpdate(sql);
 	if (result == 1 ) {
 		out.println("<script>");
 		out.println("location.replace('request_view.jsp" + args + "');");
@@ -32,7 +32,7 @@ try {
 		out.println("history.back();");
 		out.println("</script>");
 		out.close();
-	}*/	
+	}
 } catch (Exception e) {
 	out.println("요청 게시판 제작시 문제가 발생했습니다.");
 	e.printStackTrace();
