@@ -22,7 +22,7 @@ if (schtype == null || schtype.equals("") || keyword == null || keyword.equals("
 	if (schtype.equals("all")) {	// 검색조건이 '제목 + 내용'일 경우
 		where += " and (rl_name like '%" + keyword + "%' " + " or rl_ctgr = '" + (keyword.equals("게임") ? "a" : keyword.equals("연예") ? "b" : "c") + "') ";	
 	} else if (schtype.equals("a")) {	// 검색조건이 '분류'일 경우
-		where += " and rl_ctgr = '" + (keyword.equals("게임") ? "a" : keyword.equals("연예") ? "b" : "c") + "' ";
+		where += " and rl_ctgr = '" + (keyword.equals("게임") ? "a" : keyword.equals("연예") ? "b" : keyword.equals("스포츠") ? "c" : "") + "' ";
 	} else {					// 검색조건이 '게시판 이름'일경우
 		where += " and rl_name like '%" + keyword + "%' ";
 	}
@@ -105,8 +105,8 @@ if (rs.next()) {
 </div>
 <br />
 <table width="1100" align="center">
-<tr>
-<td width="1100" align="center">
+</table>
+<div width="1100" align="center">
 <%
 if (rcnt > 0) {	// 게시글이 있으면
 	String link = "request_list.jsp?cpage=";
@@ -134,7 +134,6 @@ if (rcnt > 0) {	// 게시글이 있으면
 	}
 }
 %>
-</td>
-</tr>
-</table>
+</div>
+
 <%@ include file="../_inc/inc_foot.jsp" %>

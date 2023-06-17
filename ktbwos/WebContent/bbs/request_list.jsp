@@ -115,9 +115,7 @@ if (rs.next()) {
 <br />	
 </div>
 <br />
-<table width="1100" align="center">
-<tr>
-<td width="1100" align="center">
+<div width="1100" align="center">
 <%
 if (rcnt > 0) {	// 게시글이 있으면
 	String link = "request_list.jsp?cpage=";
@@ -145,10 +143,8 @@ if (rcnt > 0) {	// 게시글이 있으면
 	}
 }
 %>
-</td>
-<td width="*" align="right">
-	<input type="button" value="글등록" onclick="location.href='request_form.jsp?kind=in';" />
-</td>
-</tr>
-</table>
+<div style="width:1100px; margin:0 auto;" align="right">
+<input type="button" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" value="글등록" onclick="location.href='request_form.jsp?kind=in';" />	
+</div>
+</div>
 <%@ include file="../_inc/inc_foot.jsp" %>

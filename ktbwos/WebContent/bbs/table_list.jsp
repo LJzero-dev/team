@@ -34,7 +34,6 @@ try {
 	stmt = conn.createStatement();
 	
 	sql = "select count(*) from t_" + rl_table_name + "_list" + where;
-	System.out.println(sql);
 	rs = stmt.executeQuery(sql);
 	if (rs.next())	rcnt = rs.getInt(1);
 	
@@ -111,13 +110,12 @@ try {
 			<td><%=rs.getString(rl_table_name + "date") %></td>
 			<td><%=rs.getString(rl_table_name + "_read") %></td>
 		</tr>
-		<%
-			num --;
-			} while (rs.next());
-		} else {
-			out.println("<tr height='30'><td colspan='5' align='center'>");
-		}
-		%>
+	<% 
+	num--;
+	} while(rs.next());
+}else {
+		out.print("<tr height='30'><td colspan='7'>검색결과가 없습니다.</td></tr>");
+} %>
 	</table>
 	<table style="width:1100px; border:0;">
 		<tr>
