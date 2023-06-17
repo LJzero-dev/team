@@ -20,7 +20,6 @@ if (schtype != null && !schtype.equals("") && keyword != null && !keyword.equals
 try {
 	stmt = conn.createStatement();
 	sql = "update t_request_list set rl_status = 'n', rl_name = '" + idx + request.getParameter("rl_name") + idx + "', rl_reason = '" + request.getParameter("rl_reason") + "' where rl_idx = " + idx;
-	System.out.println(sql);
 	int result = stmt.executeUpdate(sql);
 	if (result == 1 ) {
 		out.println("<script>");

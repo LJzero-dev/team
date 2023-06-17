@@ -5,7 +5,7 @@ request.setCharacterEncoding("utf-8");
 String kind = request.getParameter("kind");
 String caption = "등록";		// 버튼에 사용할 캡션 문자열
 String action = "request_proc_in.jsp";	
-String rl_ctgr = "",rl_title = "",rl_name = "",rl_writer = "",rl_write = "",rl_reply_use = "",rl_reply_write = "", rl_content = "";
+String rl_ctgr = "",rl_title = "",rl_name = "",rl_writer = "",rl_write = "",rl_reply_use = "",rl_reply_write = "", rl_content = "", rl_status = "", rl_reason = "";
 int idx = 0;	// 글번호를 저장할 변수로 '수정'일 경우에만 사용됨
 int cpage = 1;	// 페이지번호를 저장할 변수로 '수정'일 경우에만 사용됨
 
@@ -26,12 +26,15 @@ if (schtype != null && !schtype.equals("") && keyword != null && !keyword.equals
 		if (rs.next()) {
 			rl_ctgr = rs.getString("rl_ctgr");
 			rl_title = rs.getString("rl_title");
-			rl_name = rs.getString("rl_name");
 			rl_writer = rs.getString("rl_writer");
 			rl_write = rs.getString("rl_write");
 			rl_reply_use = rs.getString("rl_reply_use");
 			rl_reply_write = rs.getString("rl_reply_write");
 			rl_content = rs.getString("rl_content");
+			rl_status = rs.getString("rl_status");
+			rl_reason = rs.getString("rl_reason");
+			rl_name = rs.getString("rl_name");
+			rl_name = rl_status.equals("n") ? rl_name.substring(("" + idx).length(),rl_name.lastIndexOf(("" + idx))) : rl_name;
 		} else {
 			out.println("<script>");
 			out.println("alert('잘못된 경로로 들어오셨습니다.');");
@@ -109,7 +112,15 @@ boolean isPms = (loginInfo != null) ? true : false ;
 		<tr>
 			<td>요청 내용</td>
 			<td colspan="3"><textarea readonly="readonly" id="rl_content" style="width:99%; height:100px" placeholder="요청 내용을 상세히 입력하세요" ><%=rl_content %></textarea></td>
-		</tr>		
+		</tr>
+		<% if (rl_status.equals("n")) { %>
+		<tr>
+			<td>미승인 사유</td>
+			<td colspan="3"><%=rl_reason %></td>
+		</tr>
+		<% } else if (rl_status.equals("y")) { %>
+		<tr><td colspan="4">승인 완료된 게시판 입니다</td></tr>
+				<% } %>
 		<tr>
 			<td colspan="4">※ 게시판 이름 및 분류와 맞지 않거나, 요청 내용이 부적절할 경우 반려될 수 있습니다..</td>
 		</tr>
@@ -121,7 +132,7 @@ boolean isPms = (loginInfo != null) ? true : false ;
 	
 	<span style="display:inline-block; float:right; margin-top:5px; margin-left:10px;">
 	
-	<%	if (isPms && rl_writer.equals(loginInfo.getMi_nick())) {  %>
+	<%	if (isPms && rl_writer.equals(loginInfo.getMi_nick()) && rl_status.equals("a")) {  %>
 	<input type="button" value="수정" onclick="location.href='<%=upLink %>';" />
 <script>
 function isDel() {

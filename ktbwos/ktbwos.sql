@@ -40,11 +40,11 @@ create table t_notice_list(
    constraint fk_notice_list_ai_idx foreign key(ai_idx) references t_admin_info(ai_idx)
 );
 insert into t_notice_list (ai_idx, nl_title, nl_content) values (1, '공지사항1', '공지사항 내용입니다.');
-
+show tables;
 -- drop table t_qna_list;
 create table t_qna_list (
    ql_idx int primary key auto_increment,	-- 글번호
-   mi_idx varchar(20) not null,				-- 회원번호
+   mi_idx int not null,						-- 회원번호
    ql_title varchar(100) not null,			-- 질문 제목
    ql_content text not null,				-- 질문 내용
    ql_img1 varchar(50),						-- 이미지1
@@ -85,7 +85,7 @@ create table t_free_reply (
    fr_idx int primary key auto_increment,	-- 댓글 번호
    fr_writer varchar(20) not null,			-- 작성자
    fl_idx int not null,						-- 게시글번호
-   fl_ismem char(1) default 'y',			-- 회원여부
+   fr_ismem char(1) default 'y',			-- 회원여부
    fr_pw varchar(20),						-- 비밀번호
    fr_content varchar(200) not null,		-- 내용
    fr_ip varchar(15) not null,				-- IP 주소
@@ -111,7 +111,7 @@ create table t_pds_list (
 
 insert into t_pds_list (ai_idx, pl_title, pl_content, pl_data1, pl_data2) values (1, '자료글 1번글입니다.', '자료글 2번글입니다.', '../pds/c.png', '../pds/d.png');
 
-
+select * from t_request_list;
 create table t_request_list (
    rl_idx int primary key auto_increment,		-- 게시판 번호
    rl_ctgr char(1) default 'a',					-- 게시판 테마 분류
@@ -128,7 +128,9 @@ create table t_request_list (
    rl_content text not null,					-- 요청 내용
    rl_date datetime default now()				-- 요청일
 );
-
+show tables;
+select * from t_request_list;
+select * from t_request_list  where 1=1  and rl_title like '%1%' order by rl_status ;
 insert into t_request_list (rl_ctgr, rl_title, rl_name, rl_writer, rl_write, rl_reply_use, rl_reply_write, rl_content) values ('a', '홍길동 키우기 게시판 요청합니다', '홍길동 키우기', '전우치', 'y', 'y', 'y', '만들어 주세요');
 
 create table t_best_list (

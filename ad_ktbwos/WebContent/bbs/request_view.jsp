@@ -59,10 +59,12 @@ if (schtype != null && !schtype.equals("") && keyword != null && !keyword.equals
 function rl_statusChk (rl_status) {
 	if (rl_status == "y") {
 		document.getElementById("rl_table_name").style.display="";
-		document.getElementById("rl_reason").style.display="none";
+		document.getElementById("rl_table_name_chk").style.display="";
+		document.getElementById("rl_reason").style.display="none";		
 		document.frmSch.rl_reason.value = "";
 	} else {
 		document.getElementById("rl_table_name").style.display="none";
+		document.getElementById("rl_table_name_chk").style.display="none";
 		document.getElementById("rl_reason").style.display="";
 		document.frmSch.rl_table_name.value = "";
 	}
@@ -77,7 +79,9 @@ function isAppr() {
 	document.frmSch.action = "ad_request_proc_appr.jsp";
 	document.frmSch.submit();
 }
-
+function dupTableName(table) {
+	document.getElementById("dup").src = "dup_table_name_chk.jsp?rl_table_name=" + table;
+}
 </script>
 
 <style>
@@ -85,16 +89,17 @@ function isAppr() {
 	input[type="button"] {border:1px solid #000; width:60px; background:transparent; cursor:pointer; background:#fff;}
 	.alltext {display:inline-block; float:left; width:80px; padding:5px 0; border:1px solid #000; text-align:center;}
 </style>
-
+<iframe src="" id="dup" style="width:500px;  height:200px border:1px black solid; display:none;"></iframe>
 <div style="width:1100px; margin:0 auto;">
 	<a href="/ktbwos/bbs/request_list.jsp" class="alltext">전체글</a>
 	<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">자유게시판</span>
-	<form name="frmSch" style="margin-bottom:0;" action="<%=action %>" method="post">
+	<form name="frmSch" style="margin-bottom:0;" action="<%=action %>" method="post"  >
 	<input type="hidden" name="cpage" value="<%=cpage %>">
 	<input type="hidden" name="schtype" value="<%=schtype %>">
 	<input type="hidden" name="keyword" value="<%=keyword %>">
 	<input type="hidden" name="idx" value="<%=idx %>">
 	<input type="hidden" name="rl_name" value="<%=rl_name %>">
+	<input type="hidden" name="isDup" value="n">
 	<table width="1100" >	
 		<tr>
 			<td>제목</td>
@@ -121,9 +126,7 @@ function isAppr() {
 		</tr>		
 		<tr>
 			<td>게시판 이름</td>
-			<td colspan="3"><%=(rl_status.equals("n") && rl_name.startsWith((""+idx)) && rl_name.endsWith((""+idx))) ? rl_name.substring((""+idx).length(),rl_name.lastIndexOf((""+idx))) : rl_name %></td>
-			<% System.out.println(rl_name.substring((""+idx).length(),rl_name.lastIndexOf((""+idx)))); %>
-			<% System.out.println(rl_status); %>
+			<td colspan="3"><%=rl_status.equals("n") ? rl_name.substring((""+idx).length(),rl_name.lastIndexOf((""+idx))) : rl_name %></td>
 		</tr>
 		<tr>
 			<% if (rl_status.equals("y")) { %>
@@ -137,8 +140,8 @@ function isAppr() {
 				<label>테이블 이름<input type="radio" name="rl_status" value="y" onclick="rl_statusChk(this.value)" checked="checked"/></label>
 				<label>미승인 사유<input type="radio" name="rl_status" value="n" onclick="rl_statusChk(this.value)" /></label>
             </td>
-			<td colspan="3" id="rl_table_name"><input name="rl_table_name"  type="text" placeholder="테이블 이름을 입력 해주세요" style="width:850px;"></td>
-			<td colspan="3" id="rl_reason" style="display:none;"><input name="rl_reason"  type="text" placeholder="미승인 사유를 입력해주세요" style="width:850px; "></td>
+			<td colspan="2" id="rl_table_name"><input name="rl_table_name"  type="text" placeholder="테이블 이름을 입력 해주세요" onkeyup="dupTableName(this.value);" style="width:450px;" ></td><td id="rl_table_name_chk"><span id="msg">게시판 이름은 영문으로 입력 부탁드립니다</span></td>
+			<td colspan="3" id="rl_reason" style="display:none;"><input name="rl_reason"  type="text" placeholder="미승인 사유를 입력해주세요" style="width:800px; "></td>						
 			<% } %>
 		</tr>
 	</table><br />

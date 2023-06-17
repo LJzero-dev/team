@@ -10,7 +10,7 @@ if (request.getParameter("cpage") != null) cpage = Integer.parseInt(request.getP
 String schtype = request.getParameter("schtype");
 String keyword = request.getParameter("keyword");
 String schargs = "";
-String where =" where 1=1 ";
+String where =" where rl_status = 'y' ";
 
 if (schtype == null || schtype.equals("") || keyword == null || keyword.equals("")) {			// 검색을 하지 않은 경우
 	schtype = "";	keyword = "";
@@ -20,11 +20,11 @@ if (schtype == null || schtype.equals("") || keyword == null || keyword.equals("
 	
 
 	if (schtype.equals("all")) {	// 검색조건이 '제목 + 내용'일 경우
-		where += " and (rl_title like '%" + keyword + "%' " + " or rl_name like '%" + keyword + "%' " + " or rl_writer like '%" + keyword + "%') ";	
-	} else if (schtype.equals("b")) {	// 검색조건이 '작성자'일 경우
-		where += " and rl_writer = '" + keyword + "'";
-	} else {					// 검색조건이 '제목'이거나 '내용'일경우
-		where += " and rl_title like '%" + keyword + "%' ";
+		where += " and (rl_name like '%" + keyword + "%' " + " or rl_ctgr = '" + (keyword.equals("게임") ? "a" : keyword.equals("연예") ? "b" : "c") + "') ";	
+	} else if (schtype.equals("a")) {	// 검색조건이 '분류'일 경우
+		where += " and rl_ctgr = '" + (keyword.equals("게임") ? "a" : keyword.equals("연예") ? "b" : "c") + "' ";
+	} else {					// 검색조건이 '게시판 이름'일경우
+		where += " and rl_name like '%" + keyword + "%' ";
 	}
 	schargs = "&schtype=" + schtype + "&keyword=" + keyword;	//	검색조건이 있을 경우 링크의 url에 붙일 쿼리스트링 완성
 }
@@ -39,10 +39,8 @@ try {
 	if (rcnt % psize > 0) pcnt++;
 	
 	int start = (cpage -1) * psize;
-	sql = "select rl_idx, rl_ctgr, rl_title, rl_name, rl_writer, rl_status, if (date(rl_date) = curdate(), time(rl_date), replace(mid(rl_date, 3, 8), '-', '.')) rldate"
-			+ " from t_request_list " + where + "  order by rl_idx desc limit " + start + " , " + psize;
+	sql = "select rl_idx, rl_ctgr, rl_name, rl_content, rl_status, rl_table_name from t_request_list " + where + "  order by rl_idx desc limit " + start + " , " + psize;
 	rs = stmt.executeQuery(sql);
-	// System.out.println(sql);
 } catch (Exception e) {
 	out.println("자유게시판 목록에서 문제가 발생했습니다");
 	e.printStackTrace();
@@ -67,8 +65,8 @@ try {
 		<fieldset style=" width:335px; margin-left:737px; background:#1E4B79;">
 			<select name="schtype">
 			<option value="all" <% if (schtype.equals("all")) { %>selected="selected"<% } %>>전체</option>
-			<option value="a" <% if (schtype.equals("a")) { %>selected="selected"<% } %>>제목</option>
-			<option value="b" <% if (schtype.equals("b")) { %>selected="selected"<% } %>>요청자</option>
+			<option value="a" <% if (schtype.equals("a")) { %>selected="selected"<% } %>>분류</option>
+			<option value="b" <% if (schtype.equals("b")) { %>selected="selected"<% } %>>게시판</option>
 			</select>
 		<input type="text" name="keyword" value="<%=keyword %>" />
 		<input type="submit" value="검색" />&nbsp;&nbsp;&nbsp;&nbsp;
@@ -78,33 +76,24 @@ try {
 		<tr>
 			<th width="7%">번호</th>
 			<th width="7%">분류</th>
-			<th width="15%">게시판 이름</th>
-			<th width="*">제목</th>
-			<th width="12%">요청자</th>
-			<th width="12%">요청일</th><th width="10%">승인여부</th>
+			<th width="*">게시판 이름</th>
+			<th width="50%">상세설명</th>
 		</tr>
 <%
 if (rs.next()) {
 	int num = rcnt - (cpage - 1) * psize;
-	do { 
-		int titleCnt = 24;
-		String rl_name = rs.getString("rl_name"), idx = rs.getString(1);
-		String title = rs.getString("rl_title"), writer = rs.getString("rl_writer"), ctgr = rs.getString("rl_ctgr").equals("a") ? "게임" : rs.getString("rl_ctgr").equals("b") ? "연예" : "스포츠";					
-		String date = rs.getString("rldate"), status = rs.getString("rl_status").equals("a") ? "[승인대기중]" : rs.getString("rl_status").equals("y") ? "[승인]" : "[미승인]";
-		String name = rs.getString("rl_status").equals("n") ? rl_name.substring(idx.length(),rl_name.lastIndexOf(idx)) : rl_name;
-		if (title.length() > titleCnt) 
-			title = title.substring(0,titleCnt-3) + "...";
-		title = "<a href='request_view.jsp?idx=" + rs.getInt("rl_idx") + "&cpage=" + cpage + schargs+ "'>" + title + "</a>";
+	do {		
+		String idx = rs.getString(1);
+		String ctgr = rs.getString("rl_ctgr").equals("a") ? "게임" : rs.getString("rl_ctgr").equals("b") ? "연예" : "스포츠";
+		String name = "<a href='table_list.jsp?rl_table_name=" + rs.getString("rl_table_name") + "'>" + rs.getString("rl_name") + "</a>";
+		String rl_content = rs.getString("rl_content");
 %>
 <tr>
 <td><%=num %></td>
 <td><%=ctgr %></td>
 <td><%=name %></td>
-<td align="left"><%=title %></td>
-<td><%=writer %></td>
-<td><%=date %></td>
-<td><%=status %></td>
-</tr>	
+<td align="left"><%=rl_content %></td>
+</tr>
 <% 
 	num--;
 	} while(rs.next());
@@ -145,9 +134,6 @@ if (rcnt > 0) {	// 게시글이 있으면
 	}
 }
 %>
-</td>
-<td width="*" align="right">
-	<input type="button" value="글등록" onclick="location.href='request_form.jsp?kind=in';" />
 </td>
 </tr>
 </table>
