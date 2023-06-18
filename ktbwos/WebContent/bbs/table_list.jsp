@@ -97,7 +97,7 @@ try {
 				if (title.length() > titleCnt) {
 					title = title.substring(0, titleCnt - 3) + "...";
 				}
-				title = "<a href='" + rl_table_name + "_view.jsp?idx=" + rs.getInt("" + rl_table_name + "_idx") + "&cpage=" + cpage + schargs + "'>" + title + "</a>" + reply;
+				title = "<a href='ctgr_view.jsp?idx=" + rs.getInt("" + rl_table_name + "_idx") + "&cpage=" + cpage + schargs + "&rl_table_name=" + rl_table_name + "'>" + title + "</a>" + reply;
 				
 				String writer = rs.getString("" + rl_table_name + "_writer");
 				

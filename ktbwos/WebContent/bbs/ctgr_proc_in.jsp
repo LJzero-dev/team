@@ -19,20 +19,19 @@ try {
 	rs.next();
 	String rl_idx = rs.getString(1);
 	String rl_ctgr = rs.getString(2);
-	System.out.println(rl_ctgr);
 	sql = "insert into t_" + rl_table_name + "_list (rl_idx, " + rl_table_name + "_ctgr, " + rl_table_name + "_ismem, " + rl_table_name + "_writer, " + rl_table_name +
 			"_pw, " + rl_table_name + "_title, " + rl_table_name + "_content, " + rl_table_name + "_ip) values (" +
 			rl_idx + ",'" + rl_ctgr + "','" + (isLogin ? "y" : "n") + "','" + writer + "','" + pw + "','" + title + "','" + content + "','" + ip +"')";
 	int result = stmt.executeUpdate(sql);
 	if (result == 1 ) {
 		stmt = conn.createStatement();
-		rs = stmt.executeQuery("select max(rl_idx) from t_request_list");
+		rs = stmt.executeQuery("select max(" + rl_table_name + "_idx) from t_" + rl_table_name + "_list");
 		rs.next();
 		int idx = rs.getInt(1);
-	//	response.sendRedirect("request_view.jsp?cpage=1&idx=" + idx);
+		response.sendRedirect("ctgr_view.jsp?cpage=1&idx=" + idx + "&rl_table_name=" + rl_table_name);
 	} else {
 		out.println("<script>");
-		out.println("alert('" + rl_table_name + " 게시판 글 등록에 실패했습니다.\n다시 시도하세요');");
+		out.println("alert('" + rl_table_name + " 게시판 글 등록에 실패했습니다.\\n다시 시도하세요');");
 		out.println("history.back();");
 		out.println("</script>");	
 		out.close();
