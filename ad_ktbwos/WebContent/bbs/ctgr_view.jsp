@@ -13,6 +13,7 @@ if (schtype != null && !schtype.equals("") && keyword != null && !keyword.equals
 	args += "&schtype=" + schtype + "&keyword=" + keyword;
 	// 링크에 검색 관련 값들을 쿼리스트링으로 연결해줌
 }
+String delLink = "ctgr_proc_del.jsp?idx=" + idx + "&rl_table_name=" + rl_table_name;
 
 String ismem = "", writer = "", title = "", content = "", ip = "", date = "";
 int read = 0,  reply = 0;
@@ -83,37 +84,19 @@ function goLogin() {
 			<td colspan="3" width="60%" style="text-align:left;"><%=content %></td>
 		</tr>
 	</table>
-	<%
-	boolean isPms = false;	// 수정과 삭제 버튼을 현 사용자에게 보여줄지 여부를 저장할 변수
-	String upLink = "", delLink = "";	// 수정과 삭제용 링크를 저장할 변수
+
 	
-	if (ismem.equals("n")) {	// 현재 글이 비회원 글일 경우
-		isPms = true;
-		upLink = "ctgr_form_pw.jsp" + args + "&kind=up&idx=" + idx + "&rl_table_name=" + rl_table_name;
-		delLink = "ctgr_form_pw.jsp" + args + "&kind=del&idx=" + idx + "&rl_table_name=" + rl_table_name;
-	} else {	// 현재 글이 회원 글일 경우
-		if (isLogin && AdminInfo.getMi_nick().equals(writer)) {
-		// 현재 로그인이 되어있는 상태에서 현 로그인 사용자가 현 게시글을 입력한 회원일 경우
-			isPms = true;
-			upLink = "ctgr_form.jsp" + args + "&kind=up&idx=" + idx + "&rl_table_name=" + rl_table_name;
-			delLink = "ctgr_proc_del.jsp?idx=" + idx + "&rl_table_name=" + rl_table_name;
-		}
-	}
-	%>
+
 	<div class="btnbox">
 		<a href="table_list.jsp<%=args %>&rl_table_name=<%=rl_table_name %>" class="btn">목록</a>
-		<% if (isPms) { %>
-		<a href="<%=upLink %>" class="btn">수정</a>
 		<script>
 			function isDel() {
 				if (confirm("정말 삭제하시겠습니까?\n삭제된 글은 되살릴 수 없습니다.")) {
 					location.href = "<%=delLink %>";
 				}
-			}			
-						
+			}						
 		</script>
-		<a href="javascript:isDel();" class="btn">삭제</a>
-		<% } %>
+		<a href="javascript:isDel();" class="btn">삭제</a>	
 	</div>
 <% if (rl_reply_use.equals("y")) {%>
 	<!-- 댓글 목록 영역 시작 -->
@@ -133,19 +116,7 @@ function goLogin() {
 					do {
 			%>
 			<%
-			boolean isPms2 = false;	// 수정과 삭제 버튼을 현 사용자에게 보여줄지 여부를 저장할 변수
-			String delLink2 = "";	// 수정과 삭제용 링크를 저장할 변수
-			
-			if (rs.getString(rl_table_name + "r_ismem").equals("n")) {	// 현재 글이 비회원 글일 경우
-				isPms2 = true;
-				delLink2 = "ctgr_reply_pw.jsp" + args + "&kind=del&idx=" + idx + "&rl_table_name=" + rl_table_name + "&" + rl_table_name + "r_idx=" + rs.getInt(rl_table_name + "r_idx");
-			} else {
-				if (isLogin && AdminInfo.getMi_nick().equals(rs.getString(rl_table_name + "r_writer"))) {
-				// 현재 로그인이 되어있는 상태에서 현 사용자 닉네임이 현 댓글 입력한 회원일 경우
-					isPms2 = true;
-					delLink2 = "ctgr_reply_proc.jsp" + args + "&kind=del&idx=" + idx + "&" + rl_table_name + "r_idx=" + rs.getInt(rl_table_name + "r_idx") + "&rl_table_name=" + rl_table_name;
-				}
-			}
+			String delLink2 = "ctgr_reply_proc.jsp" + args + "&kind=del&idx=" + idx + "&" + rl_table_name + "r_idx=" + rs.getInt(rl_table_name + "r_idx") + "&rl_table_name=" + rl_table_name;
 			%>
 			<tr>
 				<td style="width:370px; padding: 6px;"><%=rs.getString(rl_table_name + "r_writer") %></td>
@@ -154,7 +125,7 @@ function goLogin() {
 				</td>
 				
 				<td width="*" valign="top" rowspan="2">
-					<% if (isPms2) { %>
+					
 					<script>
 						function replyDel() {
 							if (confirm("정말 삭제하시겠습니까?")) {
@@ -164,8 +135,7 @@ function goLogin() {
 						
 					</script>
 					<button class="btn" onclick="replyDel();">삭제</button>
-					<% } %>
-				</td>
+					</td>
 			</tr>
 			<tr><td><%=date %></td></tr>
 			<%
@@ -184,40 +154,7 @@ function goLogin() {
 			%>
 		</table>
 		
-		<form name="frmReply" action="ctgr_reply_proc.jsp<%=args %>&rl_table_name=<%=rl_table_name %>" method="post">
-		<input type="hidden" name="kind" value="in" />
-		<input type="hidden" name="idx" value="<%=idx %>" />
-		<input type="hidden" name="rl_table_name" value="<%=rl_table_name %>" />
-		<table width="1100" cellpadding="5">
-			<tr style="border-top:1px solid #000;">
-				<% if (isLogin) { %>
-				<td style="width:370; padding: 6px;"><%=AdminInfo.getMi_nick() %></td>
-				<% } else { %>
-				<td style="width:370; padding: 6px;"><input type="text" style="height:36px;" name="writer" placeholder="닉네임"/></td>
-				<% } %>
-				<td style="text-align:right;" rowspan="2">
-					<textarea name="content" class="txt" onkeyup=""></textarea>
-				</td>
-				
-				<% if (rl_reply_write.equals("y") && !isLogin) { %>
-				<td width="*" valign="top" rowspan="2">
-					<input type="button" style="border:1px solid #000; width:75px; padding:50px 0; font-size:15px; background:transparent; cursor:pointer; background:#fff;" value="등록" onclick="goLogin();" />
-				</td>
-				<% } else{ %>
-				<td width="*" valign="top" rowspan="2">
-					<input type="submit" value="등록" class="btn" />
-				</td>				
-				<% } %>
-			</tr>
-			<tr>
-				<% if (isLogin) { %>
-				<td></td>
-				<% } else { %>
-				<td><input type="text" name="pw" style="height:36px;" placeholder="비밀번호"/></td>
-				<% } %>
-			</tr>
-		</table>
-		</form>
+		
 	</div>
 	<% } %>
 </div>

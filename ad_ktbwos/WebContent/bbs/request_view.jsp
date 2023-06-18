@@ -70,14 +70,32 @@ function rl_statusChk (rl_status) {
 	}
 }
 function isDel() {
-	if (confirm("정말 미승인하시겠습니까?")) {
-		document.frmSch.action = "ad_request_proc_del.jsp";
-		document.frmSch.submit();
+	if (document.frmSch.rl_status.value == "n") {
+		if (document.frmSch.rl_reason.value == "") {
+			alert("미승인 사유를 입력 해주세요.");
+			document.frmSch.rl_reason.focus();
+		} else {
+			if (confirm("정말 미승인하시겠습니까?")) {	
+			document.frmSch.action = "ad_request_proc_del.jsp";
+			document.frmSch.submit();
+			}
+		}
+	} else {
+		alert("미승인 하시려면 미승인 사유를 선택해주세요");
 	}
 }
 function isAppr() {
-	document.frmSch.action = "ad_request_proc_appr.jsp";
-	document.frmSch.submit();
+	if (document.frmSch.rl_status.value == "y") {
+		if (document.frmSch.rl_table_name.value == "") {
+			alert("테이블 이름을 확인해주세요");
+			document.frmSch.rl_table_name.focus();
+		} else {
+			document.frmSch.action = "ad_request_proc_appr.jsp";
+			document.frmSch.submit();
+		}
+	} else {
+		alert("승인 하시려면 테이블 이름을 선택해주세요");
+	}	
 }
 function dupTableName(table) {
 	document.getElementById("dup").src = "dup_table_name_chk.jsp?rl_table_name=" + table;
@@ -93,7 +111,7 @@ function dupTableName(table) {
 <div style="width:1100px; margin:0 auto;">
 	<a href="/ktbwos/bbs/request_list.jsp" class="alltext">전체글</a>
 	<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">자유게시판</span>
-	<form name="frmSch" style="margin-bottom:0;" action="<%=action %>" method="post"  >
+	<form name="frmSch" style="margin-bottom:0;" action="<%=action %>" method="post" >
 	<input type="hidden" name="cpage" value="<%=cpage %>">
 	<input type="hidden" name="schtype" value="<%=schtype %>">
 	<input type="hidden" name="keyword" value="<%=keyword %>">
@@ -140,7 +158,7 @@ function dupTableName(table) {
 				<label>테이블 이름<input type="radio" name="rl_status" value="y" onclick="rl_statusChk(this.value)" checked="checked"/></label>
 				<label>미승인 사유<input type="radio" name="rl_status" value="n" onclick="rl_statusChk(this.value)" /></label>
             </td>
-			<td colspan="2" id="rl_table_name"><input name="rl_table_name"  type="text" placeholder="테이블 이름을 입력 해주세요" onkeyup="dupTableName(this.value);" style="width:450px;" ></td><td id="rl_table_name_chk"><span id="msg">게시판 이름은 영문으로 입력 부탁드립니다</span></td>
+			<td colspan="2" id="rl_table_name"><input name="rl_table_name"  type="text" placeholder="테이블 이름을 입력 해주세요" onkeyup="dupTableName(this.value);" style="width:450px;" ></td><td id="rl_table_name_chk"><span id="msg">테이블 이름은 영문으로 입력 부탁드립니다</span></td>
 			<td colspan="3" id="rl_reason" style="display:none;"><input name="rl_reason"  type="text" placeholder="미승인 사유를 입력해주세요" style="width:800px; "></td>						
 			<% } %>
 		</tr>

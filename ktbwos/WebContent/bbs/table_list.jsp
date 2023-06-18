@@ -163,6 +163,16 @@ function goLogin() {
 				}
 			}
 			%>
+			</td>
+			<% if (rl_write.equals("y") && !isLogin) { %>
+			<td width="*" style="text-align:right; border:0;">
+				<input type="button" value="글등록" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" onclick="goLogin();" />
+			</td>
+			<% } else { %>
+			<td width="*" style="text-align:right; border:0;">
+				<input type="button" value="글등록" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" onclick="location.href='ctgr_form.jsp?kind=in&rl_table_name=<%=rl_table_name %>';" />
+			</td>
+			<% } %>
 		</tr>
 	</table>
 </div>
