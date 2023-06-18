@@ -77,17 +77,13 @@ function dupID(id) {
 }
 
 // 비번 검사
-function comparePW(pw2) {
-    var pw1 = document.getElementById('pw1').value;
-	var pmsg = document.getElementById("pmsg");
-    
-    if(pw2.length < 4) {
+function comparePW(pw) {
+    if(pw.length > 3) {	// 글자수가 맞을 경우 비밀번호 검사로 보냄
+		var dup = document.getElementById("dup");
+		dup.src = "pw_chk.jsp?mi_pw=" + pw;
+    } else {
+    	var pmsg = document.getElementById("pmsg");
     	pmsg.innerHTML = "비밀번호는 4~20자 이내로 입력하세요.";
-    	if(pw1 != pw2) {
-        	pmsg.innerHTML = "입력하신비번이다릅니다.";
-        } else {
-        	pmsg.innerHTML = "비번이 확인되었습니다.";
-        }
     }
 }
 
@@ -107,12 +103,39 @@ function setEmailDomain(domain) {
 	document.getElementById("emaildomain").value = domain;
 }
 
-//이메일 중복검사
-function dupEMAIL(emaildomain) {
-    var emailid = document.getElementById('emailid').value;
-	var email = emailid + "@" + emaildomain;
-	var dup = document.getElementById("dup");
-	dup.src = "dup_email_chk.jsp?mi_email=" + email;
+// 이메일 수집동의 체크시 이메일 중복검사로 보냄
+function dupEMAIL() { 
+	var emailid = document.getElementById("emailid").value;
+	var emaildomain = document.getElementById("emaildomain").value;
+	var email = emailid + "@" + emaildomain
+	
+	if (emailid == "" || emaildomain == "") {
+		document.getElementById("yes").checked = false;
+		alert("이메일을 입력해주세요.");
+	} else {
+		var dup = document.getElementById("dup");
+		dup.src = "dup_email_chk.jsp?mi_email=" + email;
+	}
+}
+
+function codeSending() {
+	if (document.getElementById("yes").checked == false){ // 이메일 수집동의를 누르지 않고 인증 코드를 누른 경우 
+		if (!confirm("이메일 수집에 동의하시겠습니까?")) {	// 비동의
+			document.getElementById("yes").checked = false;
+		} else { // 동의했을 경우
+			var emailid = document.getElementById("emailid").value;
+			var emaildomain = document.getElementById("emaildomain").value;
+			if (emailid == "" || emaildomain == "") {
+				document.getElementById("yes").checked = false;
+				alert("이메일을 입력해주세요.");
+			} else {	// 동의 시킨 후 인증코드 발송
+				document.getElementById("yes").checked = true;
+				location.href="/ktbwos/member/send_code.jsp";
+			}
+		}
+	} else {	// 인증코드 발송
+		location.href="/ktbwos/member/send_code.jsp";
+	}
 }
 </script>
 <iframe src="" id="dup" style="width:300px; height:200px; border:1px black solid; display:none;" ></iframe>
@@ -121,7 +144,7 @@ function dupEMAIL(emaildomain) {
 <div style="width:1100px; margin:0 auto;">
 	<input type="hidden" name="isDup" value="n" />
 	<!-- 중복검사 여부와 사용가능 여부를 저장할 hidden객체 -->
-	<table width="800" cellpadding="5" >
+	<table width="1100" cellpadding="5" >
 	<tr>
 	<th>아이디</th><td>
 		<input type="text" name="id" onkeyup="dupID(this.value);" maxlength="20" /><br />
@@ -129,33 +152,33 @@ function dupEMAIL(emaildomain) {
 	</td>
 	</tr>
 	
-	<tr><th>비밀번호</th><td><input type="password" name="pw1" maxlength="20" /></td></tr>
+<iframe src="" id="dup" style="width:300px; height:200px; border:1px black solid; display:none;" ></iframe>
+	<tr><th>비밀번호</th><td><input type="password" id="pw1" maxlength="20" /></td></tr>
 	<tr><th>비밀번호 <br />확인</th><td>
-		<input type="password" name="pw2" onkeyup="comparePW(this.value);" maxlength="20" /><br />
+		<input type="password" id="pw2" onkeyup="comparePW(this.value);" maxlength="20" /><br />
 		<span id="pmsg">비밀번호는 4~20자 이내로 입력하세요.</span>
 	</td></tr>
 
 
 <iframe src="" id="dup" style="width:300px; height:200px; border:1px black solid; display:none;" ></iframe>
 	<tr><th>이메일</th><td>
-		<input type="text" name="emailid" value="" title="이메일아이디" placeholder="이메일" maxlength="18" />
+		<input type="text" id="emailid" value="" title="이메일아이디" placeholder="이메일" maxlength="18" />
 		@
-		<input type="text" name="emaildomain" id="emaildomain" value="" title="이메일도메인" placeholder="이메일도메인" maxlength="18" />
-		<select title="이메일 주소 선택" onclick="setEmailDomain(this.value);" onkeyup="dupEMAIL(this.value);" onchange="dupEMAIL(this.value);">
+		<input type="text" id="emaildomain" id="emaildomain" value="" title="이메일도메인" placeholder="이메일도메인" maxlength="18" />
+		<select title="이메일 주소 선택" onclick="setEmailDomain(this.value);">
 			<option value="">직접입력</option>
 			<option value="naver.com">naver.com</option>
 			<option value="gmail.com">gmail.com</option>
 			<option value="nate.com">nate.com</option>
 		</select><br />
-		<span id="emsg">이메일을 입력해주세요.</span>
 	</td></tr>
 	
 	<!-- 이메일 수집 동의 -->
-	<tr><th>이메일 수집 동의</th><td>
-		<input type="checkbox" id="yes" />입력하신 이메일은 인증 및 보안 코드 전송을 위해 사용됩니다.<br />
+	<tr><th>이메일 수집 동의 및 중복 검사</th><td>
+		<input type="checkbox" id="yes" onclick="dupEMAIL();" />입력하신 이메일은 인증 및 보안 코드 전송을 위해 사용됩니다.<br />
 		<input type="text" name="codein" value="" title="인증코드 입력" maxlength="20" />
 		<input type="button" value="확인" />
-		<input type="button" name="send" value="인증코드 발송" onclick="dupEMAIL();" />
+		<input type="button" name="send" value="인증코드 발송" onclick="codeSending();" />
 	
 	
 <iframe src="" id="dup" style="width:300px; height:200px; border:1px black solid; display:none;" ></iframe>

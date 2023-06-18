@@ -99,6 +99,13 @@ try {
 <%
 if (rs.next()) {
 	int num = rcnt - ((cpage - 1) * psize);	// 글번호 따로 계산해서 구함
+	String mistatus = rs.getString("mi_status");
+	if (mistatus.equals("a")) {
+		mistatus = "정상";
+	} else if (mistatus.equals("b")) {
+		mistatus = "휴면";
+	} else 
+		mistatus = "탈퇴";
 	do {
 		String id = rs.getString("mi_id");
 		id = "<a href='ad_mi_view.jsp?idx=" + rs.getInt("mi_idx") + "&cpage=" + cpage + schargs + "'>" + id + "</a>";
@@ -109,7 +116,7 @@ if (rs.next()) {
 <td><%=id %></td>
 <td><%=rs.getString("mi_email") %></td>
 <td><%=rs.getString("mi_nick") %></td>
-<td><%=rs.getString("mi_status") %></td>
+<td><%=mistatus %></td>
 <td><%=rs.getString("midate") %></td>
 <td><%=rs.getString("milastlogin") %></td>
 </tr>

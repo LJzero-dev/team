@@ -92,7 +92,7 @@ function goLogin() {
 		upLink = "ctgr_form_pw.jsp" + args + "&kind=up&idx=" + idx + "&rl_table_name=" + rl_table_name;
 		delLink = "ctgr_form_pw.jsp" + args + "&kind=del&idx=" + idx + "&rl_table_name=" + rl_table_name;
 	} else {	// 현재 글이 회원 글일 경우
-		if (isLogin && loginInfo.getMi_nick().equals(writer)) {
+		if (isLogin && AdminInfo.getMi_nick().equals(writer)) {
 		// 현재 로그인이 되어있는 상태에서 현 로그인 사용자가 현 게시글을 입력한 회원일 경우
 			isPms = true;
 			upLink = "ctgr_form.jsp" + args + "&kind=up&idx=" + idx + "&rl_table_name=" + rl_table_name;
@@ -140,7 +140,7 @@ function goLogin() {
 				isPms2 = true;
 				delLink2 = "ctgr_reply_pw.jsp" + args + "&kind=del&idx=" + idx + "&rl_table_name=" + rl_table_name + "&" + rl_table_name + "r_idx=" + rs.getInt(rl_table_name + "r_idx");
 			} else {
-				if (isLogin && loginInfo.getMi_nick().equals(rs.getString(rl_table_name + "r_writer"))) {
+				if (isLogin && AdminInfo.getMi_nick().equals(rs.getString(rl_table_name + "r_writer"))) {
 				// 현재 로그인이 되어있는 상태에서 현 사용자 닉네임이 현 댓글 입력한 회원일 경우
 					isPms2 = true;
 					delLink2 = "ctgr_reply_proc.jsp" + args + "&kind=del&idx=" + idx + "&" + rl_table_name + "r_idx=" + rs.getInt(rl_table_name + "r_idx") + "&rl_table_name=" + rl_table_name;
@@ -191,7 +191,7 @@ function goLogin() {
 		<table width="1100" cellpadding="5">
 			<tr style="border-top:1px solid #000;">
 				<% if (isLogin) { %>
-				<td style="width:370; padding: 6px;"><%=loginInfo.getMi_nick() %></td>
+				<td style="width:370; padding: 6px;"><%=AdminInfo.getMi_nick() %></td>
 				<% } else { %>
 				<td style="width:370; padding: 6px;"><input type="text" style="height:36px;" name="writer" placeholder="닉네임"/></td>
 				<% } %>

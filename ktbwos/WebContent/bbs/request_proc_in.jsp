@@ -18,6 +18,7 @@ String rl_reply_use = request.getParameter("rl_reply_use");
 String rl_content = getRequest(request.getParameter("rl_content"));
 if (rl_reply_use.equals("y"))
 	rl_reply_write = request.getParameter("rl_reply_write");
+	System.out.println(rl_reply_write);
 
 try {
 	stmt = conn.createStatement();

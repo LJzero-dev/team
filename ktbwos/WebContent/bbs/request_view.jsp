@@ -79,7 +79,7 @@ boolean isPms = (loginInfo != null) ? true : false ;
 
 <div style="width:1100px; margin:0 auto;">
 	<a href="/ktbwos/bbs/request_list.jsp" class="alltext">전체글</a>
-	<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">자유게시판</span>
+	<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">요청 게시판</span>
 	<form name="frmSch" style="margin-bottom:0;">
 	<table width="1100" >	
 		<tr>
@@ -95,14 +95,14 @@ boolean isPms = (loginInfo != null) ? true : false ;
 				<%=rl_ctgr.equals("a") ? "게임" : rl_ctgr.equals("b") ? "연예" : "스포츠" %>
 			</td>
 			<td>게시글 작성 권한</td>
-			<td><%=(rl_write.equals("y")) ? "회원" : "비회원" %></td>
+			<td><%=(rl_write.equals("y")) ? "회원 전용" : "모두 가능" %></td>
 		</tr>
 		<tr>
 			<td>댓글 사용 여부</td>
 				<td><%=(rl_reply_use.equals("y")) ? "사용" : "미사용" %></td>
 				<% if (rl_reply_use.equals("y")) { %>
 			    <td>댓글 작성 권한</td>
-			<td><%=(rl_reply_write.equals("a")) ? "회원 전용" : "모두 가능" %></td>
+			<td><%=(rl_reply_write.equals("y")) ? "회원 전용" : "모두 가능" %></td>
             <% } %>
 		</tr>		
 		<tr>

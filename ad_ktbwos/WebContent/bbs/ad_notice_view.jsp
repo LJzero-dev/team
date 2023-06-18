@@ -48,7 +48,7 @@ try {
 		<style>
 			.alltext {display:inline-block; float:left; width:80px; padding:5px 0; border:1px solid #000; text-align:center;}
 		</style>
-		<a href="/ktbwos/bbs/notice_list.jsp" class="alltext">전체글</a>
+		<a href="/ad_ktbwos/bbs/ad_notice_list.jsp" class="alltext">전체글</a>
 		<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">공지사항</span> <!--  현재 게시판 위치 표시  -->
 	<br><br><br>
 	<style>

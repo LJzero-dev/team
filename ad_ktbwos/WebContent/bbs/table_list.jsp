@@ -12,6 +12,7 @@ String keyword = request.getParameter("keyword");
 String schargs = "";
 String rl_table_name = request.getParameter("rl_table_name");
 String where = " where " + rl_table_name + "_isview = 'y' ";
+String rl_write = "";
 
 if (schtype == null || schtype.equals("") || keyword == null || keyword.equals("")) {
 	schtype = "";	keyword = "";
@@ -32,6 +33,8 @@ if (schtype == null || schtype.equals("") || keyword == null || keyword.equals("
 
 try {
 	stmt = conn.createStatement();
+	rs = stmt.executeQuery("select rl_write from t_request_list where rl_table_name = '" + rl_table_name + "'");
+	if (rs.next())	rl_write = rs.getString(1);
 	
 	sql = "select count(*) from t_" + rl_table_name + "_list" + where;
 	rs = stmt.executeQuery(sql);
@@ -58,7 +61,13 @@ try {
 	input[type="submit"] {border:1px solid #000; width:60px; background:transparent; cursor:pointer; background:#fff;}
 	.alltext {display:inline-block; float:left; width:80px; padding:5px 0; border:1px solid #000; text-align:center;}
 </style>
-
+<script>
+function goLogin() {
+	if (confirm("로그인이 필요합니다.\n로그인 화면으로 이동하시겠습니까?")) {
+		location.href = "../login_form.jsp?";
+	}
+}
+</script>
 <div style="width:1100px; margin:0 auto;">
 	<a href="/ktbwos/bbs/table_list.jsp?rl_table_name=<%=rl_table_name %>" class="alltext">전체글</a>
 	<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;"><%=rl_table_name %>게시판</span>
@@ -155,9 +164,15 @@ try {
 			}
 			%>
 			</td>
+			<% if (rl_write.equals("y") && !isLogin) { %>
+			<td width="*" style="text-align:right; border:0;">
+				<input type="button" value="글등록" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" onclick="goLogin();" />
+			</td>
+			<% } else { %>
 			<td width="*" style="text-align:right; border:0;">
 				<input type="button" value="글등록" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" onclick="location.href='ctgr_form.jsp?kind=in&rl_table_name=<%=rl_table_name %>';" />
 			</td>
+			<% } %>
 		</tr>
 	</table>
 </div>

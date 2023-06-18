@@ -109,7 +109,7 @@ if (rs.next()) {
 <td><%=num %></td>
 <td align="left"><%=title2 %></td>
 <td><%=rs.getString("mi_id") %></td>
-<td><%=rs.getString("ql_qdate").substring(0, 10) %></td>
+<td><%=rs.getString("nl_qdate").substring(0, 10) %></td>
 <td><%=rs.getString("ql_isanswer") %></td>
 </tr>
 <% 

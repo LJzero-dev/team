@@ -24,16 +24,6 @@ try {
 		out.println("history.back();");	
 	}
 	
-	sql = "select * from t_member_info where mi_status <> 'c' and mi_id = '" + loginInfo.getMi_id() + "' and mi_pw = '" + loginInfo.getMi_pw() + "'";
-//	System.out.println(sql);
-	rs = stmt.executeQuery(sql);
-	
-	if (rs.next()) {	// 로그인 성공시
-		MemberInfo mi = new MemberInfo();
-		// 로그인한 회원의 정보들을 저장할 인스턴스 생성
-		mi.setMi_nick(rs.getString("mi_nick"));		
-		session.setAttribute("loginInfo", mi);				
-	}
 	out.println("</script>");
 
 } catch(Exception e) {

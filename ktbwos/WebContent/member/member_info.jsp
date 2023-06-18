@@ -18,9 +18,10 @@
 <script>
 function memDel() {
 	if (confirm('정말 탈퇴하시겠습니까?')) {
-		location.href = "/ktbwos/member_proc_del.jsp";
+		location.href = "/ktbwos/member/member_proc_del.jsp";
 	}
 }
+
 </script>
 <style>
 

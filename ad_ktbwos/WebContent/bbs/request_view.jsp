@@ -114,14 +114,14 @@ function dupTableName(table) {
 				<%=rl_ctgr.equals("a") ? "게임" : rl_ctgr.equals("b") ? "연예" : "스포츠" %>
 			</td>
 			<td>게시글 작성 권한</td>
-			<td><%=(rl_write.equals("y")) ? "회원" : "비회원" %></td>
+			<td><%=(rl_write.equals("y")) ? "회원 전용" : "모두 가능" %></td>
 		</tr>
 		<tr>
 			<td>댓글 사용 여부</td>
 				<td><%=(rl_reply_use.equals("y")) ? "사용" : "미사용" %></td>
 				<% if (rl_reply_use.equals("y")) { %>
 			    <td>댓글 작성 권한</td>
-			<td><%=(rl_reply_write.equals("a")) ? "회원 전용" : "모두 가능" %></td>
+			<td><%=(rl_reply_write.equals("y")) ? "회원 전용" : "모두 가능" %></td>
             <% } %>
 		</tr>		
 		<tr>

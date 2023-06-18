@@ -144,8 +144,8 @@ function chkVal(frm) {
 			</td>
 			<td>게시글 작성 권한</td>
 			<td>
-				<label>회원<input type="radio" name="rl_write" value="y" <% if (rl_write.equals("y")) { %>checked="checked"<% } %> /></label>
-				<label>비회원<input type="radio" name="rl_write" value="n" <% if (rl_write.equals("n")) { %>checked="checked"<% } %> /></label>
+				<label>회원 전용<input type="radio" name="rl_write" value="y" <% if (rl_write.equals("y")) { %>checked="checked"<% } %> /></label>
+				<label>모두 가능<input type="radio" name="rl_write" value="n" <% if (rl_write.equals("n")) { %>checked="checked"<% } %> /></label>
 			</td>
 		</tr>
 		<tr>
@@ -156,8 +156,8 @@ function chkVal(frm) {
             </td>
             <td id="rl_reply_write" style="<% if (rl_reply_use.equals("y")) {%>display:;<% } else {%>display:none;<% }%>" >댓글 작성 권한</td>
             <td id="rl_reply_write2" style="<% if (rl_reply_use.equals("y")) {%>display:;<% } else {%>display:none;<% }%>" >
-				<label>회원<input type="radio" name="rl_reply_write" value="y" <% if (rl_reply_write.equals("y")) { %>checked="checked"<% } %> /></label>
-				<label>비회원<input type="radio" name="rl_reply_write" value="n" <% if (rl_reply_write.equals("n")) { %>checked="checked"<% } %> /></label>
+				<label>회원 전용<input type="radio" name="rl_reply_write" value="y" <% if (rl_reply_write.equals("y")) { %>checked="checked"<% } %> /></label>
+				<label>모두 가능<input type="radio" name="rl_reply_write" value="n" <% if (rl_reply_write.equals("n")) { %>checked="checked"<% } %> /></label>
             </td>
 		</tr>		
 		<tr>
