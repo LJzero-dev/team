@@ -112,7 +112,7 @@ try {
 				<td colspan="3" width="60%" style="text-align:left;">댓글 <%=reply %>개</td>
 			</tr>
 			<%
-			sql = "select * from t_free_reply where fr_isview = 'y' and fl_idx = " + idx;
+			sql = "select * from t_" + rl_table_name + "_reply where " + rl_table_name + "r_isview = 'y' and " + rl_table_name + "_idx = " + idx;
 			
 			
 			try {
@@ -124,21 +124,21 @@ try {
 			boolean isPms2 = false;	// 수정과 삭제 버튼을 현 사용자에게 보여줄지 여부를 저장할 변수
 			String delLink2 = "";	// 수정과 삭제용 링크를 저장할 변수
 			
-			if (rs.getString("fr_ismem").equals("n")) {	// 현재 글이 비회원 글일 경우
+			if (rs.getString(rl_table_name + "r_ismem").equals("n")) {	// 현재 글이 비회원 글일 경우
 				isPms2 = true;
-				delLink2 = "free_form_pw.jsp" + args + "&kind=del&idx=" + idx;
+				delLink2 = "ctgr_reply_pw.jsp" + args + "&kind=del&idx=" + idx + "&rl_table_name=" + rl_table_name + "&" + rl_table_name + "r_idx=" + rs.getInt(rl_table_name + "r_idx");
 			} else {
-				if (isLogin && loginInfo.getMi_nick().equals(rs.getString("fr_writer"))) {
+				if (isLogin && loginInfo.getMi_nick().equals(rs.getString(rl_table_name + "r_writer"))) {
 				// 현재 로그인이 되어있는 상태에서 현 사용자 닉네임이 현 댓글 입력한 회원일 경우
 					isPms2 = true;
-					delLink2 = "free_reply_proc.jsp" + args + "&kind=del&fl_idx=" + idx + "&fr_idx=" + rs.getInt("fr_idx");
+					delLink2 = "ctgr_reply_proc.jsp" + args + "&kind=del&idx=" + idx + "&" + rl_table_name + "r_idx=" + rs.getInt(rl_table_name + "r_idx") + "&rl_table_name=" + rl_table_name;
 				}
 			}
 			%>
 			<tr>
-				<td style="width:370px; padding: 6px;"><%=rs.getString("fr_writer") %></td>
+				<td style="width:370px; padding: 6px;"><%=rs.getString(rl_table_name + "r_writer") %></td>
 				<td style="padding:14px 10px 14px 54px; text-align:left; vertical-align:text-top;" rowspan="2">
-					<span style="display: block; width: 647px; overflow: hidden; word-wrap: break-word;"><%=rs.getString("fr_content").replace("\r\n", "<br />") %></span>
+					<span style="display: block; width: 647px; overflow: hidden; word-wrap: break-word;"><%=rs.getString(rl_table_name + "r_content").replace("\r\n", "<br />") %></span>
 				</td>
 				
 				<td width="*" valign="top" rowspan="2">
@@ -172,18 +172,19 @@ try {
 			%>
 		</table>
 		
-		<form name="frmReply" action="free_reply_proc.jsp<%=args %>" method="post">
+		<form name="frmReply" action="ctgr_reply_proc.jsp<%=args %>&rl_table_name=<%=rl_table_name %>" method="post">
 		<input type="hidden" name="kind" value="in" />
-		<input type="hidden" name="fl_idx" value="<%=idx %>" />
+		<input type="hidden" name="idx" value="<%=idx %>" />
+		<input type="hidden" name="rl_table_name" value="<%=rl_table_name %>" />
 		<table width="1100" cellpadding="5">
 			<tr style="border-top:1px solid #000;">
 				<% if (isLogin) { %>
 				<td style="width:370; padding: 6px;"><%=loginInfo.getMi_nick() %></td>
 				<% } else { %>
-				<td style="width:370; padding: 6px;"><input type="text" style="height:36px;" name="fr_writer" placeholder="닉네임"/></td>
+				<td style="width:370; padding: 6px;"><input type="text" style="height:36px;" name="writer" placeholder="닉네임"/></td>
 				<% } %>
 				<td style="text-align:right;" rowspan="2">
-					<textarea name="fr_content" class="txt" onkeyup=""></textarea>
+					<textarea name="content" class="txt" onkeyup=""></textarea>
 				</td>
 				<td width="*" valign="top" rowspan="2">
 					<input type="submit" value="등록" class="btn" />

@@ -8,12 +8,12 @@ int idx = Integer.parseInt(request.getParameter("idx"));
 String schtype = request.getParameter("schtype");
 String keyword = request.getParameter("keyword");
 String rl_table_name = request.getParameter("rl_table_name");
-String action = "ctgr_form.jsp";
-if (kind.equals("del")) action = "ctgr_proc_del.jsp";	// 삭제 시 이동할 파일
+int idx2 = Integer.parseInt(request.getParameter(rl_table_name + "r_idx"));
+String action = "ctgr_reply_proc_del.jsp";
 
 try {
 	stmt = conn.createStatement();
-	sql = "select 1 from t_" + rl_table_name + "_list where " + rl_table_name + "_isview = 'y' and " + rl_table_name + "_ismem = 'n' and " + rl_table_name + "_idx = " + idx;
+	sql = "select 1 from t_" + rl_table_name + "_reply where " + rl_table_name + "r_isview = 'y' and " + rl_table_name + "r_ismem = 'n' and " + rl_table_name + "r_idx = " + idx2 ;
 	rs = stmt.executeQuery(sql);
 	if (!rs.next()) {	// rs에 데이터가 없으면(idx에 해당하는 게시글이 비회원이 아니면)
 		out.println("<script>");
@@ -23,7 +23,7 @@ try {
 	}
 	
 } catch(Exception e) {
-	out.println(rl_table_name + "게시판 비밀번호 입력 폼에서 문제가 발생했습니다.");
+	out.println("자유게시판 댓글 비밀번호 입력 폼에서 문제가 발생했습니다.");
 	e.printStackTrace();
 } finally {
 	try { rs.close();	stmt.close(); } 
@@ -39,6 +39,7 @@ try {
 <form name="frm" action="<%=action %>" method="post">
 <input type="hidden" name="ismem" value="n" />
 <input type="hidden" name="idx" value="<%=idx %>" />
+<input type="hidden" name="idx2" value="<%=idx2 %>" />
 <input type="hidden" name="kind" value="<%=kind %>" />
 <input type="hidden" name="cpage" value="<%=cpage %>" />
 <input type="hidden" name="rl_table_name" value="<%=rl_table_name %>" />
