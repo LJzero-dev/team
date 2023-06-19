@@ -44,7 +44,7 @@ try {
 	if (rcnt % psize > 0)	pcnt++;
 	
 	int start = (cpage - 1) * psize;
-	sql = "select " + rl_table_name + "_idx, " + rl_table_name + "_ismem, " + rl_table_name + "_writer, " + rl_table_name + "_reply, " + rl_table_name + "_title, " + rl_table_name + "_read, if(curdate() = date(" + rl_table_name + "_date), time(" + rl_table_name + "_date), replace(mid(" + rl_table_name + "_date, 3, 8), '-', '.')) " + rl_table_name + "date from t_" + rl_table_name + "_list" + where + 
+	sql = "select " + rl_table_name + "_idx, " + rl_table_name + "_ismem, " + rl_table_name + "_ip, " + rl_table_name + "_writer, " + rl_table_name + "_reply, " + rl_table_name + "_title, " + rl_table_name + "_read, if(curdate() = date(" + rl_table_name + "_date), time(" + rl_table_name + "_date), replace(mid(" + rl_table_name + "_date, 3, 8), '-', '.')) " + rl_table_name + "date from t_" + rl_table_name + "_list" + where + 
 			"order by " + rl_table_name + "_idx desc limit " + start + ", " + psize;
 	
 
@@ -109,7 +109,13 @@ function goLogin() {
 				title = "<a href='ctgr_view.jsp?idx=" + rs.getInt("" + rl_table_name + "_idx") + "&cpage=" + cpage + schargs + "&rl_table_name=" + rl_table_name + "'>" + title + "</a>" + reply;
 				
 				String writer = rs.getString("" + rl_table_name + "_writer");
-				
+				String ip = rs.getString(rl_table_name + "_ip");
+				ip = ip.replace(":", "-");		
+				ip = ip.replace(".", "-");				
+				String[] iparr = ip.split("-");
+				if (rs.getString(rl_table_name + "_ismem").equals("n")) {
+					 writer += " (" + iparr[0] + "." + iparr[1] + ")";
+				}
 			
 		%>
 		<tr>

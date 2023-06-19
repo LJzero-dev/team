@@ -14,7 +14,7 @@ if (schtype != null && !schtype.equals("") && keyword != null && !keyword.equals
 	// 링크에 검색 관련 값들을 쿼리스트링으로 연결해줌
 }
 
-String ismem = "", writer = "", title = "", content = "", ip = "", date = "";
+String ismem = "", writer = "", title = "", content = "", ip = "", date = "", nwriter = "";
 int read = 0,  reply = 0;
 
 try {
@@ -22,7 +22,7 @@ try {
 	rs = stmt.executeQuery("select rl_reply_use, rl_reply_write from t_request_list where rl_table_name = '" + rl_table_name +"' ");
 	rs.next();
 	rl_reply_use = rs.getString(1);
-	rl_reply_write = rs.getString(2);	
+	rl_reply_write = rs.getString(2);
 	
 	sql = "update t_" + rl_table_name + "_list set " + rl_table_name + "_read = " + rl_table_name + "_read + 1 where " + rl_table_name + "_idx = " + idx;
 	stmt.executeUpdate(sql);	// 조회수 증가 쿼리 실행
@@ -37,8 +37,14 @@ try {
 		date = rs.getString(rl_table_name + "_date").substring(0, 10);
 		read = rs.getInt(rl_table_name + "_read");
 		reply = rs.getInt(rl_table_name + "_reply");
-
 		
+		ip = rs.getString(rl_table_name + "_ip");
+		ip = ip.replace(":", "-");
+		ip = ip.replace(".", "-");
+		String[] iparr = ip.split("-");
+		if (ismem.equals("n")) {
+			nwriter = writer + " (" + iparr[0] + "." + iparr[1] + ")";
+		}	
 	} else {
 		out.println("<script>");
 		out.println("alert('존재하지 않는 게시물입니다.');");
@@ -72,7 +78,7 @@ function goLogin() {
 	<a href="/ktbwos/bbs/table_list.jsp?rl_table_name=<%=rl_table_name %>" class="alltext">전체글</a>
 	<table width="1100" cellpadding="5">
 		<tr>
-			<td width="60%" style="text-align:left;"><b><%=writer %></b></td>
+			<td width="60%" style="text-align:left;"><b><%=ismem.equals("y") ? writer : nwriter %></b></td>
 			<td width="*"><b><%=date %></b></td>
 			<td width="10%"><b>조회수 : <%=read %></b></td>
 		</tr>
@@ -125,20 +131,20 @@ function goLogin() {
 			</tr>
 			<%
 			sql = "select * from t_" + rl_table_name + "_reply where " + rl_table_name + "r_isview = 'y' and " + rl_table_name + "_idx = " + idx;
-			
-			
 			try {
 				rs = stmt.executeQuery(sql);
 				if (rs.next()) {	// 해당 게시글에 댓글이 있을 경우
 					do {
-			%>
-			<%
 			boolean isPms2 = false;	// 수정과 삭제 버튼을 현 사용자에게 보여줄지 여부를 저장할 변수
 			String delLink2 = "";	// 수정과 삭제용 링크를 저장할 변수
-			
+			ip = rs.getString(rl_table_name + "r_ip");
+			ip = ip.replace(":", "-");
+			ip = ip.replace(".", "-");
+			String[] iparr = ip.split("-");
 			if (rs.getString(rl_table_name + "r_ismem").equals("n")) {	// 현재 글이 비회원 글일 경우
 				isPms2 = true;
 				delLink2 = "ctgr_reply_pw.jsp" + args + "&kind=del&idx=" + idx + "&rl_table_name=" + rl_table_name + "&" + rl_table_name + "r_idx=" + rs.getInt(rl_table_name + "r_idx");
+				nwriter = rs.getString(rl_table_name + "r_writer") + " (" + iparr[0] + "." + iparr[1] + ")";
 			} else {
 				if (isLogin && loginInfo.getMi_nick().equals(rs.getString(rl_table_name + "r_writer"))) {
 				// 현재 로그인이 되어있는 상태에서 현 사용자 닉네임이 현 댓글 입력한 회원일 경우
@@ -148,7 +154,7 @@ function goLogin() {
 			}
 			%>
 			<tr>
-				<td style="width:370px; padding: 6px;"><%=rs.getString(rl_table_name + "r_writer") %></td>
+				<td style="width:370px; padding: 6px;"><%=(rs.getString(rl_table_name + "r_ismem").equals("y")) ? rs.getString(rl_table_name + "r_writer") : nwriter %></td>
 				<td style="padding:14px 10px 14px 54px; text-align:left; vertical-align:text-top;" rowspan="2">
 					<span style="display: block; width: 647px; overflow: hidden; word-wrap: break-word;"><%=rs.getString(rl_table_name + "r_content").replace("\r\n", "<br />") %></span>
 				</td>
@@ -213,7 +219,7 @@ function goLogin() {
 				<% if (isLogin) { %>
 				<td></td>
 				<% } else { %>
-				<td><input type="text" name="pw" style="height:36px;" placeholder="비밀번호"/></td>
+				<td><input type="password" name="pw" style="height:36px;" placeholder="비밀번호"/></td>
 				<% } %>
 			</tr>
 		</table>

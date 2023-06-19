@@ -15,13 +15,13 @@ if (schtype != null && !schtype.equals("") && keyword != null && !keyword.equals
 String content = request.getParameter("content");
 
 try {
-	stmt = conn.createStatement();
-	stmt.executeUpdate("update t_" + rl_table_name + "_list set " + rl_table_name + "_reply = " + rl_table_name + "_reply - 1 where " + rl_table_name + "_idx = " + idx);	
-	sql = "update t_" + rl_table_name + "_reply set " + rl_table_name + "r_isview = 'n' where " + rl_table_name + "r_idx = " + request.getParameter("idx2") + " and bbr_pw = '" + request.getParameter("pw") + "'";
+	stmt = conn.createStatement();		
+	sql = "update t_" + rl_table_name + "_reply set " + rl_table_name + "r_isview = 'n' where " + rl_table_name + "r_idx = " + request.getParameter("idx2") + " and " + rl_table_name + "r_pw = '" + request.getParameter("pw") + "'";
 	int result = stmt.executeUpdate(sql);
 	out.println("<script>");
 	if (result == 1) {
 		out.println("location.replace('ctgr_view.jsp" + args + "');");
+		stmt.executeUpdate("update t_" + rl_table_name + "_list set " + rl_table_name + "_reply = " + rl_table_name + "_reply - 1 where " + rl_table_name + "_idx = " + idx);
 	} else {		
 		out.println("alert('암호가 틀렸습니다.\\n다시시도하세요');");
 		out.println("history.back();");		
