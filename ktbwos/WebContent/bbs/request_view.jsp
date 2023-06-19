@@ -34,7 +34,9 @@ if (schtype != null && !schtype.equals("") && keyword != null && !keyword.equals
 			rl_status = rs.getString("rl_status");
 			rl_reason = rs.getString("rl_reason");
 			rl_name = rs.getString("rl_name");
-			rl_name = rl_status.equals("n") ? rl_name.substring(("" + idx).length(),rl_name.lastIndexOf(("" + idx))) : rl_name;
+			if (rl_status.equals("n") && rl_name.indexOf((""+idx)) != -1) {
+				rl_name = rl_name.substring(("" + idx).length(), rl_name.lastIndexOf(("" + idx)));
+			}
 		} else {
 			out.println("<script>");
 			out.println("alert('잘못된 경로로 들어오셨습니다.');");

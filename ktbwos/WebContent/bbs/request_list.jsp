@@ -91,7 +91,10 @@ if (rs.next()) {
 		String rl_name = rs.getString("rl_name"), idx = rs.getString(1);
 		String title = rs.getString("rl_title"), writer = rs.getString("rl_writer"), ctgr = rs.getString("rl_ctgr").equals("a") ? "게임" : rs.getString("rl_ctgr").equals("b") ? "연예" : "스포츠";					
 		String date = rs.getString("rldate"), status = rs.getString("rl_status").equals("a") ? "[승인대기중]" : rs.getString("rl_status").equals("y") ? "[승인]" : "[미승인]";
-		String name = rs.getString("rl_status").equals("n") ? rl_name.substring(idx.length(),rl_name.lastIndexOf(idx)) : rl_name;
+		String name = rl_name;
+				if (rs.getString("rl_Status").equals("n") && rl_name.indexOf(idx) != -1) {
+					name = rl_name.substring(idx.length(), rl_name.lastIndexOf(idx));
+				}
 		if (title.length() > titleCnt) 
 			title = title.substring(0,titleCnt-3) + "...";
 		title = "<a href='request_view.jsp?idx=" + rs.getInt("rl_idx") + "&cpage=" + cpage + schargs+ "'>" + title + "</a>";
