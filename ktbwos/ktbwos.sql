@@ -155,7 +155,15 @@ select * from (
 ) a where br_title like '%검색어%';
 
 select * from t_request_list;
-
-
+show tables;
+select * from t_member_info;
+insert into t_member_info (mi_id,mi_email,mi_nick,mi_pw,mi_status,mi_reason) values ('date1','date1@naver.com','a홍','5555','b','신규');
+insert into t_member_info (mi_id,mi_email,mi_nick,mi_pw,mi_status,mi_reason) values ('date2','date2@naver.com','b홍','6666','b','신규');
+insert into t_member_info (mi_id,mi_email,mi_nick,mi_pw,mi_status,mi_reason) values ('date3','date3@naver.com','c홍','7777','c','신규');
+insert into t_member_info (mi_id,mi_email,mi_nick,mi_pw,mi_status,mi_reason) values ('date4','date4@naver.com','d홍','8888','c','신규');
+insert into t_member_info (mi_id,mi_email,mi_nick,mi_pw,mi_status,mi_reason) values ('date5','date5@naver.com','e홍','9999','c','신규');
+select * from t_member_info   where mi_status = 'all' and mi_nick like '%꺽%';
+select * from t_member_info   where mi_status != 'all' and mi_nick like '%꺽%';
+select * from t_aa_reply;
 
 update t_requset_list set rl_status = 'n', rl_title = '', rl_reason = '' where fr_idx ='';

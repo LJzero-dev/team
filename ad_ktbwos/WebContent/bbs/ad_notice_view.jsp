@@ -13,7 +13,7 @@ if (schtype != null && !schtype.equals("") && keyword != null && !keyword.equals
 
 
 String nl_title = "", nl_content = "", nl_isview = "", nl_date = "", ai_id = "";
-int ai_idx = 0, nl_read = 0;
+int ai_idx = 0;
 
 try {
 	stmt = conn.createStatement();
@@ -34,7 +34,7 @@ try {
 	}
 	
 } catch(Exception e) {
-	out.println("공지사항 글보기시 문제가 발생했습니다.");
+	out.println("qna 글보기시 문제가 발생했습니다.");
 	e.printStackTrace();
 } finally {
 	try { rs.close();	stmt.close(); } 
@@ -48,8 +48,8 @@ try {
 		<style>
 			.alltext {display:inline-block; float:left; width:80px; padding:5px 0; border:1px solid #000; text-align:center;}
 		</style>
-		<a href="/ad_ktbwos/bbs/ad_notice_list.jsp" class="alltext">전체글</a>
-		<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">공지사항</span> <!--  현재 게시판 위치 표시  -->
+		<a href="/ad_ktbwos/bbs/ad_qna_list.jsp" class="alltext">전체글</a>
+		<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">QnA관리</span> <!--  현재 게시판 위치 표시  -->
 	<br><br><br>
 	<style>
 	#box { width:1100px; height:600px; margin:0px auto 0; border:1px solid black; font-size:15px; }
@@ -61,16 +61,21 @@ try {
 		<br><br><hr>	
 		<h4>&nbsp;&nbsp;<%=nl_title %></h4>
 		<hr>
-		<%=nl_content %>
-		
-	
-		
+		<%=nl_content %>	
 	</div>
 	<br>
 	<div align="right">
-<input type="button" value="글목록" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" onclick="location.href='ad_notice_list.jsp<%=args%>'">
-<input type="button" value="수정" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" onclick="location.href='ad_notice_form.jsp?kind=up<%=args%>'">
-<input type="button" value="삭제" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" onclick="location.href='ad_notice_proc_del.jsp<%=args%>'">
+	<input type="button" value="글목록" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" onclick="location.href='ad_notice_list.jsp<%=args%>'">
+	<input type="button" value="글수정" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" onclick="location.href='ad_notice_form.jsp<%=args%>&kind=up&idx=<%=idx %>'">
+
+	<script>
+		function isDel() {
+			if (confirm("정말 삭제하시겠습니까?")) {
+				location.href = "ad_notice_proc_del.jsp?idx=<%=idx%>";
+			} 
+		}
+	</script>
+	<input type="button" value="삭제" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" onclick="isDel();">
 
 	</div>	
 </div>

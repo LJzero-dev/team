@@ -20,8 +20,8 @@ try {
 	int result = stmt.executeUpdate(sql);
 	out.println("<script>");
 	if (result == 1) {
-		out.println("location.replace('ctgr_view.jsp" + args + "');");
 		stmt.executeUpdate("update t_" + rl_table_name + "_list set " + rl_table_name + "_reply = " + rl_table_name + "_reply - 1 where " + rl_table_name + "_idx = " + idx);
+		out.println("location.replace('ctgr_view.jsp" + args + "');");
 	} else {		
 		out.println("alert('암호가 틀렸습니다.\\n다시시도하세요');");
 		out.println("history.back();");		

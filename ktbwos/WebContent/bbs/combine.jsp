@@ -42,7 +42,7 @@ try {
 	sql = "select rl_idx, rl_ctgr, rl_name, rl_content, rl_status, rl_table_name from t_request_list " + where + "  order by rl_idx desc limit " + start + " , " + psize;
 	rs = stmt.executeQuery(sql);
 } catch (Exception e) {
-	out.println("자유게시판 목록에서 문제가 발생했습니다");
+	out.println("목록에서 문제가 발생했습니다");
 	e.printStackTrace();
 }
 %>
@@ -59,19 +59,8 @@ try {
 </style>
 
 <div style="width:1100px; margin:0 auto;">
-	<a href="/ktbwos/bbs/ctgr_list.jsp" class="alltext">전체글</a>
+	<a href="/ktbwos/bbs/request_list.jsp" class="alltext">전체글</a>
 	<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">카테고리 게시판</span>
-	<form name="frmSch" style="margin-bottom:0;">
-		<fieldset style=" width:335px; margin-left:737px; background:#1E4B79;">
-			<select name="schtype">
-			<option value="all" <% if (schtype.equals("all")) { %>selected="selected"<% } %>>전체</option>
-			<option value="a" <% if (schtype.equals("a")) { %>selected="selected"<% } %>>분류</option>
-			<option value="b" <% if (schtype.equals("b")) { %>selected="selected"<% } %>>게시판</option>
-			</select>
-		<input type="text" name="keyword" value="<%=keyword %>" />
-		<input type="submit" value="검색" />&nbsp;&nbsp;&nbsp;&nbsp;
-		</fieldset>
-	</form>
 	<table width="1100" border="0" cellpadding="0" cellspacing="0" id="list">
 		<tr>
 			<th width="7%">번호</th>

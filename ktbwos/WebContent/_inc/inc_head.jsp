@@ -37,6 +37,24 @@ String loginUrl = request.getRequestURI();
 if (request.getQueryString() != null)
 	loginUrl += "?" + URLEncoder.encode(request.getQueryString().replace('&', '~'), "UTF-8");	// 현재 화면의 url로 로그인 폼 등에서 사용할 값
 %>
+<script>
+function isDel(link) {
+   if (confirm("정말 삭제하시겠습니까?\n삭제된 내용은 복구 불가합니다.")) {
+      location.href = "'" + link + "''";
+   }
+}
+function goLogin(link) {
+   if (<%=isLogin%>) {
+      confirm("로그인이 필요한 서비스 입니다. \\n 로그인 화면으로 이동하시겠습니까?") 
+      location.href = "/ktbwos/login_form.jsp";
+   } else {
+      }
+   }
+</script>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>
 	a:link { color:black; text-decoration:none; }
 	a:visited { color:black; text-decoration:none; }
@@ -49,21 +67,49 @@ if (request.getQueryString() != null)
 	th { background-color:#5B9BD5; color:white;}
 	td { text-align:center;}
 </style>
-<title>일석이조</title>
+<title>1석2조</title>
 </head>
 <body>
-<div style="width:1100px; margin:0 auto;">
-<a href="<%=ROOT_URL %>"><img style="width:200px" src="/ktbwos/img/ktbwos.png"></a>
+<div style="width:1100px; height:80px; margin:0 auto;">
+<a style="float:left; overflow: hidden; margin-bottom: 20px; " href="<%=ROOT_URL %>"><img style="width:200px" src="/ktbwos/img/ktbwos.png"></a>
+
+
+
+
+	<form name="frmTotalSch" action="/ktbwos/bbs/combine.jsp" style="float:left; overflow: hidden; margin-left:150px; margin-top:15px;">
+		<fieldset style=" width:335px; background:#1E4B79;">
+			<select name="schtype">
+				<option value="all" >전체</option>
+				<option value="a" >게시판</option>
+				<option value="b" >제목</option>
+				<option value="c" >내용</option>
+				<option value="d" >작성자</option>
+			</select>
+		<input type="text" name="keyword" placeholder="통합 검색?" />
+		<input type="submit" style="border:1px solid #000; width:60px; background:transparent; cursor:pointer; background:#fff;" value="검색" />&nbsp;&nbsp;&nbsp;&nbsp;
+		</fieldset>
+	</form>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 <% if (isLogin) { %>
-<a style="display:inline-block; margin-top:50px; margin-left:700px;  position:fixed;" href="/ktbwos/logout.jsp">로그아웃 </a>
-<a style="display:inline-block; margin-top:50px; margin-left:800px;  position:fixed;" href="/ktbwos/member/member_info.jsp">회원 정보</a>
+<a style="float:left; overflow: hidden; margin-top:20px; margin-left:150px;" href="/ktbwos/logout.jsp">로그아웃 </a>
+<a style="float:left; overflow: hidden; margin-top:20px; margin-left:20px;" href="/ktbwos/member/member_info.jsp">회원 정보</a>
 <% } else { %>
-<a style="display:inline-block; margin-top:50px; margin-left:700px;  position:fixed;" href="/ktbwos/login_form.jsp">로그인 </a>
+<a style="float:left; overflow: hidden; margin-top:20px; margin-left:150px;" href="/ktbwos/login_form.jsp">로그인 </a>
 <% } %>
 </div>
 <br />
-
-
 <table width="1100" align="center">
 	<tr>
 		<th><a style="color:white;" href="/ktbwos/bbs/notice_list.jsp">공지사항</a></th>
@@ -74,5 +120,4 @@ if (request.getQueryString() != null)
 		<th><a style="color:white;" href="/ktbwos/bbs/qna_list.jsp">QnA</a></th>
 	</tr>
 </table>
-
 <br />

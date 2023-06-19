@@ -44,6 +44,10 @@ function isDel(link) {
    }
 }
 </script>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>
 	a:link { color:black; text-decoration:none; }
 	a:visited { color:black; text-decoration:none; }
@@ -70,13 +74,13 @@ function isDel(link) {
 
 <table width="1100" align="center">
 	<tr>
-		<th><a href="/ad_ktbwos/bbs/ad_notice_list.jsp">공지사항 관리</a></th>
-		<th><a href="/ad_ktbwos/bbs/ad_free_list.jsp">자유게시판 관리</a></th>
-		<th><a href="/ad_ktbwos/bbs/ad_pds_list.jsp">자료실 관리</a></th>
-		<th><a href="/ad_ktbwos/bbs/request_list.jsp">게시판 요청 관리</a></th>
-		<th><a href="/ad_ktbwos/bbs/ctgr_list.jsp">카테고리 게시판 관리</a></th>
-		<th><a href="/ad_ktbwos/bbs/ad_qna_list.jsp">QnA 관리</a></th>
-		<th><a href="/ad_ktbwos/ad_mi_list.jsp">회원 관리</a></th>
+      <th><a href="/ad_ktbwos/bbs/ad_notice_list.jsp">공지사항 관리</a></th>
+      <th><a href="/ad_ktbwos/bbs/ad_free_list.jsp">자유게시판 관리</a></th>
+      <th><a href="/ad_ktbwos/bbs/ad_pds_list.jsp">자료실 관리</a></th>
+      <th><a href="/ad_ktbwos/bbs/request_list.jsp">게시판 요청 관리</a></th>
+      <th><a href="/ad_ktbwos/bbs/ad_ctgr_list.jsp">카테고리 게시판 관리</a></th>
+      <th><a href="/ad_ktbwos/bbs/ad_qna_list.jsp">QnA 관리</a></th>
+      <th><a href="/ad_ktbwos/ad_mi_list.jsp">회원 관리</a></th>
 	</tr>
 </table>
 

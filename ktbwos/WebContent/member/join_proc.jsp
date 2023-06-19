@@ -1,12 +1,31 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="../_inc/inc_head.jsp" %>
+<%
+/* 회원가입 처리 파일
+1. 회원이 입력한 아이디, 비밀번호, 이메일, 닉네임 받아와서 DB에 insert
+*/
 
-</body>
-</html>
+request.setCharacterEncoding("utf-8");
+String mi_id = request.getParameter("mi_id");
+String mi_pw = request.getParameter("mi_pw");
+String emailid = request.getParameter("emailid");
+String emaildomain = request.getParameter("emaildomain");
+String email = emailid + "@" + emaildomain;
+String mi_nick = request.getParameter("mi_nick");
+
+try {
+	stmt = conn.createStatement();
+	
+	sql = "insert into t_member_info (mi_id, mi_email, mi_nick, mi_pw, mi_reason) " + 
+	"values ('" + mi_id + "', '" + email + "', '" + mi_nick + "', '" + mi_pw + "', '신규가입')";
+//	System.out.println(sql);
+	// 자유게시판 레코드 개수(검색조건 포함)를 받아 올 쿼리
+	stmt.executeUpdate(sql);
+	
+	
+} catch(Exception e) {
+	out.println("회원등록에서 문제가 발생했습니다.");
+	e.printStackTrace();
+}
+%>
+<%@ include file="../_inc/inc_foot.jsp" %>

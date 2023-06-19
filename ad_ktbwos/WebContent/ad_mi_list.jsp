@@ -10,40 +10,44 @@
 
 request.setCharacterEncoding("utf-8");
 int cpage = 1, psize = 10, bsize = 5, rcnt = 0, pcnt = 0;
+String status_select = "";
 // 페이지 번호, 페이지 크기, 블록 크기, 레코드(게시글) 개수, 페이지 개수 등을 저장할 변수
 
 if (request.getParameter("cpage") != null)
 	cpage = Integer.parseInt(request.getParameter("cpage"));
+if (request.getParameter("status_select") != null)
+	status_select = request.getParameter("status_select");
 
 String schtype = request.getParameter("schtype");
 String keyword = request.getParameter("keyword");
 String schargs = "";
-
 String where = " ";
 
 if (schtype == null || schtype.equals("") || keyword == null || keyword.equals("")) {	// 검색을 하지 않는 경우
 	schtype = "";	keyword = "";
-} else {
+}
 	keyword = getRequest(keyword);
 	URLEncoder.encode(keyword, "UTF-8");
 	// 쿼리스트링으로 주고 받는 검색어가 한글일 경우 IE에서 문제가 발생할 수도 있으므로 유니코드로 변환
 	
 	if (schtype.equals("id")) {	// 검색조건이 '아이디'일 경우
-		where += " where and (mi_id like '%" + keyword + "%') ";
+		where += " where mi_status = '" + status_select + "' and mi_id like '%" + keyword + "%'";
 	} else if (schtype.equals("nick")) {	// 검색조건이 '닉네임'일 경우
-		where += " where and (mi_nick like '%" + keyword + "%') ";
-	} else {	// 검색조건이 '전체'일 경우
-		where += " ";
+		where += " where mi_status = '" + status_select + "' and mi_nick like '%" + keyword + "%'";
+	} else if (schtype.equals("all")){	// 검색조건이 '전체'일 경우
+		where += " where mi_status = '" + status_select + "' and ( mi_id like '%" + keyword + "%' or mi_nick like '" + keyword + "') ";
+	} else if (!status_select.equals("")){
+		where += " where mi_status = '" + status_select + "'";
 	}
 	schargs = "&schtype=" + schtype + "&keyword=" + keyword;
-	// 검색조건이 있을 경우 링크의 url에 붙일 쿼리스트링 완성
-}
+	// 검색조건이 있을 경우 링크의 url에 붙일 쿼리스트링 완성	
 
+	if (status_select.equals("all")) where = where.replace("=", "!=");
 try {
 	stmt = conn.createStatement();
 	
 	sql = "select count(*) from t_member_info " + where;
-	// 자유게시판 레코드 개수(검색조건 포함)를 받아 올 쿼리
+	// 회원목록 레코드 개수(검색조건 포함)를 받아 올 쿼리
 	rs = stmt.executeQuery(sql);
 	if (rs.next())	rcnt = rs.getInt(1);
 	
@@ -51,7 +55,7 @@ try {
 	if (rcnt % psize > 0)	pcnt++;
 	
 	int start = (cpage -1) * psize;
-	sql = "select mi_idx, mi_id, mi_email, mi_nick, mi_status, date(mi_date) midate, date(mi_lastlogin) milastlogin from t_member_info " + 
+	sql = "select mi_idx, mi_id, mi_email, mi_nick, if(mi_status = 'a', '정상', if(mi_status = 'b', '휴면', '탈퇴')) mistatus , date(mi_date) midate, ifnull(date(mi_lastlogin), '내역없음') milastlogin from t_member_info " + 
 	where + "order by mi_idx desc limit " + start + ", " + psize;
 	rs = stmt.executeQuery(sql);
 	
@@ -60,6 +64,21 @@ try {
 	e.printStackTrace();
 }
 %>
+<script>
+function status (e) {
+	document.frmSch.schtype.value = "all";
+	document.frmSch.keyword.value = "";
+	if (e == "all") {
+		location.href = 'ad_mi_list.jsp?status_select=all';
+	} else if (e == "a") {
+		location.href = 'ad_mi_list.jsp?status_select=a';
+	} else if (e == "b") {
+		location.href = 'ad_mi_list.jsp?status_select=b';
+	} else if (e == "c") {
+		location.href = 'ad_mi_list.jsp?status_select=c';
+	}
+}
+</script>
 <h2 align="center">회원 목록</h2>
 <div style="width:1100px; margin:0 auto;">
 <div style="width:1100px; text-align:center;">
@@ -67,11 +86,11 @@ try {
 <fieldset>
 	<legend></legend>
 	<div style="float:left;">
-	<select title="상태 선택" >
-			<option value="">전체</option>
-			<option value="a">정상</option>
-			<option value="b">휴면</option>
-			<option value="c">탈퇴</option>
+	<select title="상태 선택" name="status_select" onchange="status(this.value);">
+			<option value="all" <% if(status_select.equals("all")) { %>selected="selected"<% } %>>전체</option>
+			<option value="a" <% if(status_select.equals("a")) { %>selected="selected"<% } %>>정상</option>
+			<option value="b" <% if(status_select.equals("b")) { %>selected="selected"<% } %>>휴면</option>
+			<option value="c" <% if(status_select.equals("c")) { %>selected="selected"<% } %>>탈퇴</option>
 	</select>
 	</div>
 	<div style="float:right;">
@@ -99,13 +118,6 @@ try {
 <%
 if (rs.next()) {
 	int num = rcnt - ((cpage - 1) * psize);	// 글번호 따로 계산해서 구함
-	String mistatus = rs.getString("mi_status");
-	if (mistatus.equals("a")) {
-		mistatus = "정상";
-	} else if (mistatus.equals("b")) {
-		mistatus = "휴면";
-	} else 
-		mistatus = "탈퇴";
 	do {
 		String id = rs.getString("mi_id");
 		id = "<a href='ad_mi_view.jsp?idx=" + rs.getInt("mi_idx") + "&cpage=" + cpage + schargs + "'>" + id + "</a>";
@@ -116,7 +128,7 @@ if (rs.next()) {
 <td><%=id %></td>
 <td><%=rs.getString("mi_email") %></td>
 <td><%=rs.getString("mi_nick") %></td>
-<td><%=mistatus %></td>
+<td><%=rs.getString("mistatus") %></td>
 <td><%=rs.getString("midate") %></td>
 <td><%=rs.getString("milastlogin") %></td>
 </tr>

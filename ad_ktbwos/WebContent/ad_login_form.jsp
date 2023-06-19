@@ -56,10 +56,7 @@ function isDel(link) {
 <body>
 <%
 if (isLogin) {	// 이미 로그인이 되어 있다면
-	out.println("<script>");
-	out.println("alert('잘못된 경로로 들어오셨습니다.'); history.back();");	
-	out.println("</script>");
-	out.close();
+	response.sendRedirect("/ad_ktbwos/ad_mi_list.jsp");
 }
 request.setCharacterEncoding("utf-8");
 String url = request.getParameter("url");

@@ -13,10 +13,8 @@ if (schtype != null && !schtype.equals("") && keyword != null && !keyword.equals
 	args += "&schtype=" + schtype + "&keyword=" + keyword;
 	// 링크에 검색 관련 값들을 쿼리스트링으로 연결해줌
 }
-
 String ismem = "", writer = "", title = "", content = "", ip = "", date = "", nwriter = "";
 int read = 0,  reply = 0;
-
 try {
 	stmt = conn.createStatement();
 	rs = stmt.executeQuery("select rl_reply_use, rl_reply_write from t_request_list where rl_table_name = '" + rl_table_name +"' ");
