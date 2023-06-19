@@ -133,14 +133,14 @@ function rightcode() {	// 입력 받은 인증코드가 이메일로 보낸 인�
 		<input type="password" name="mi_pw" id="pw2" onkeyup="comparePW(this.value);" maxlength="20" /><br />
 		<span id="pmsg">비밀번호는 4~20자 이내로 입력하세요.</span>
 	</td></tr>
-
-<iframe src="sendemail.jsp" id="codeok" style="width:1100px; margin:0 auto; scrolling:no; frameborder:0; " ></iframe>
+	</table>
+<iframe src="sendemail.jsp" id="codeok" style="width:1100px; height:100px; margin:0 auto; frameborder:0;" scrolling="no" ></iframe>
 <input type="hidden" name= "iscode" value="n" />
-		<input type="text" id="codein" value="" title="인증코드 입력" maxlength="20" />
-		<input type="button" value="확인" onclick="rightcode();" />
 
-	 	
-	
+	<table width="1100" cellpadding="5" >
+		<tr><th>인증번호 입력</th><td>
+		<input type="text" id="codein" value="" title="인증코드 입력" maxlength="20" />
+		<input type="button" value="확인" onclick="rightcode();" /></td></tr>
 	<tr><th>닉네임</th><td>
 		<input type="text" name="mi_nick" onkeyup="dupNICK(this.value);" maxlength="20" /><br />
 		<span id="nmsg">닉네임은 2~20자 이내로 입력하세요.</span>
