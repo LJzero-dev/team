@@ -87,6 +87,7 @@ try {
 		ai.setAi_name(rs.getString("ai_name"));
 		ai.setAi_use(rs.getString("ai_use"));
 		ai.setAi_date(rs.getString("ai_date"));
+		ai.setAi_idx(rs.getInt("ai_idx"));
 		
 		// 세션에 저장
 		session.setAttribute("loginInfo", ai);
