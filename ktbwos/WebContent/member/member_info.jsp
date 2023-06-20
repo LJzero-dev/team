@@ -18,7 +18,7 @@
 <script>
 function memDel() {
 	if (confirm('정말 탈퇴하시겠습니까?')) {
-		location.href = "/ktbwos/member_proc_del.jsp";
+		location.href = "/ktbwos/member/member_proc_del.jsp";
 	}
 }
 </script>
@@ -37,7 +37,7 @@ function memDel() {
 	&nbsp;아이디  &nbsp;&nbsp;<%=loginInfo.getMi_id() %><br /><br />
 	&nbsp;닉네임  &nbsp;&nbsp;<input type="text" name="mi_nick" value="<%=loginInfo.getMi_nick() %>">
 	&nbsp;&nbsp;<input type="submit" value="변경" /><br /><br />
-	&nbsp;회원가입일  &nbsp;&nbsp;<%=loginInfo.getMi_date().substring(0, 10) %><br /><br />
+	<%-- &nbsp;회원가입일  &nbsp;&nbsp;<%=loginInfo.getMi_date().substring(0, 10) %><br /><br /> --%>
 	&nbsp;<a href="/ktbwos/member/change_pw.jsp">비밀번호 변경하기</a><br /><br />
 	<a href="/ktbwos/index.jsp" class="alltext">확인</a>
 	<input type="button" value="회원탈퇴" onclick="memDel();"  />
