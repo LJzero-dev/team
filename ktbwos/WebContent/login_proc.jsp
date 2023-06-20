@@ -53,6 +53,10 @@ try {
 		
 		sql = "update t_member_info set mi_lastlogin = curdate() where mi_id = '" + mi_id + "'";
 		stmt.executeUpdate(sql);
+
+		out.println("<script>");
+		out.println("history.back();");
+		out.println("</script>");
 		response.sendRedirect(url);
 		
 	} else {	// 로그인 실패시
