@@ -37,6 +37,7 @@ if (schtype != null && !schtype.equals("") && keyword != null && !keyword.equals
 			if (rl_status.equals("n") && rl_name.indexOf((""+idx)) != -1) {
 				rl_name = rl_name.substring(("" + idx).length(), rl_name.lastIndexOf(("" + idx)));
 			}
+			
 		} else {
 			out.println("<script>");
 			out.println("alert('잘못된 경로로 들어오셨습니다.');");

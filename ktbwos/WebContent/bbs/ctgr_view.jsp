@@ -7,7 +7,7 @@ int idx = Integer.parseInt(request.getParameter("idx"));
 String schtype = request.getParameter("schtype");	// 검색조건
 String keyword = request.getParameter("keyword");	// 검색어
 String rl_table_name = request.getParameter("rl_table_name");
-String rl_reply_use = "", rl_reply_write = "";
+String rl_reply_use = "", rl_reply_write = "", rl_name = "";
 String args = "?cpage=" + cpage;
 if (schtype != null && !schtype.equals("") && keyword != null && !keyword.equals("")) {
 	args += "&schtype=" + schtype + "&keyword=" + keyword;
@@ -17,15 +17,13 @@ String ismem = "", writer = "", title = "", content = "", ip = "", date = "", nw
 int read = 0,  reply = 0;
 try {
 	stmt = conn.createStatement();
-	rs = stmt.executeQuery("select rl_reply_use, rl_reply_write from t_request_list where rl_table_name = '" + rl_table_name +"' ");
+	rs = stmt.executeQuery("select rl_reply_use, rl_reply_write, rl_name from t_request_list where rl_table_name = '" + rl_table_name +"' ");
 	rs.next();
 	rl_reply_use = rs.getString(1);
 	rl_reply_write = rs.getString(2);
+	rl_name = rs.getString(3);
 	
 	sql = "update t_" + rl_table_name + "_list set " + rl_table_name + "_read = " + rl_table_name + "_read + 1 where " + rl_table_name + "_idx = " + idx;
-	stmt.executeUpdate(sql);	// 조회수 증가 쿼리 실행
-	
-	sql = "update t_request_list set rl_read = rl_read + 1 where rl_table_name = '" + rl_table_name + "'";
 	stmt.executeUpdate(sql);	// 조회수 증가 쿼리 실행
 	
 	sql = "select * from t_" + rl_table_name + "_list where " + rl_table_name + "_idx = " + idx;
@@ -37,28 +35,34 @@ try {
 		content = rs.getString(rl_table_name + "_content").replace("\r\n", "<br />");;
 		date = rs.getString(rl_table_name + "_date").substring(0, 10);
 		read = rs.getInt(rl_table_name + "_read");
-		reply = rs.getInt(rl_table_name + "_reply");
-		
+		reply = rs.getInt(rl_table_name + "_reply");		
 		ip = rs.getString(rl_table_name + "_ip");
 		ip = ip.replace(":", "-");
 		ip = ip.replace(".", "-");
 		String[] iparr = ip.split("-");
-		if (ismem.equals("n")) {
+		if (ismem.equals("n"))
 			nwriter = writer + " (" + iparr[0] + "." + iparr[1] + ")";
-		}	
+		
+		// 인덱스에 들어갈 테이블 쿼리
+		rs = stmt.executeQuery("select bl_count from t_best_list where bl_table_name = '" + rl_table_name + "' and date(bl_date) = date(now())");		
+		if (rs.next()) {
+			stmt.executeUpdate("update t_best_list set bl_count = bl_count + 1 where bl_table_name = '" + rl_table_name + "' and date(bl_date) = date(now())");
+		} else {
+			System.out.println("insert into t_best_list (bl_table_name, rl_name) values ('" + rl_table_name + "', '" + rl_name + "')");
+			PreparedStatement pstmt = conn.prepareStatement("insert into t_best_list (bl_table_name, rl_name) values ('" + rl_table_name + "', '" + rl_name + "')");
+			pstmt.execute();
+		}		
 	} else {
 		out.println("<script>");
 		out.println("alert('존재하지 않는 게시물입니다.');");
 		out.println("history.back();");
 		out.println("</script>");
 		out.close();
-	}
-	
+	}	
 } catch(Exception e) {
 	out.println("게시글 보기시 문제가 발생했습니다.");
 	e.printStackTrace();
 }
-
 %>
 <style>
 	input[type="submit"] {border:1px solid #000; width:75px; padding:50px 0; font-size:15px; background:transparent; cursor:pointer; background:#fff;}
