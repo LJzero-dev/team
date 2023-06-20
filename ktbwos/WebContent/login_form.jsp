@@ -28,7 +28,7 @@ else				url = url.replace('~', '&');
 	&nbsp;아이디  &nbsp;&nbsp;<input type="text" name="mi_id" placeholder="아이디 입력" value="test2" /><br /><br />
 	비밀번호  <input type="password" name="mi_pw" placeholder="비밀번호 입력" value="2222" /><br /><br />
 	<input type="submit" id="login" value="로그인" /><br /><br />
-	<input type="button" value="아이디 또는 비밀번호 찾기" onclick="location.href='find_info.jsp';" />
+	<input type="button" value="아이디 또는 비밀번호 찾기" onclick="location.href='member/find_info.jsp';" />
 	<input type="button" value="회원가입" onclick="location.href='member/join_form.jsp';" />
 </div>
 </form>
