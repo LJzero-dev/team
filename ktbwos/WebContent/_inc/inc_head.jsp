@@ -76,7 +76,7 @@ function goLogin(link) {
 
 
 
-	<form name="frmTotalSch" action="/ktbwos/bbs/combine.jsp" style="float:left; overflow: hidden; margin-left:150px; margin-top:15px;">
+<!-- 	<form name="frmTotalSch" action="/ktbwos/bbs/combine.jsp" style="float:left; overflow: hidden; margin-left:150px; margin-top:15px;">
 		<fieldset style=" width:335px; background:#1E4B79;">
 			<select name="schtype">
 				<option value="all" >전체</option>
@@ -89,6 +89,10 @@ function goLogin(link) {
 		<input type="submit" style="border:1px solid #000; width:60px; background:transparent; cursor:pointer; background:#fff;" value="검색" />&nbsp;&nbsp;&nbsp;&nbsp;
 		</fieldset>
 	</form>
+	 -->
+	
+	
+
 	
 	
 	
@@ -97,17 +101,14 @@ function goLogin(link) {
 	
 	
 	
-	
-	
-	
-	
-	
+<div style="margin-left:800px; width:160px;">
 <% if (isLogin) { %>
-<a style="float:left; overflow: hidden; margin-top:20px; margin-left:150px;" href="/ktbwos/logout.jsp">로그아웃 </a>
-<a style="float:left; overflow: hidden; margin-top:20px; margin-left:20px;" href="/ktbwos/member/member_info.jsp">회원 정보</a>
-<% } else { %>
-<a style="float:left; overflow: hidden; margin-top:20px; margin-left:150px;" href="/ktbwos/login_form.jsp">로그인 </a>
-<% } %>
+	<a href="/ktbwos/logout.jsp">로그아웃 / </a>
+	<a href="/ktbwos/member/member_info.jsp">회원 정보</a>
+	<% } else { %>
+	<a href="/ktbwos/login_form.jsp">로그인</a>
+	<% } %>
+</div>
 </div>
 <br />
 <table style="width:1100px; margin:0 auto;">

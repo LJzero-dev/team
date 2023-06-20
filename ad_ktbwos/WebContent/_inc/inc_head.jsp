@@ -78,7 +78,7 @@ function isDel(link) {
       <th><a href="/ad_ktbwos/bbs/ad_free_list.jsp">자유게시판 관리</a></th>
       <th><a href="/ad_ktbwos/bbs/ad_pds_list.jsp">자료실 관리</a></th>
       <th><a href="/ad_ktbwos/bbs/request_list.jsp">게시판 요청 관리</a></th>
-      <th><a href="/ad_ktbwos/bbs/ad_ctgr_list.jsp">카테고리 게시판 관리</a></th>
+      <th><a href="/ad_ktbwos/bbs/ctgr_list.jsp">카테고리 게시판 관리</a></th>
       <th><a href="/ad_ktbwos/bbs/ad_qna_list.jsp">QnA 관리</a></th>
       <th><a href="/ad_ktbwos/ad_mi_list.jsp">회원 관리</a></th>
 	</tr>

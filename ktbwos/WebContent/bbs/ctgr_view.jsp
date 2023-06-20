@@ -25,6 +25,9 @@ try {
 	sql = "update t_" + rl_table_name + "_list set " + rl_table_name + "_read = " + rl_table_name + "_read + 1 where " + rl_table_name + "_idx = " + idx;
 	stmt.executeUpdate(sql);	// 조회수 증가 쿼리 실행
 	
+	sql = "update t_request_list set rl_read = rl_read + 1 where rl_table_name = '" + rl_table_name + "'";
+	stmt.executeUpdate(sql);	// 조회수 증가 쿼리 실행
+	
 	sql = "select * from t_" + rl_table_name + "_list where " + rl_table_name + "_idx = " + idx;
 	rs = stmt.executeQuery(sql);
 	if (rs.next()) {
