@@ -1,11 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="_inc/inc_head.jsp" %>
-<<<<<<< HEAD
-
-
-
-
-=======
 <%
 int num = 0;
 %>
@@ -47,5 +41,4 @@ int num = 0;
 		<% } %>
 		</table>
 </div>
->>>>>>> origin/main
 <%@ include file="_inc/inc_foot.jsp" %>
