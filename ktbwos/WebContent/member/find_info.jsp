@@ -19,9 +19,8 @@ request.setCharacterEncoding("utf-8");
 <script>
 
 function chkValId(form) {
-	if (form.codein.value == "") {
+	if (document.frmfindid.codein.value == "") {
 		alert("이메일 확인을 완료해주세요.");
-		form.codein.focus();
 		return false;
 	}
 	
@@ -29,14 +28,20 @@ function chkValId(form) {
 }
 
 function chkValPw(form) {
-	if (form.codein.value == "") {
+	if (document.frmfindpw.codein.value == "") {
 		alert("이메일 확인을 완료해주세요.");
-		form.codein.focus();
 		return false;
 	}
 	
-	if (form.mi_id.value == "") {
+	if (document.frmfindpw.mi_id.value == "") {
 		alert("아이디를 입력해주세요.");
+		return false;
+	} else {
+		location.href = "/ktbwos/member/isuser_id.jsp";
+	}
+	
+	if (document.frmfindpw.isUser.value == "n") {
+		alert("유효하지 않은 회원 아이디입니다.");
 		form.mi_id.focus();
 		return false;
 	}
@@ -44,8 +49,8 @@ function chkValPw(form) {
 	return true;
 }
 
-function rightcode() {	// 입력 받은 인증코드가 이메일로 보낸 인증코드와 같은지 확인하는 메소드
-	var codein = document.getElementById("codein").value;
+function rightcodei() {	// 입력 받은 인증코드가 이메일로 보낸 인증코드와 같은지 확인하는 메소드
+	var codein = document.frmfindid.codein.value;
 	var ok = sessionStorage.getItem("codeSession");
 	if (codein != ok) {
 		alert("인증번호를 다시 확인해주세요.");
@@ -53,6 +58,18 @@ function rightcode() {	// 입력 받은 인증코드가 이메일로 보낸 인�
 	} else {
 		alert("인증번호가 확인되었습니다.");
 		document.getElementById("codein").disabled = true;
+	}
+}
+
+function rightcodep() {	// 입력 받은 인증코드가 이메일로 보낸 인증코드와 같은지 확인하는 메소드
+	var codein = document.frmfindpw.codein.value;
+	var ok = sessionStorage.getItem("codeSession");
+	if (codein != ok) {
+		alert("인증번호를 다시 확인해주세요.");
+		codein.value = "";
+	} else {
+		alert("인증번호가 확인되었습니다.");
+		document.frmfindpw.codein.disabled = true;
 	}
 }
 
@@ -66,7 +83,7 @@ function rightcode() {	// 입력 받은 인증코드가 이메일로 보낸 인�
 	<table width="1100" cellpadding="5" >
 		<tr><th>인증번호 입력</th><td>
 		<input type="text" id="codein" value="" title="인증코드 입력" placeholder="인증코드 입력" maxlength="20" />
-		<input type="button" value="확인" onclick="rightcode();" /><br />
+		<input type="button" value="확인" onclick="rightcodei();" /><br />
 		<input type="submit" value="아이디 찾기" /></td></tr>
 	</table>
 </form>
@@ -78,7 +95,9 @@ function rightcode() {	// 입력 받은 인증코드가 이메일로 보낸 인�
 	<table width="1100" cellpadding="5" >
 		<tr><th>인증번호 입력</th><td>
 		<input type="text" id="codein" value="" title="인증코드 입력" placeholder="인증코드 입력" maxlength="20" />
-		<input type="button" value="확인" onclick="rightcode();" /><br />
+		<input type="button" value="확인" onclick="rightcodep();" /><br />
+	<iframe src="isuser_id.jsp" id="isuser" style="width:300px; height:200px; border:1px black solid; display:none;" ></iframe>
+			<input type="hidden" name="isUser" value="n" />
 		<tr><th>아이디 입력</th><td>
 		<input type="text" id="mi_id" value="" placeholder="아이디" maxlength="20" /><br />
 		<input type="submit" value="비밀번호 재설정" /></td></tr>

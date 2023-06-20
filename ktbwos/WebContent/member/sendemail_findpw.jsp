@@ -98,14 +98,11 @@ function codeSending() {
 	if (emailid == "" || emaildomain == "") {
 		alert("이메일을 입력해주세요");
 	} else {
-		var find = document.getElementById("find");
-		find.src = "user_email_chk.jsp?mi_email=" + mi_email;
-		
 		var userEmail = parent.frmfindpw.userEmail;
-		userEmail.value = email;
+		userEmail.value = mi_email;
+		
 		send();
 	}
-	
 	
 	
 }
@@ -118,7 +115,7 @@ function send() {
 
 
 </script>
-<iframe src="" id="find" style="width:300px; height:200px; border:1px black solid; display:none;" ></iframe>
+<iframe src="user_email_chk.jsp" id="find" style="width:300px; height:200px; border:1px black solid; display:none;" ></iframe>
 <form id="frmfindpw" action="mailSend" method="post" >	<!-- mailSend는 서블릿 -->
 <table width="100%" cellpadding="5" >
 		<input type="hidden" name="isUser" value="n" />

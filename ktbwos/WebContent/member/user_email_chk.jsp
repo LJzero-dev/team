@@ -16,7 +16,6 @@ try {
 	rs = stmt.executeQuery(sql);
 %>
 <script>
-	var yes = parent.document.getElementById("yes");
 	var isUser = parent.frmfindid.isUser;
 <%	if (rs.next()){	%>
 	isUser.value = "y";
