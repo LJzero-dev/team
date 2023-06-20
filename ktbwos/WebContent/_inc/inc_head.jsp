@@ -110,7 +110,7 @@ function goLogin(link) {
 <% } %>
 </div>
 <br />
-<table width="1100" align="center">
+<table style="width:1100px; margin:0 auto;">
 	<tr>
 		<th><a style="color:white;" href="/ktbwos/bbs/notice_list.jsp">공지사항</a></th>
 		<th><a style="color:white;" href="/ktbwos/bbs/free_list.jsp">자유게시판</a></th>
