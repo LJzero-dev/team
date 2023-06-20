@@ -3,13 +3,14 @@
 <%
 int num = 0;
 %>
+
 <div style="width:1100px; height:800px; margin:0 auto; border:1px solid white; ">
-	
 		<table style="width:700px; float:left; margin-top: 30px;" >
 		<tr>
 			<td width="15%"><h3>순위</h3></td><td width="20%"><h3>유형</h3></td><td width="*"><h3>이 달의 인기 게시판</h3></td>
 		</tr>
-		<% rs = conn.createStatement().executeQuery("select rl_ctgr, rl_name, rl_table_name from t_request_list where rl_status = 'y' order by rl_read desc limit 10"); 
+		<% rs = conn.createStatement().executeQuery("select a.rl_ctgr, a.rl_name, a.rl_table_name from t_request_list a inner join t_best_list b on a.rl_table_name = b.bl_table_name " +
+		"where a.rl_status = 'y' and date(b.bl_date) > date_add(date(now()), interval -30 day) group by a.rl_ctgr, a.rl_name, a.rl_table_name order by sum(b.bl_count) desc"); 
 		while (rs.next()) {num++;%>
 		<tr>
 			<td><%=num %> 등</td><td><%=rs.getString(1).equals("a") ? "게임" : rs.getString(1).equals("b") ? "연예" : "스포츠"%></td><td><a href="bbs/table_list.jsp?rl_table_name=<%=rs.getString(3) %>"><%=rs.getString(2) %></a></td>
@@ -40,7 +41,4 @@ int num = 0;
 		<% } %>
 		</table>
 </div>
-
-
-
 <%@ include file="_inc/inc_foot.jsp" %>
