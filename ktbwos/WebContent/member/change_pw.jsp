@@ -46,6 +46,7 @@ function pwCheck(form) {
 	form.method="POST";
 	form.action="member_change_pw_proc.jsp";
 	form.submit();
+	alert("비밀번호 변경이 완료되었습니다.");
 	
 }
 </script>

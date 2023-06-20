@@ -51,12 +51,13 @@ public class MailSendServlet extends HttpServlet {
 			msg.setSentDate(new java.util.Date());
 			
 			Transport.send(msg);
-			out.println("<script>");
-			out.println("history.back();");
-			out.println("</script>");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-		} 
+		} finally {
+			out.println("<script>");
+			out.println("history.back();");
+			out.println("</script>");
+		}
 	}
 }

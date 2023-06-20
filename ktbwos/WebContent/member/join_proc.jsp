@@ -18,7 +18,7 @@ try {
 	
 	sql = "insert into t_member_info (mi_id, mi_email, mi_nick, mi_pw, mi_reason) " + 
 	"values ('" + mi_id + "', '" + email + "', '" + mi_nick + "', '" + mi_pw + "', '신규가입')";
-//	System.out.println(sql);
+	System.out.println(sql);
 	// 자유게시판 레코드 개수(검색조건 포함)를 받아 올 쿼리
 	stmt.executeUpdate(sql);
 	

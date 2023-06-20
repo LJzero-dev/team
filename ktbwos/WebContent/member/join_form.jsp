@@ -24,8 +24,8 @@ request.setCharacterEncoding("utf-8");
 // 현재비밀번호 확인
 function chkVal(form) {
 	if (form.isDup.value == "n") {
-		alert("아이디를 입력해주세요.");
-		form.id.focus();
+		alert("아이디를 확인해주세요.");
+		form.mi_id.focus();
 		return false;	// submit 하지마	(return을 하면 함수를 끝냄)
 	}
 	
@@ -46,12 +46,21 @@ function chkVal(form) {
 		form.pw2.focus();
 		return false;
 	}
-	
-	if(form.emailid.value == "" || form.emaildomain.value == "") {
-		alert("이메일을 입력해주세요");
-		form.emailid.focus();
+
+/*	var emailid = children.document.getElementById("emailid");
+	if(emailid.value == null) {
+		alert("이메일 아이디를 입력해주세요");
+		emailid.focus();
 		return false;
 	} 
+
+	var emaildomain = children.document.getElementById("emaildomain");
+	if(emaildomain.value == null) {
+		alert("이메일 도메인을 입력해주세요");
+		emaildomain.focus();
+		return false;
+	} */
+
 	
 	if(form.codein.value == "") {
 		alert("이메일 확인을 완료해주세요.");
@@ -110,7 +119,10 @@ function rightcode() {	// 입력 받은 인증코드가 이메일로 보낸 인�
 	if (codein != ok) {
 		alert("인증번호를 다시 확인해주세요.");
 		codein.value = "";
-	} else alert("인증번호가 확인되었습니다.");
+	} else {
+		alert("인증번호가 확인되었습니다.");
+		document.getElementById("codein").disabled = true;
+	}
 }
 </script>
 <iframe src="" id="dup" style="width:300px; height:200px; border:1px black solid; display:none;" ></iframe>
