@@ -15,27 +15,6 @@ int num = 0;
 			<td><%=num %> 등</td><td><%=rs.getString(1).equals("a") ? "게임" : rs.getString(1).equals("b") ? "연예" : "스포츠"%></td><td><a href="bbs/table_list.jsp?rl_table_name=<%=rs.getString(3) %>"><%=rs.getString(2) %></a></td>
 		</tr>
 		<% } %>
-		<tr>
-			<td>a</td><td>a</td><td>a</td>
-		</tr>
-		<tr>
-			<td>a</td><td>a</td><td>a</td>
-		</tr>
-		<tr>
-			<td>a</td><td>a</td><td>a</td>
-		</tr>
-		<tr>
-			<td>a</td><td>a</td><td>a</td>
-		</tr>
-		<tr>
-			<td>a</td><td>a</td><td>a</td>
-		</tr>
-		<tr>
-			<td>a</td><td>a</td><td>a</td>
-		</tr>
-		<tr>
-			<td>a</td><td>a</td><td>a</td>
-		</tr>
 		</table>
 		
 		<table style="width:700px; height:20px; float:left; border:1px solid black; margin-top: 30px;" >
