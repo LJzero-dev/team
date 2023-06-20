@@ -101,7 +101,7 @@ function codeSending() {
 		var find = document.getElementById("find");
 		find.src = "user_email_chk.jsp?mi_email=" + mi_email;
 		
-		var userEmail = parent.frmfindid.userEmail;
+		var userEmail = parent.frmfindpw.userEmail;
 		userEmail.value = email;
 		send();
 	}
@@ -112,14 +112,14 @@ function codeSending() {
 
 function send() {
 	const code = Math.floor(Math.random() * 89999) + 10000;
-	frmfindid.content.value = code;
+	frmfindpw.content.value = code;
 	sessionStorage.setItem("codeSession", code);
 }
 
 
 </script>
 <iframe src="" id="find" style="width:300px; height:200px; border:1px black solid; display:none;" ></iframe>
-<form id="frmfindid" action="mailSend" method="post" >	<!-- mailSend는 서블릿 -->
+<form id="frmfindpw" action="mailSend" method="post" >	<!-- mailSend는 서블릿 -->
 <table width="100%" cellpadding="5" >
 		<input type="hidden" name="isUser" value="n" />
 	<tr><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;이메일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><td>
@@ -135,7 +135,7 @@ function send() {
 		</select><br />
 		<input type="hidden" name="sender" value="solmi2012@naver.com" />
 		<input type="hidden" name="receiver" value="" />
-		<input type="hidden" name="title" value="일석이조 사이트 아이디 찾기 인증 코드입니다. 아래의 인증코드를 인증코드 확인란에 입력해주세요." />
+		<input type="hidden" name="title" value="일석이조 사이트 비밀번호 찾기 인증 코드입니다. 아래의 인증코드를 인증코드 확인란에 입력해주세요." />
 		<input type="hidden" name="content" value="" />
 		<input type="submit" name="send" value="인증코드 발송" onclick="codeSending();" />
 	</td></tr>

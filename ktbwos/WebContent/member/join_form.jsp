@@ -131,8 +131,7 @@ function rightcode() {	// 입력 받은 인증코드가 이메일로 보낸 인�
 		<span id="pmsg">비밀번호는 4~20자 이내로 입력하세요.</span>
 	</td></tr>
 	</table>
-<div style="width:100px; height:5px; margin:0 auto; border=0;" ></div>
-<iframe src="sendemail.jsp" id="codeok" style="width:1100px; height:100px; " marginwidth="0" marginheight="0" frameborder="0" scrolling="no" ></iframe>
+<iframe src="sendemail.jsp" id="codeok" style="width:1100px; height:94px; " marginwidth="0" marginheight="0" frameborder="0" scrolling="no" ></iframe>
 <input type="hidden" name= "iscode" value="n" />
 	<input type="hidden" name="userEmail" value="user" />
 

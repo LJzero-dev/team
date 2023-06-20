@@ -1,6 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../_inc/inc_head.jsp" %>
+<%
 
+String userEmail = request.getParameter("userEmail");
+
+String mi_id = "";
+
+try {
+	stmt = conn.createStatement();
+	
+	sql = "select * from t_member_info where mi_status <> 'c' and mi_email = '" + userEmail + "'";
+	rs = stmt.executeQuery(sql);
+//	System.out.println(sql);
+	if (rs.next()) {
+		mi_id = rs.getString("mi_id");
+	} else {
+		out.println("<script>");
+		out.println("alert('존재하지 않는 회원입니다.');"); 
+		out.println("history.back();");	
+		out.println("</script>");
+		out.close();
+	}
+	
+} catch(Exception e) {
+	out.println("회원 아이디 보기시 문제가 발생했습니다.");
+	e.printStackTrace();
+} 
+%>
 
 <style>
 
@@ -12,12 +38,10 @@
 <div style="width:1100px; margin:0 auto;">
 <div id="box">
 	<br /><br />
-	&nbsp;이메일  &nbsp;&nbsp;<%=loginInfo.getMi_email() %><br /><br />
-	&nbsp;아이디  &nbsp;&nbsp;<%=loginInfo.getMi_id() %><br /><br />
-	&nbsp;닉네임  &nbsp;&nbsp;<input type="text" name="mi_nick" value="<%=loginInfo.getMi_nick() %>">
-	&nbsp;&nbsp;<input type="submit" value="변경" /><br /><br />
-	&nbsp;회원가입일  &nbsp;&nbsp;<%=loginInfo.getMi_date().substring(0, 10) %><br /><br />
-	&nbsp;<a href="/ktbwos/member/change_pw.jsp">비밀번호 변경하기</a><br /><br />
+	회원님의 아이디는<br />
+	(<%=mi_id%>)<br />
+	입니다
+	<br /><br />
 	<a href="/ktbwos/index.jsp" class="alltext">홈화면</a>
 	<a href="/ktbwos/login_form.jsp" class="alltext">로그인</a>
 	

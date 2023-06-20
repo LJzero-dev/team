@@ -21,10 +21,10 @@ try {
 <%	if (rs.next()){	%>
 	isUser.value = "y";
 <%	} else {	%>
-	alert("유효하지 않은 회원입니다.");
+	alert("유효하지 않은 회원이메일입니다.");
 	isUser.value = "n";
 <%	}	%>
-	yes.innerHTML = tmp;
+
 </script>
 <% } catch(Exception e) {
 	out.println("이메일 유저여부 검사에서 문제가 생겼습니다.");
