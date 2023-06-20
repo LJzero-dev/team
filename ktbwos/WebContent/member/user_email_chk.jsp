@@ -17,14 +17,17 @@ try {
 %>
 <script>
 	var yes = parent.document.getElementById("yes");
+	var isUser = parent.frmfindid.isUser;
 <%	if (rs.next()){	%>
-	alert("사용불가능한 이메일 입니다");
-	yes.checked = false;
-<%	} %>
-	
+	isUser.value = "y";
+<%	} else {	%>
+	alert("유효하지 않은 회원입니다.");
+	isUser.value = "n";
+<%	}	%>
+	yes.innerHTML = tmp;
 </script>
 <% } catch(Exception e) {
-	out.println("이메일 중복 검사에서 문제가 생겼습니다.");
+	out.println("이메일 유저여부 검사에서 문제가 생겼습니다.");
 	e.printStackTrace();
 } finally {
 	try { rs.close(); stmt.close(); }

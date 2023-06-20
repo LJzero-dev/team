@@ -8,17 +8,15 @@
 request.setCharacterEncoding("utf-8");
 String mi_id = request.getParameter("mi_id");
 String mi_pw = request.getParameter("mi_pw");
-String emailid = request.getParameter("emailid");
-String emaildomain = request.getParameter("emaildomain");
-String email = emailid + "@" + emaildomain;
+String userEmail = request.getParameter("userEmail");
 String mi_nick = request.getParameter("mi_nick");
 
 try {
 	stmt = conn.createStatement();
 	
 	sql = "insert into t_member_info (mi_id, mi_email, mi_nick, mi_pw, mi_reason) " + 
-	"values ('" + mi_id + "', '" + email + "', '" + mi_nick + "', '" + mi_pw + "', '신규가입')";
-	System.out.println(sql);
+	"values ('" + mi_id + "', '" + userEmail + "', '" + mi_nick + "', '" + mi_pw + "', '신규가입')";
+//	System.out.println(sql);
 	// 자유게시판 레코드 개수(검색조건 포함)를 받아 올 쿼리
 	stmt.executeUpdate(sql);
 	

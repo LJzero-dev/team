@@ -46,21 +46,6 @@ function chkVal(form) {
 		form.pw2.focus();
 		return false;
 	}
-
-/*	var emailid = children.document.getElementById("emailid");
-	if(emailid.value == null) {
-		alert("이메일 아이디를 입력해주세요");
-		emailid.focus();
-		return false;
-	} 
-
-	var emaildomain = children.document.getElementById("emaildomain");
-	if(emaildomain.value == null) {
-		alert("이메일 도메인을 입력해주세요");
-		emaildomain.focus();
-		return false;
-	} */
-
 	
 	if(form.codein.value == "") {
 		alert("이메일 확인을 완료해주세요.");
@@ -146,8 +131,10 @@ function rightcode() {	// 입력 받은 인증코드가 이메일로 보낸 인�
 		<span id="pmsg">비밀번호는 4~20자 이내로 입력하세요.</span>
 	</td></tr>
 	</table>
-<iframe src="sendemail.jsp" id="codeok" style="width:1100px; height:100px; margin:0 auto; frameborder:0;" scrolling="no" ></iframe>
+<div style="width:100px; height:5px; margin:0 auto; border=0;" ></div>
+<iframe src="sendemail.jsp" id="codeok" style="width:1100px; height:100px; " marginwidth="0" marginheight="0" frameborder="0" scrolling="no" ></iframe>
 <input type="hidden" name= "iscode" value="n" />
+	<input type="hidden" name="userEmail" value="user" />
 
 	<table width="1100" cellpadding="5" >
 		<tr><th>인증번호 입력</th><td>

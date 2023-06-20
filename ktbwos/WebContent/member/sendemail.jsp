@@ -72,6 +72,7 @@ function goLogin(link) {
 </head>
 <body>
 <script>
+
 //이메일 도메인
 function setEmailDomain(domain) {
 	document.getElementById("emaildomain").value = domain;
@@ -81,33 +82,40 @@ function setEmailDomain(domain) {
 function dupEMAIL() { 
 	var emailid = document.getElementById("emailid").value;
 	var emaildomain = document.getElementById("emaildomain").value;
-	var email = emailid + "@" + emaildomain
+	var mi_email = emailid + "@" + emaildomain;
 	
 	if (emailid == "" || emaildomain == "") {
 		document.getElementById("yes").checked = false;
 		alert("이메일을 입력해주세요.");
 	} else {
 		var dup = document.getElementById("dup");
-		dup.src = "dup_email_chk.jsp?mi_email=" + email;
+		dup.src = "dup_email_chk.jsp?mi_email=" + mi_email;
 	}
 }
 
 function codeSending() {
+	var emailid = document.getElementById("emailid").value;
+	var emaildomain = document.getElementById("emaildomain").value;
+	var email = emailid + "@" + emaildomain;
+	
+	var userEmail = parent.frmJoin.userEmail;
+	
 	if (document.getElementById("yes").checked == false){ // 이메일 수집동의를 누르지 않고 인증 코드를 누른 경우 
 		if (!confirm("이메일 수집에 동의하시겠습니까?")) {	// 비동의
 			document.getElementById("yes").checked = false;
 		} else { // 동의했을 경우
-			var emailid = document.getElementById("emailid").value;
-			var emaildomain = document.getElementById("emaildomain").value;
 			if (emailid == "" || emaildomain == "") {
 				document.getElementById("yes").checked = false;
 				alert("이메일을 입력해주세요.");
 			} else {	// 동의 시킨 후 인증코드 발송
 				document.getElementById("yes").checked = true;
+				
+				userEmail.value = email;
 				send();
 			}
 		}
 	} else {
+		userEmail.value = email;
 		send();
 	}
 }
@@ -121,7 +129,8 @@ function send() {
 
 
 </script>
-<form id="frmmail" action="mailSend" method="post">	<!-- mailSend는 서블릿 -->
+<iframe src="" id="dup" style="width:300px; height:200px; border:1px black solid; display:none;" ></iframe>
+<form id="frmmail" action="mailSend" method="post" >	<!-- mailSend는 서블릿 -->
 <table width="100%" cellpadding="5" >
 <tr><th>이메일</th><td>
 		<input type="text" name="emailid" id="emailid" value="" title="이메일아이디" placeholder="이메일" maxlength="18" />
