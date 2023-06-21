@@ -10,6 +10,7 @@ if (request.getParameter("cpage") != null)
 String schtype = request.getParameter("schtype");
 String keyword = request.getParameter("keyword");
 String schargs = "";
+String adminId = "";
 String where = " where pl_isview = 'y' ";
 
 if (schtype == null || schtype.equals("") || keyword == null || keyword.equals("")) {
@@ -30,6 +31,9 @@ if (schtype == null || schtype.equals("") || keyword == null || keyword.equals("
 try {
 	stmt = conn.createStatement();
 	
+	rs = stmt.executeQuery("select ai_name from t_admin_info where ai_idx = 1");
+	rs.next();	adminId = rs.getString(1);
+	
 	sql = "select count(*) from t_pds_list" + where;
 	
 	rs = stmt.executeQuery(sql);
@@ -42,7 +46,7 @@ try {
 	sql = "select pl_idx, pl_title, pl_content, pl_read, if (curdate() = date(pl_date), time(pl_date), replace(mid(pl_date, 3, 8), '-', '.')) pldate" + 
 			" from t_pds_list" + where +  "order by pl_idx desc limit " + start + ", " + psize;;
 
-//	System.out.println(sql);
+	System.out.println(sql);
 	rs = stmt.executeQuery(sql);
 	
 } catch(Exception e) {
@@ -94,7 +98,7 @@ try {
 		<tr>
 			<td><b><%=num %></b></td>
 			<td align="left">&nbsp;<%=title %></td>
-			<td><%=loginInfo.getAi_name() %></td>
+			<td><%=adminId %></td>
 			<td><%=rs.getString("pldate") %></td>
 			<td><%=rs.getString("pl_read") %></td>
 		</tr>

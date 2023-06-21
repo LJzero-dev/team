@@ -7,6 +7,7 @@ int idx = Integer.parseInt(request.getParameter("idx"));
 String schtype = request.getParameter("schtype");	// 검색조건
 String keyword = request.getParameter("keyword");	// 검색어
 String args = "?cpage=" + cpage;
+String adminId = "";
 if (schtype != null && !schtype.equals("") && keyword != null && !keyword.equals("")) {
 	args += "&schtype=" + schtype + "&keyword=" + keyword;
 	// 링크에 검색 관련 값들을 쿼리스트링으로 연결해줌
@@ -17,6 +18,11 @@ int pl_read = 0;
 
 try {
 	stmt = conn.createStatement();
+	
+	rs = stmt.executeQuery("select ai_name from t_admin_info where ai_idx = 1");
+	rs.next();	adminId = rs.getString(1);
+	
+	
 	sql = "update t_pds_list set pl_read = pl_read + 1 where pl_idx = " + idx;
 	stmt.executeUpdate(sql);	// 조회수 증가 쿼리 실행
 	
@@ -60,7 +66,7 @@ try {
 	<a href="/ktbwos/bbs/free_list.jsp" class="alltext">전체글</a>
 	<table width="1100" cellpadding="5">
 		<tr>
-			<td width="60%" style="text-align:left;"><b><%=loginInfo.getAi_name() %></b></td>
+			<td width="60%" style="text-align:left;"><b><%=adminId %></b></td>
 			<td width="*"><b><%=pl_date %></b></td>
 			<td width="10%"><b>조회수 : <%=pl_read %></b></td>
 		</tr>

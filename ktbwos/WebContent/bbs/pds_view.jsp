@@ -84,7 +84,7 @@ try {
 			첨부파일1 : <a href="/ad_ktbwos/bbs/pds_file_download.jsp?file=<%=pl_data1 %>"><span style="margin:0 10px; color:#0093ff;"> <%=pl_data1 %></span></a> 
 			첨부파일2 : <a href="/ad_ktbwos/bbs/pds_file_download.jsp?file=<%=pl_data2 %>" style="margin-left:10px; color:#0093ff;"><%=pl_data2 %></a>
 			<% } else if (!pl_data1.equals("") && pl_data2.equals("")) { %>
-			첨부파일1 : <a href="file_download.jsp?file=<%=pl_data1 %>"><span style="margin:0 10px; color:#0093ff;"> <%=pl_data1 %></span></a>
+			첨부파일1 : <a href="/ad_ktbwos/bbs/pds_file_download.jsp?file=<%=pl_data1 %>"><span style="margin:0 10px; color:#0093ff;"> <%=pl_data1 %></span></a> 
 			<% } else { %>
 			
 			<% } %>
