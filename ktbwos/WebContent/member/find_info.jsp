@@ -24,6 +24,12 @@ function chkValId(form) {
 		return false;
 	}
 	
+	if (document.frmfindid.isUser.value == "n") {
+		alert("유효하지 않은 회원 이메일입니다.");
+		form.mi_id.focus();
+		return false;
+	}
+	
 	return true;
 }
 
@@ -37,7 +43,8 @@ function chkValPw(form) {
 		alert("아이디를 입력해주세요.");
 		return false;
 	} else {
-		location.href = "/ktbwos/member/isuser_id.jsp";
+		var isuser = document.frmfindpw.isuser;
+		isuser.src = "isuser_id.jsp?mi_id=" + mi_id;
 	}
 	
 	if (document.frmfindpw.isUser.value == "n") {
@@ -96,10 +103,10 @@ function rightcodep() {	// 입력 받은 인증코드가 이메일로 보낸 인
 		<tr><th>인증번호 입력</th><td>
 		<input type="text" id="codein" value="" title="인증코드 입력" placeholder="인증코드 입력" maxlength="20" />
 		<input type="button" value="확인" onclick="rightcodep();" /><br />
-	<iframe src="isuser_id.jsp" id="isuser" style="width:300px; height:200px; border:1px black solid; display:none;" ></iframe>
+	<iframe src="" id="isuser" style="width:300px; height:200px; border:1px black solid; display:none;" ></iframe>
 			<input type="hidden" name="isUser" value="n" />
 		<tr><th>아이디 입력</th><td>
-		<input type="text" id="mi_id" value="" placeholder="아이디" maxlength="20" /><br />
+		<input type="text" name="mi_id" id="mi_id" value="" placeholder="아이디" maxlength="20" /><br />
 		<input type="submit" value="비밀번호 재설정" /></td></tr>
 	</table>
 </form>
