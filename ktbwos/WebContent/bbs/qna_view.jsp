@@ -6,19 +6,21 @@ int cpage = Integer.parseInt(request.getParameter("cpage"));
 int idx = Integer.parseInt(request.getParameter("idx"));
 String schtype = request.getParameter("schtype");	// 검색조건
 String keyword = request.getParameter("keyword");	// 검색어
-String args = "?cpage=" + cpage;
+String argsl = "?cpage=" + cpage;
+String argsu = "?cpage=" + cpage + "&kind=up&idx=" + idx;
 if (schtype != null && !schtype.equals("") && keyword != null && !keyword.equals("")) {
-	args += "&schtype=" + schtype + "&keyword=" + keyword;
+	argsl += "&schtype=" + schtype + "&keyword=" + keyword;
+	argsu += "&schtype=" + schtype + "&keyword=" + keyword;
 }	// 링크에 검색 관련 값들을 쿼리스트링으로 연결해줌
 
 
-String ql_title = "", ql_content = "", ql_qdate = "", mi_id = "", ql_adate = "", ai_id = "";
+String ql_title = "", ql_content = "", ql_qdate = "", mi_id = "", ql_adate = "", ai_id = "", ql_isanswer = "", ql_answer = "";
 int mi_idx = 0;
 
 
 try {
 	stmt = conn.createStatement();
-	sql = "select b.mi_idx, b.mi_id, a.ql_title, a.ql_content, a.ql_qdate" +  
+	sql = "select b.mi_idx, b.mi_id, a.ql_title, a.ql_content, a.ql_qdate, a.ql_isanswer, a.ql_answer, a.ql_adate" +  
 			" from t_qna_list a inner join t_member_info b on a.mi_idx = b.mi_idx where ql_isview = 'y' and ql_idx =" + idx;
 	rs = stmt.executeQuery(sql);
 	// out.println(sql);
@@ -26,8 +28,10 @@ try {
 		
 		ql_content = rs.getString("ql_content").replace("\r\n", "<br>");
 		// 엔터(\r\n)를 <br> 태그로 변경하여 ql_content변수에 저장
-		ql_title = rs.getString("ql_title");	ql_qdate = rs.getString("ql_qdate").substring(0, 10);
-		mi_idx = rs.getInt("mi_idx");			mi_id = rs.getString("mi_id");			
+		ql_title = rs.getString("ql_title");			ql_qdate = rs.getString("ql_qdate").substring(0, 10);
+		mi_idx = rs.getInt("mi_idx");					mi_id = rs.getString("mi_id");	
+		ql_isanswer = rs.getString("ql_isanswer");		ql_answer = rs.getString("ql_answer");
+		ql_adate = ql_isanswer.equals("y") ? rs.getString("ql_adate").substring(0, 10) : "";
 	} else {
 		out.println("<script>");
 		out.println("alert('존재하지 않는 게시물입니다.');");
@@ -65,15 +69,22 @@ try {
 		<h4>&nbsp;&nbsp;<%=ql_title %></h4>
 		<hr>
 		<%=ql_content %>	
-
 		<hr>
-		
-		
+		<br>
+		<%if (ql_isanswer.equals("n")) {%>
+		답변대기중
+		<%} else { %>
+		<div style="float : left;">&nbsp;&nbsp;test1</div>
+		<div style="float : right;">&nbsp;&nbsp;<%=ql_adate %></div>
+		<br>
+		<hr>
+		<%=ql_answer %>
+		<%} %>
 	<!-- </div> -->
 	<br><br><br>
 	<div align="right">
-	<input type="button" value="목록" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" onclick="location.href='qna_list.jsp<%=args%>'">
-	<input type="button" value="수정" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" onclick="location.href='qna_form.jsp<%=args%>'">
+	<input type="button" value="목록" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" onclick="location.href='qna_list.jsp<%=argsl%>'">
+	<input type="button" value="수정" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" onclick="location.href='qna_form.jsp<%=argsu%>'">
 	<script>
 		function isDel() {
 			if (confirm("정말 삭제하시겠습니까?")) {

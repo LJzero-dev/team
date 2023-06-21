@@ -22,7 +22,8 @@ try {
 	if (rs.next()) idx = rs.getInt(1) +1;
 	
 	sql = "insert into t_qna_list (mi_idx, ql_title, ql_content) values ('" + loginInfo.getMi_idx() + "', '" + ql_title + "', '" + ql_content + "')";
-//	System.out.println(sql);
+	System.out.println(ql_title);
+	System.out.println(ql_content);
 	
 	int result = stmt.executeUpdate(sql);
 	if (result == 1) {

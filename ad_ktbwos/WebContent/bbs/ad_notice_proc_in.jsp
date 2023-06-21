@@ -21,7 +21,7 @@ try {
 	rs = stmt.executeQuery(sql);
 	if (rs.next()) idx = rs.getInt(1) +1;
 	
-	sql = "insert into t_notice_list (ai_idx, nl_title, nl_content) values (1,'" + nl_title + "','" + nl_content + "')";
+	sql = "insert into t_notice_list (ai_idx ,nl_title, nl_content) values (1,'" + nl_title + "','" + nl_content + "')";
 	int result = stmt.executeUpdate(sql);
 	if (result == 1) {
 		response.sendRedirect("ad_notice_view.jsp?cpage=1&idx=" + idx);
