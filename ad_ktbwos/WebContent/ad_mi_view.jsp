@@ -16,13 +16,14 @@ if (schtype != null && !schtype.equals("") && keyword != null && !keyword.equals
 	args += "&schtype=" + schtype + "&keyword=" + keyword;
 }	// 링크에 검색관련 값들을 쿼리스트링으로 연결해줌
 // view 화면에서 보여줄 게시글의 정보들을 저장할 변수들
-String mi_id = "", mi_email = "", mi_nick = "", mi_status = "", mi_date = "", mi_lastlogin = "";
+String mi_id = "", mi_email = "", mi_nick = "", mi_status = "", mi_date = "", milastlogin = "";
 int mi_idx = 0, mi_count = 0;
 
 try {
 	stmt = conn.createStatement();
 	
-	sql = "select * from t_member_info where mi_idx = " + idx;
+	sql = "select mi_idx, mi_id, mi_email, mi_nick, mi_status, mi_date, mi_count, ifnull(mi_lastlogin, '로그인 내역 없음....') milastlogin " + 
+	"from t_member_info where mi_idx = " + idx;
 	rs = stmt.executeQuery(sql);
 	if (rs.next()) {
 		mi_idx = rs.getInt("mi_idx");
@@ -31,8 +32,10 @@ try {
 		mi_nick = rs.getString("mi_nick");
 		mi_status = rs.getString("mi_status");
 		mi_date = rs.getString("mi_date");
-		mi_lastlogin = rs.getString("mi_lastlogin");
+		milastlogin = rs.getString("milastlogin");
 		mi_count = rs.getInt("mi_count");
+		
+		
 		
 	} else {
 		out.println("<script>");
@@ -77,7 +80,7 @@ if (mistatus.equals("a")) {
 <th width="15%">닉네임</th>
 <th><%=rs.getString("mi_nick") %></th>
 <th width="10%">최종로그인</th>
-<th><%=rs.getString("mi_lastlogin").substring(0, 10) %></th>
+<th><%=rs.getString("milastlogin").substring(0, 10) %></th>
 </tr>
 <tr height="30">
 <th width="10%">작성한 게시글 수</th>
