@@ -125,7 +125,7 @@ function rightcode() {	// 입력 받은 인증코드가 이메일로 보낸 인�
 	</td>
 	</tr>
 	
-	<tr><th>비밀번호</th><td><input type="password" id="pw1" maxlength="20" /></td></tr>
+	<tr><th>비밀번호</th><td><input type="password" id="pw1" onkeyup="comparePW(this.value);" maxlength="20" /></td></tr>
 	<tr><th>비밀번호 <br />확인</th><td>
 		<input type="password" name="mi_pw" id="pw2" onkeyup="comparePW(this.value);" maxlength="20" /><br />
 		<span id="pmsg">비밀번호는 4~20자 이내로 입력하세요.</span>
