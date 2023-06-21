@@ -13,7 +13,7 @@ String schargs = "";
 String rl_table_name = request.getParameter("rl_table_name");
 String where = " where " + rl_table_name + "_isview = 'y' ";
 String rl_write = "";
-
+String table_name = "";
 if (schtype == null || schtype.equals("") || keyword == null || keyword.equals("")) {
 	schtype = "";	keyword = "";
 	
@@ -35,6 +35,9 @@ try {
 	stmt = conn.createStatement();
 	rs = stmt.executeQuery("select rl_write from t_request_list where rl_table_name = '" + rl_table_name + "'");
 	if (rs.next())	rl_write = rs.getString(1);
+	
+	rs = stmt.executeQuery("select rl_name from t_request_list where rl_table_name = '" + rl_table_name + "'");
+	rs.next(); table_name = rs.getString(1);
 	
 	sql = "select count(*) from t_" + rl_table_name + "_list" + where;
 	rs = stmt.executeQuery(sql);
@@ -70,7 +73,7 @@ function goLogin() {
 </script>
 <div style="width:1100px; margin:0 auto;">
 	<a href="/ktbwos/bbs/table_list.jsp?rl_table_name=<%=rl_table_name %>" class="alltext">전체글</a>
-	<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;"><%=rl_table_name %>게시판</span>
+	<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;"><%=table_name %> 게시판</span>
 	<form name="frmSch" style="margin-bottom:0;">
 		<input type="hidden" name="rl_table_name" value="<%=rl_table_name %>">
 		<fieldset style=" width:335px; margin-left:737px; background:#1E4B79;">
