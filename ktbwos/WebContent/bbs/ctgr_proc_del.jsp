@@ -9,6 +9,9 @@ try {
 	sql = "update t_" + rl_table_name + "_list set " + rl_table_name + "_isview = 'n' where " + rl_table_name + "_idx = " + idx;
 	int result = stmt.executeUpdate(sql);
 	if (result == 1) {
+	rs = stmt.executeQuery("select " + rl_table_name + "_read, " + rl_table_name + "_date from t_" + rl_table_name + "_list where " + rl_table_name + "_idx = " + idx);	rs.next();
+	
+	stmt.executeUpdate("update t_best_list set bl_count = bl_count - " + rs.getInt(1) + " where bl_table_name = '" + rl_table_name + "' and date(bl_date) = date('" + rs.getString(2) + "')");
 		response.sendRedirect("table_list.jsp?rl_table_name=" + rl_table_name);
 	} else {
 		out.println("<script>");

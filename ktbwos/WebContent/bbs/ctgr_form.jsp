@@ -34,13 +34,14 @@ if (kind.equals("up")) {	// 게시글 수정 폼일 경우
 		where += " and " + rl_table_name + "_writer = '" + loginInfo.getMi_nick() + "' ";
 	sql = "select * from t_" + rl_table_name + "_list " + where;
 	try {
-		stmt = conn.createStatement();
+		stmt = conn.createStatement();		
 		rs = stmt.executeQuery(sql);
 		if (rs.next()) {	// 게시글이 있으면
 			writer = rs.getString(rl_table_name + "_writer");
 			title = rs.getString(rl_table_name + "_title");
 			content = rs.getString(rl_table_name + "_content");
 			date = rs.getString(rl_table_name + "_date");
+			
 		} else {			// 게시글이 없으면
 			out.println("<script>");
 			if (ismem.equals("n"))
@@ -99,7 +100,7 @@ if (kind.equals("up")) {	// 게시글 수정 폼일 경우
 	<th>글제목</th>
 	<td width="50%"><input type="text" name="title" size="60" style="width:100%; height:30px; border:0;" placeholder="제목을 입력해주세요." ></td>
 	<th width="15%">게시판 이름</th>
-	<td><%=rl_table_name %></td>
+	<td><%=request.getParameter("table_name") %></td>
 	</tr>
 	<tr>
 	<th>내용</th>
