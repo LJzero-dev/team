@@ -16,7 +16,7 @@ try {
 		mi_id = rs.getString("mi_id");
 	} else {
 		out.println("<script>");
-		out.println("alert('존재하지 않는 회원입니다.');"); 
+		out.println("alert('존재하지 않는 회원입니다. 다시 확인해주세요.');"); 
 		out.println("history.back();");	
 		out.println("</script>");
 		out.close();

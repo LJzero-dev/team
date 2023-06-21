@@ -85,6 +85,11 @@ function chkValId(form) {
 		return false;
 	}
 	
+	if (form.isUser.value == "n") {
+		alert("유효하지 않은 회원이메일입니다.");
+		return false;
+	}
+	
 	return true;
 }
 
