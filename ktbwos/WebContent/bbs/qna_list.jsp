@@ -20,7 +20,7 @@ if (request.getParameter("cpage") != null)
 String schtype = request.getParameter("schtype");	// 검색조건
 String keyword = request.getParameter("keyword");	// 검색어
 String schargs = ""; 	// 검색관련 쿼리스트링을 저장할 변수
-String where = " where ql_isview = 'y' "; 		// 검색조건이 있을 경우 where절을 저장할 변수
+String where = " where ql_isview = 'y'"; 		// 검색조건이 있을 경우 where절을 저장할 변수
 if (schtype == null || schtype.equals("") || keyword == null || keyword.equals("")) {
 	// 검색을 하지 않는 경우
 	schtype = "";	keyword = "";
@@ -31,7 +31,7 @@ if (schtype == null || schtype.equals("") || keyword == null || keyword.equals("
 	if (schtype.equals("tc")) {	// 검색조건이 '제목 +내용' 일 경우
 		where += " and (ql_title like '%" + keyword + "%' or ql_content like '%" + keyword + "%')";
 	} else { // 검색 조건이 '제목'이거나 '내용'일 경우
-		where += " and nl_" + schtype + " like '%" + keyword + "%' ";
+		where += " and ql_" + schtype + " like '%" + keyword + "%' ";
 	}
 	schargs = "&schtype=" + schtype + "&keyword=" + keyword;
 	// 검색조건이 있을 경우 링크의 url에 붙일 쿼리스트링 완성
@@ -50,7 +50,7 @@ try {
 	if (rcnt % psize > 0)	pcnt++;	// 전체 페이지 수
 	
 	int start = (cpage -1) * psize;
-	sql = "select a.ql_idx, b.mi_idx, b.mi_id, a.ql_title, a.ql_qdate, a.ql_isanswer, a.ql_isanswer" + 
+	sql = "select a.ql_idx, b.mi_idx, b.mi_nick, a.ql_title, a.ql_qdate, a.ql_isanswer, a.ql_isanswer" + 
 			" from t_qna_list a inner join t_member_info b on a.mi_idx = b.mi_idx " + 
 			where + " order by ql_idx desc limit " + start + ", " + psize;
 	// System.out.println(sql);
@@ -107,15 +107,16 @@ if (rs.next()) {
 		if (allTitle != null) title2 += " title='" + allTitle + "'";
 		title2 += ">" + title + "</a>";
 		// title에 링크걸기 테이블안에서도 할수있지만 복잡함
+		if (rs.getInt("mi_idx") == loginInfo.getMi_idx()) {
 %>
-<tr height="30" align="center">
-<td><%=num %></td>
-<td align="left"><%=title2 %></td>
-<td><%=rs.getString("mi_id") %></td>
-<td><%=rs.getString("ql_qdate").substring(0, 10) %></td>
-<td><%=qlisanswer %></td>
-</tr>
-<% 
+		<tr height="30" align="center">
+		<td><%=num %></td>
+		<td align="left"><%=title2 %></td>
+		<td><%=rs.getString("mi_nick") %></td>
+		<td><%=rs.getString("ql_qdate").substring(0, 10) %></td>
+		<td><%=qlisanswer %></td>
+		</tr>
+<% 		}
 	num--;
 	} while (rs.next());
 	
@@ -143,7 +144,7 @@ if (rs.next()) {
 <tr align="center">
 <%
 if (rcnt > 0) {
-	String link = "ql_list.jsp?cpage=";
+	String link = "qna_list.jsp?cpage=";
 	if (cpage == 1) {
 		out.println("[처음]&nbsp;&nbsp;&nbsp;[이전]&nbsp;&nbsp;");
 	} else {
