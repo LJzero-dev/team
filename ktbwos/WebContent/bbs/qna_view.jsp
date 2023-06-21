@@ -65,6 +65,7 @@ try {
 		<h4>&nbsp;&nbsp;<%=ql_title %></h4>
 		<hr>
 		<%=ql_content %>	
+
 		<hr>
 		
 		

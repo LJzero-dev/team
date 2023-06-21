@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../_inc/inc_head.jsp" %>
 <%
 if (!isLogin) {	// 로그인이 되어 있지 않다면
@@ -12,29 +11,32 @@ if (!isLogin) {	// 로그인이 되어 있지 않다면
 
 request.setCharacterEncoding("utf-8");
 
-String nl_title = getRequest(request.getParameter("nl_title"));
-String nl_content = getRequest(request.getParameter("nl_content"));
+String ql_title = request.getParameter("ql_title");
+String ql_content = request.getParameter("ql_content");
+
 try {
 	stmt = conn.createStatement();
 	int idx = 1;
-	sql = "select max(nl_idx) from t_notice_list";
+	sql = "select max(ql_idx) from t_qna_list";
 	rs = stmt.executeQuery(sql);
 	if (rs.next()) idx = rs.getInt(1) +1;
 	
-	sql = "insert into t_notice_list (ai_idx, nl_title, nl_content) values (1,'" + nl_title + "','" + nl_content + "')";
+	sql = "insert into t_qna_list (mi_idx, ql_title, ql_content) values ('" + loginInfo.getMi_idx() + "', '" + ql_title + "', '" + ql_content + "')";
+//	System.out.println(sql);
+	
 	int result = stmt.executeUpdate(sql);
 	if (result == 1) {
-		response.sendRedirect("ad_notice_view.jsp?cpage=1&idx=" + idx);
+		response.sendRedirect("qna_view.jsp?cpage=1&idx=" + idx);
 	}else {
 		out.println("<script>");
-		out.println("alert('공지 글 등록에 실패했습니다.\n다시 시도하세요.');");
+		out.println("alert('qna 글 등록에 실패했습니다.\n다시 시도하세요.');");
 		out.println("history.back();");
 		out.println("</script>");
 		out.close();
 	}
 	
 } catch(Exception e) {
-	out.println("공지사항 등록시 문제가 발생했습니다.");
+	out.println("qna 등록시 문제가 발생했습니다.");
 	e.printStackTrace();
 } finally {
 	try {

@@ -39,6 +39,7 @@ try {
 		// 로그인한 회원의 정보들을 저장할 인스턴스 생성
 		mi.setMi_id(mi_id);
 		mi.setMi_pw(mi_pw);
+		mi.setMi_idx(rs.getInt("mi_idx"));
 		mi.setMi_email(rs.getString("mi_email"));
 		mi.setMi_nick(rs.getString("mi_nick"));
 		mi.setMi_status(rs.getString("mi_status"));

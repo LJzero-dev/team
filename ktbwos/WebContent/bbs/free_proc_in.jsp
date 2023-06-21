@@ -26,7 +26,7 @@ try {
 	
 	sql = "insert into t_free_list (fl_idx, fl_ismem,fl_writer, fl_pw, fl_title, fl_content, fl_ip) values (?, ?, ?, ?, ?, ?, ?)";
 	
-	System.out.println(sql);
+//	System.out.println(sql);
 	
 	PreparedStatement pstmt = conn.prepareStatement(sql);
 	pstmt.setInt(1, idx);
