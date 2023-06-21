@@ -42,7 +42,7 @@ try {
 	sql = "select pl_idx, pl_title, pl_content, pl_read, if (curdate() = date(pl_date), time(pl_date), replace(mid(pl_date, 3, 8), '-', '.')) pldate" + 
 			" from t_pds_list" + where +  "order by pl_idx desc limit " + start + ", " + psize;;
 
-	System.out.println(sql);
+//	System.out.println(sql);
 	rs = stmt.executeQuery(sql);
 	
 } catch(Exception e) {

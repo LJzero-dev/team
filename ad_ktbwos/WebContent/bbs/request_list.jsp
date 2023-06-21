@@ -66,7 +66,7 @@ try {
 </style>
 
 <div style="width:1100px; margin:0 auto;">
-	<a href="/ktbwos/bbs/request_list.jsp" class="alltext">전체글</a>
+	<a href="/ad_ktbwos/bbs/request_list.jsp" class="alltext">전체글</a>
 	<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">요청 게시판</span>
 	<form name="frmSch" style="margin-bottom:0;">
 		<fieldset style=" width:335px; margin-left:737px; background:#1E4B79;">
