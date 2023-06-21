@@ -135,7 +135,7 @@ boolean isPms = (loginInfo != null) ? true : false ;
 	
 	<span style="display:inline-block; float:right; margin-top:5px; margin-left:10px;">
 	
-	<%	if (isPms && rl_writer.equals(loginInfo.getMi_nick()) && rl_status.equals("a")) {  %>
+	<%	if (isPms && rl_writer.equals(loginInfo.getMi_idx()) && rl_status.equals("a")) {  %>
 	<input type="button" value="수정" onclick="location.href='<%=upLink %>';" />
 <script>
 function isDel() {

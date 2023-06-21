@@ -26,21 +26,20 @@ String ql_content = getRequest(request.getParameter("ql_content"));
 try {
 	stmt = conn.createStatement();
 	sql = "update t_qna_list set " +	
-	"ql_title ='" + ql_title + "', " +	"ql_content ='" + ql_content + "'" +
-	" where ql_idx = " + idx;
+	"ql_title ='" + ql_title + "', " +	"ql_content ='" + ql_content + "' where ql_idx = " + idx;
 	// System.out.println(sql);
 	int result = stmt.executeUpdate(sql);
 	out.println("<script>");
 	if (result == 1) {
 		out.println("location.replace('qna_view.jsp" + args + "');");
 	}else {
-		out.println("alert('공지 글 수정에 실패했습니다.\n다시 시도하세요.');");
+		out.println("alert('qna 글 수정에 실패했습니다.\n다시 시도하세요.');");
 		out.println("history.back();");
 	}
 	out.println("</script>");
 	
 } catch(Exception e) {
-	out.println("공지사항 수정시 문제가 발생했습니다.");
+	out.println("qna 수정시 문제가 발생했습니다.");
 	e.printStackTrace();
 } finally {
 	try {

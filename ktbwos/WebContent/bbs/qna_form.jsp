@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ include file="../_inc/inc_head.jsp" %>
 <%
 
@@ -6,8 +7,7 @@ request.setCharacterEncoding("utf-8");
 String kind = request.getParameter("kind");
 String caption = "등록";		// 버튼에 사용할 캡션 문자열
 String action = "qna_proc_in.jsp";
-String ql_title = "", ql_content = "";
-int mi_idx = 0;
+String ql_title = "", ql_content = "", ql_isview = "n";
 
 int idx = 0;	// 글 번호를 저장할 변수로 '수정'일 경우에만 사용됨
 int cpage = 1; 	// 페이지 번호를 저장할 변수로 '수정'일 경우에만 사용됨
@@ -18,7 +18,7 @@ if (schtype != null && !schtype.equals("") && keyword != null && !keyword.equals
 	args = "&schtype=" + schtype + "&keyword=" + keyword;
 }	// 링크에 검색 관련 값들을 쿼리스트링으로 연결해줌
 
-if (kind.equals("up")) {	// 공지글 수정 폼일 경우
+if (kind.equals("up")) {	// QnA글 수정 폼일 경우
 	caption = "수정";
 	cpage = Integer.parseInt(request.getParameter("cpage"));
 	idx = Integer.parseInt(request.getParameter("idx"));
@@ -26,11 +26,10 @@ if (kind.equals("up")) {	// 공지글 수정 폼일 경우
 	
 	try {
 		stmt = conn.createStatement();
-		sql = "select * from t_qna_list where mi_idx = " + loginInfo.getMi_idx() + " and ql_isview = 'y' and ql_idx = " + idx;
+		sql = "select * from t_qna_list where ql_isview = 'y' and ql_idx = " + idx;
 		rs = stmt.executeQuery(sql);
 		if (rs.next()) {
-			mi_idx = rs.getInt("mi_idx");
-			ql_content = rs.getString("ql_content");	ql_title = rs.getString("ql_title");
+			ql_content = rs.getString("ql_content");	ql_title = rs.getString("ql_title");	ql_isview = rs.getString("ql_isview");	
 		} else {
 			out.println("<script>");
 			out.println("alert('존재하지 않는 게시물입니다.');");
@@ -40,7 +39,7 @@ if (kind.equals("up")) {	// 공지글 수정 폼일 경우
 		}
 		
 	} catch(Exception e) {
-		out.println("qna 글수정폼에서 문제가 발생했습니다.");
+		out.println("공지사항 글수정폼에서 문제가 발생했습니다.");
 		e.printStackTrace();
 	} finally {
 		try { rs.close();	stmt.close(); } 
@@ -56,7 +55,7 @@ if (kind.equals("up")) {	// 공지글 수정 폼일 경우
 
 <div style="width:1100px; margin:0 auto;">
 	<a href="/ktbwos/bbs/qna_list.jsp" class="alltext">전체글</a>
-	<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">공지사항관리</span> <!--  현재 게시판 위치 표시  -->
+	<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">QnA</span> <!--  현재 게시판 위치 표시  -->
 <br><br><br>
 	<style>
 	#box { width:1100px; height:600px; margin:0px auto 0; border:1px solid black; font-size:15px; }
@@ -76,8 +75,9 @@ if (kind.equals("up")) {	// 공지글 수정 폼일 경우
 			<div>
 			<br />
 				&nbsp;&nbsp;제목
-				<input type="text" name="ql_title" size="100" placeholder="제목을 입력하세요." value="<%=ql_title%>">
+				<input type="text" name="ql_title" size="100" value="<%=ql_title%>">
 			</div>
+		
 			<br />&nbsp;&nbsp;&nbsp;
 			<textarea name="ql_content" rows="30" cols="80"><%=ql_content%></textarea><br>
 			<br>
