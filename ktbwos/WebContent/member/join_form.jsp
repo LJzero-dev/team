@@ -24,8 +24,7 @@ request.setCharacterEncoding("utf-8");
 // 현재비밀번호 확인
 function chkVal(form) {
 	if (form.isDup.value == "n") {
-		alert("아이디를 확인해주세요.");
-		form.mi_id.focus();
+		alert("입력정보를 다시 확인해주세요.");
 		return false;	// submit 하지마	(return을 하면 함수를 끝냄)
 	}
 	
@@ -119,14 +118,14 @@ function rightcode() {	// 입력 받은 인증코드가 이메일로 보낸 인�
 	<!-- 중복검사 여부와 사용가능 여부를 저장할 hidden객체 -->
 	<table width="1100" cellpadding="5" >
 	<tr>
-	<th>아이디</th><td>
+	<th>&nbsp;&nbsp;&nbsp;아이디&nbsp;&nbsp;&nbsp;</th><td>
 		<input type="text" name="mi_id" onkeyup="dupID(this.value);" maxlength="20" /><br />
 		<span id="imsg">아이디는 4~20자 이내로 입력하세요.</span>
 	</td>
 	</tr>
 	
-	<tr><th>비밀번호</th><td><input type="password" id="pw1" onkeyup="comparePW(this.value);" maxlength="20" /></td></tr>
-	<tr><th>비밀번호 <br />확인</th><td>
+	<tr><th>&nbsp;&nbsp;&nbsp;비밀번호&nbsp;&nbsp;</th><td><input type="password" id="pw1" onkeyup="comparePW(this.value);" maxlength="20" /></td></tr>
+	<tr><th>&nbsp;&nbsp;&nbsp;비밀번호  확인&nbsp;&nbsp;</th><td>
 		<input type="password" name="mi_pw" id="pw2" onkeyup="comparePW(this.value);" maxlength="20" /><br />
 		<span id="pmsg">비밀번호는 4~20자 이내로 입력하세요.</span>
 	</td></tr>
@@ -136,10 +135,10 @@ function rightcode() {	// 입력 받은 인증코드가 이메일로 보낸 인�
 	<input type="hidden" name="userEmail" value="user" />
 
 	<table width="1100" cellpadding="5" >
-		<tr><th>인증번호 입력</th><td>
+		<tr><th>&nbsp;인증번호 입력  &nbsp;</th><td>
 		<input type="text" id="codein" value="" title="인증코드 입력" maxlength="20" />
 		<input type="button" value="확인" onclick="rightcode();" /></td></tr>
-	<tr><th>닉네임</th><td>
+	<tr><th>&nbsp;닉네임  &nbsp;</th><td>
 		<input type="text" name="mi_nick" onkeyup="dupNICK(this.value);" maxlength="20" /><br />
 		<span id="nmsg">닉네임은 2~20자 이내로 입력하세요.</span>
 	</td>
