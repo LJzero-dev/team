@@ -11,7 +11,7 @@ import java.sql.*;
 @MultipartConfig(
 	fileSizeThreshold = 0,
 	location = "E:/team/ad_ktbwos/WebContent/bbs/pds_upload"
-)	
+)
 public class UploadPartProc extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
