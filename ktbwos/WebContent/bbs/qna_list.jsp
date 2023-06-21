@@ -50,9 +50,9 @@ try {
 	if (rcnt % psize > 0)	pcnt++;	// 전체 페이지 수
 	
 	int start = (cpage -1) * psize;
-	sql = "select a.ql_idx, b.mi_idx, b.mi_id, a.ql_title, a.ql_qdate, a.ql_isanswer, a.ql_isview " + 
+	sql = "select a.ql_idx, b.mi_idx, b.mi_id, a.ql_title, a.ql_qdate, a.ql_isanswer, a.ql_isanswer" + 
 			" from t_qna_list a inner join t_member_info b on a.mi_idx = b.mi_idx " + 
-			" order by ql_idx desc limit " + start + ", " + psize;
+			where + " order by ql_idx desc limit " + start + ", " + psize;
 	// System.out.println(sql);
 	rs = stmt.executeQuery(sql);
 	
@@ -93,6 +93,9 @@ try {
 <%
 if (rs.next()) {
 	int num = rcnt - ((cpage -1) * psize);
+	String qlisanswer = rs.getString("ql_isanswer");
+	if(qlisanswer.equals("n")) qlisanswer = "[답변대기중]";
+	else qlisanswer= "[답변완료]";
 	do {
 		String title = rs.getString("ql_title");
 		String allTitle = null, title2 = "";
@@ -109,8 +112,8 @@ if (rs.next()) {
 <td><%=num %></td>
 <td align="left"><%=title2 %></td>
 <td><%=rs.getString("mi_id") %></td>
-<td><%=rs.getString("nl_qdate").substring(0, 10) %></td>
-<td><%=rs.getString("ql_isanswer") %></td>
+<td><%=rs.getString("ql_qdate").substring(0, 10) %></td>
+<td><%=qlisanswer %></td>
 </tr>
 <% 
 	num--;

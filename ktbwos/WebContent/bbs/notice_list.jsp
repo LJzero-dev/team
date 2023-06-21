@@ -46,7 +46,7 @@ try {
 	int start = (cpage -1) * psize;
 	sql = "select a.nl_idx, a.nl_title, b.ai_id, a.nl_date " +
 			" from t_notice_list a inner join t_admin_info b on a.ai_idx = b.ai_idx" + 
-			" order by nl_idx desc limit " + start + ", " + psize;
+		where +	" order by nl_idx desc limit " + start + ", " + psize;
 //	System.out.println(sql);
 	rs = stmt.executeQuery(sql);
 	

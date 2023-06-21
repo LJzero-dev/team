@@ -18,7 +18,9 @@ int ai_idx = 0, nl_read = 0;
 try {
 	stmt = conn.createStatement();
 	sql = "select b.ai_idx, b.ai_id, a.nl_title, a.nl_content, a.nl_date, a.nl_isview " +
-			" from t_notice_list a inner join t_admin_info b on a.ai_idx = b.ai_idx";
+			" from t_notice_list a inner join t_admin_info b on a.ai_idx = b.ai_idx where nl_idx = " + idx;
+	
+
 	rs = stmt.executeQuery(sql);
 	if (rs.next()) {
 		nl_content = rs.getString("nl_content").replace("\r\n", "<br>");

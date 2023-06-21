@@ -43,7 +43,7 @@ try {
 	} else if (kind.equals("del")) {	// 댓글 삭제일 경우 
 		sql = "update t_free_list set fl_reply = fl_reply - 1 where fl_idx = " + fl_idx;
 		stmt.executeUpdate(sql);	// 게시글의 댓글 수 감소 쿼리 실행
-		
+
 		sql = "update t_free_reply set fr_isview = 'n' where fr_writer = '" + fr_writer  + "' and fr_idx = " + fr_idx; 
 		
 		System.out.println(sql);

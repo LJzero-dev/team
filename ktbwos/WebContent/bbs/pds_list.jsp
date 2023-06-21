@@ -9,8 +9,8 @@ if (request.getParameter("cpage") != null)
 
 String schtype = request.getParameter("schtype");
 String keyword = request.getParameter("keyword");
-String schargs = "";
-String where = " where fl_isview = 'y' ";
+String schargs = "", adminId = "";
+String where = " where pl_isview = 'y' ";
 
 if (schtype == null || schtype.equals("") || keyword == null || keyword.equals("")) {
 	schtype = "";	keyword = "";
@@ -20,11 +20,9 @@ if (schtype == null || schtype.equals("") || keyword == null || keyword.equals("
 	URLEncoder.encode(keyword, "UTF-8");
 	
 	if (schtype.equals("total")) {
-		where += " and (fl_title like '%" + keyword + "%' or fl_content like '%" + keyword + "%' or fl_writer = '" + keyword + "') ";
-	} else if (schtype.equals("writer")) { // 검색조건이 '작성자' 일 경우
-		where += " and fl_writer = '" + keyword + "' ";
-	} else { // 검색조건이 '제목'이거나 '내용'일 경우
-		where += " and fl_" + schtype + " like '%" + keyword + "%' ";  
+		where += " where (pl_title like '%" + keyword + "%' or pl_content like '%" + keyword + "%') ";
+	} else {	// 검색조건이 '제목'이거나 '내용'일 경우
+		where += " where pl_" + schtype + " like '%" + keyword + "%' ";
 	}
 	schargs = "&schtype=" + schtype + "&keyword=" + keyword;
 }
@@ -32,43 +30,43 @@ if (schtype == null || schtype.equals("") || keyword == null || keyword.equals("
 try {
 	stmt = conn.createStatement();
 	
-	sql = "select count(*) from t_free_list" + where;
+	rs = stmt.executeQuery("select ai_name from t_admin_info where ai_idx = 1");
+	rs.next();	adminId = rs.getString(1);
+	
+	sql = "select count(*) from t_pds_list" + where;
 	
 	rs = stmt.executeQuery(sql);
 	if (rs.next())	rcnt = rs.getInt(1);
 	
 	pcnt = rcnt / psize;
 	if (rcnt % psize > 0)	pcnt++;
-	
 	int start = (cpage - 1) * psize;
-	sql = "select fl_idx, fl_ismem, fl_writer, fl_reply, fl_title, fl_read, fl_ip, if(curdate() = date(fl_date), time(fl_date), replace(mid(fl_date, 3, 8), '-', '.')) fldate from t_free_list" + where + 
-			"order by fl_idx desc limit " + start + ", " + psize;
+	sql = "select pl_idx, pl_title, pl_content, pl_read, if (curdate() = date(pl_date), time(pl_date), replace(mid(pl_date, 3, 8), '-', '.')) pldate" + 
+			" from t_pds_list" + where +  "order by pl_idx desc limit " + start + ", " + psize;;
 
 	System.out.println(sql);
 	rs = stmt.executeQuery(sql);
 	
 } catch(Exception e) {
-	out.println("자유게시판 목록에서 문제가 발생했습니다.");
+	out.println("자료실 목록에서 문제가 발생했습니다.");
 	e.printStackTrace();
 }
 
 %>
-
 <style>
 	input[type="submit"] {border:1px solid #000; width:60px; background:transparent; cursor:pointer; background:#fff;}
 	.alltext {display:inline-block; float:left; width:80px; padding:5px 0; border:1px solid #000; text-align:center;}
 </style>
 
 <div style="width:1100px; margin:0 auto;">
-	<a href="/ktbwos/bbs/free_list.jsp" class="alltext">전체글</a>
-	<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">자유게시판</span>
+	<a href="/ad_ktbwos/bbs/ad_pds_list.jsp" class="alltext">전체글</a>
+	<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">자료실</span>
 	<form name="frmSch" style="margin-bottom:0;">
 		<fieldset style=" width:335px; margin-left:737px; background:#1E4B79;">
 			<select name="schtype">
 				<option value="total"<% if(schtype.equals("total")) { %>selected="selected" <% } %>>전체</option>
-				<option value="title" <% if(schtype.equals("title")) { %>selected="selected" <% } %>>제목</option>
-				<option value="content" <% if(schtype.equals("content")) { %>selected="selected" <% } %>>내용</option>
-				<option value="writer" <% if(schtype.equals("writer")) { %>selected="selected" <% } %>>작성자</option>
+				<option value="title"<% if(schtype.equals("title")) { %>selected="selected" <% } %>>제목</option>
+				<option value="content"<% if(schtype.equals("content")) { %>selected="selected" <% } %>>내용</option>
 			</select>
 			<input type="text" name="keyword" value="<%=keyword %>" />
 			<input type="submit" value="검색" />&nbsp;&nbsp;&nbsp;&nbsp;
@@ -87,32 +85,20 @@ try {
 			int num = rcnt - ((cpage -1 ) * psize);
 			do {
 				int titleCnt = 24;
-				String reply = "",  title = rs.getString("fl_title");
-				if (rs.getInt("fl_reply") > 0) {
-					titleCnt = titleCnt - 3;
-					reply = " [" + rs.getInt("fl_reply") + "]";
-				}
-				
+				String reply = "",  title = rs.getString("pl_title");
+
 				if (title.length() > titleCnt) {
 					title = title.substring(0, titleCnt - 3) + "...";
 				}
-				title = "<a href='free_view.jsp?idx=" + rs.getInt("fl_idx") + "&cpage=" + cpage + schargs + "'>" + title + "</a>" + reply;
-				
-				String writer = rs.getString("fl_writer");
-				
+				title = "<a href='pds_view.jsp?&cpage=" + cpage + "&idx=" + rs.getInt("pl_idx") + schargs + "'>" + title + "</a>" + reply;
 			
 		%>
 		<tr>
 			<td><b><%=num %></b></td>
 			<td align="left">&nbsp;<%=title %></td>
-			<% if (rs.getString("fl_ismem").equals("n")) { %>
-			<td><%=writer %><span style="color:silver;">(<%=rs.getString("fl_ip").substring(0, 9) %>)</span></td>
-			<% } %>
-			<% if (rs.getString("fl_ismem").equals("y")) { %>
-			<td><%=writer %></td>
-			<% } %>
-			<td><%=rs.getString("fldate") %></td>
-			<td><%=rs.getString("fl_read") %></td>
+			<td><%=adminId %></td>
+			<td><%=rs.getString("pldate") %></td>
+			<td><%=rs.getString("pl_read") %></td>
 		</tr>
 		<%
 			num --;
@@ -121,13 +107,14 @@ try {
 			out.println("<tr height='30'><td colspan='5' align='center'>");
 		}
 		%>
+	
 	</table>
 	<table style="width:1100px; border:0;">
 		<tr>
 			<td style="border:0;">
 			<% 
 			if (rcnt > 0) { // 게시글이 있으면
-				String link = "free_list.jsp?cpage=";
+				String link = "ad_pds_list.jsp?cpage=";
 				if (cpage == 1) {
 					out.println("[처음]&nbsp;&nbsp;&nbsp;[이전]&nbsp;&nbsp;");
 				} else {
@@ -159,9 +146,6 @@ try {
 				}
 			}
 			%>
-			</td>
-			<td width="*" style="text-align:right; border:0;">
-				<input type="button" value="글등록" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" onclick="location.href='free_form.jsp?kind=in';" />
 			</td>
 		</tr>
 	</table>

@@ -126,7 +126,7 @@ try {
 			
 			if (rs.getString("fr_ismem").equals("n")) {	// 현재 글이 비회원 글일 경우
 				isPms2 = true;
-				delLink2 = "free_form_pw.jsp" + args + "&kind=del&idx=" + idx;
+				delLink2 = "free_reply_form_pw.jsp" + args + "&kind=del&idx=" + idx + "&fr_idx=" + rs.getInt("fr_idx");
 			} else {
 				if (isLogin && loginInfo.getMi_nick().equals(rs.getString("fr_writer"))) {
 				// 현재 로그인이 되어있는 상태에서 현 사용자 닉네임이 현 댓글 입력한 회원일 경우
@@ -193,7 +193,7 @@ try {
 				<% if (isLogin) { %>
 				<td></td>
 				<% } else { %>
-				<td><input type="text" name="fr_pw" style="height:36px;" placeholder="비밀번호"/></td>
+				<td><input type="password" name="fr_pw" style="height:36px;" placeholder="비밀번호"/></td>
 				<% } %>
 			</tr>
 		</table>
