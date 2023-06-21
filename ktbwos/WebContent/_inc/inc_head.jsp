@@ -72,43 +72,12 @@ function goLogin(link) {
 <body>
 <div style="width:1100px; height:80px; margin:0 auto;">
 <a style="float:left; overflow: hidden; margin-bottom: 20px; " href="<%=ROOT_URL %>"><img style="width:200px" src="/ktbwos/img/ktbwos.png"></a>
-
-
-
-
-<!-- 	<form name="frmTotalSch" action="/ktbwos/bbs/combine.jsp" style="float:left; overflow: hidden; margin-left:150px; margin-top:15px;">
-		<fieldset style=" width:335px; background:#1E4B79;">
-			<select name="schtype">
-				<option value="all" >전체</option>
-				<option value="a" >게시판</option>
-				<option value="b" >제목</option>
-				<option value="c" >내용</option>
-				<option value="d" >작성자</option>
-			</select>
-		<input type="text" name="keyword" placeholder="통합 검색?" />
-		<input type="submit" style="border:1px solid #000; width:60px; background:transparent; cursor:pointer; background:#fff;" value="검색" />&nbsp;&nbsp;&nbsp;&nbsp;
-		</fieldset>
-	</form>
-	 -->
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-<div style="margin-left:800px; width:160px;">
 <% if (isLogin) { %>
-	<a href="/ktbwos/logout.jsp">로그아웃 / </a>
-	<a href="/ktbwos/member/member_info.jsp">회원 정보</a>
+	<a style="display:inline-block; margin-top:50px; margin-left:700px;  position:fixed;" href="/ktbwos/logout.jsp">로그아웃 </a>
+	<a style="display:inline-block; margin-top:50px; margin-left:800px;  position:fixed;" href="/ktbwos/member/member_info.jsp">회원 정보 </a>
 	<% } else { %>
-	<a href="/ktbwos/login_form.jsp">로그인</a>
+	<a style="display:inline-block; margin-top:50px; margin-left:700px;  position:fixed;" href="/ktbwos/login_form.jsp">로그인 </a>
 	<% } %>
-</div>
 </div>
 <br />
 <table style="width:1100px; margin:0 auto;">
