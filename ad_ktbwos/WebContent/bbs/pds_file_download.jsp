@@ -11,7 +11,7 @@ String downPath = context.getRealPath(savePath);
 String filePath = downPath + "\\" + fileName;
 // 다운받을 파일의 실제 경로 및 파일명을 정의
 
-byte[] b = new byte[4096];	// 한 번에 다운 받을 크기로 4KB로 지정
+byte[] b = new byte[20971520];	// 한 번에 다운 받을 크기로 4KB로 지정
 FileInputStream in = new FileInputStream(filePath);
 String mimeType = getServletContext().getMimeType(filePath);
 // 다운 받을 파일의 종류를 추출
