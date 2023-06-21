@@ -86,6 +86,7 @@ if (kind.equals("up")) {	// 공지글 수정 폼일 경우
 			</script>
 			<br />&nbsp;&nbsp;&nbsp;
 			<textarea name="nl_content" rows="30" cols="80"><%=nl_content%></textarea><br>
+			<br>
 	<div align = "right">
 		<input type="submit" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" value="<%=caption %>">
 	</div>
