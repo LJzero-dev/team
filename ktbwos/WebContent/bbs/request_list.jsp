@@ -147,7 +147,7 @@ if (rcnt > 0) {	// 게시글이 있으면
 }
 %>
 <div style="width:1100px; margin:0 auto;" align="right">
-<input type="button" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" value="글등록" onclick="location.href='request_form.jsp?kind=in';" />	
+<input type="button" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" value="게시판 요청" onclick="location.href='request_form.jsp?kind=in';" />	
 </div>
 </div>
 <%@ include file="../_inc/inc_foot.jsp" %>

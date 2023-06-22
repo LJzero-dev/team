@@ -121,6 +121,7 @@ function chkVal(frm) {
 <div style="width:1100px; margin:0 auto;">
 	<a href="/ktbwos/bbs/request_list.jsp" class="alltext">전체글</a>
 	<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">요청 게시판</span>
+	<br />
 <form name="frm" action="<%=action %>" onsubmit="return chkVal(this);">
 <input type="hidden" name="isDup" value="n">
 <input type="hidden" name="idx" value="<%=idx %>">

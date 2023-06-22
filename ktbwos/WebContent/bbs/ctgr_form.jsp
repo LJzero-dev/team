@@ -147,8 +147,8 @@ if (kind.equals("up")) {	// 게시글 수정 폼일 경우
 
 </table>
 	<span style="display:inline-block; float:right; margin-top:5px; margin-left:10px;">
-	<input type="submit" value="<%=caption %>" />
-	<input type="button" value="뒤로" onclick="history.back();">
+	<input type="submit" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" value="<%=caption %>" />
+	<input type="button" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" value="뒤로" onclick="history.back();">
 	</span>	
 </div>
 </form>

@@ -84,7 +84,7 @@ if (kind.equals("up")) {	// QnA글 수정 폼일 경우
 	<div align = "right">
 		<input type="submit" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" value="<%=caption %>">
 	</div>
-		</form>
+		</form>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	</div>
 	<br />
 </div>
