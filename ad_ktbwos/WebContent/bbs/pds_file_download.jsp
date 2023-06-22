@@ -4,7 +4,7 @@
 <%
 request.setCharacterEncoding("utf-8");
 String fileName = request.getParameter("file");
-String savePath = "/bbs/pds_upload"; 
+String savePath = "/bbs/pds_upload";
 
 ServletContext context = getServletContext();
 String downPath = context.getRealPath(savePath);

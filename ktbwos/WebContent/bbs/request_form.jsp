@@ -132,7 +132,7 @@ function chkVal(frm) {
 			<td colspan="3"><input name="rl_title" type="text" placeholder="제목을 입력하세요" style="width:850px;" value="<%=rl_title %>"></td>
 		</tr >
 		<tr>
-			<td width="20%">아이디</td><td name="rl_writer" width="30%">홍길동</td><td width="20%">작성 글번호</td><td width="30%">2023-06-09</td>
+			<td width="20%" colspan="2">작성자</td><td name="rl_writer" width="30%" colspan="2"><%=loginInfo.getMi_nick() %></td>
 		</tr>
 		<tr>
 			<td>분류</td>

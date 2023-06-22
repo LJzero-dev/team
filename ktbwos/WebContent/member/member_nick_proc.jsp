@@ -18,12 +18,14 @@ try {
 	
 	out.println("<script>");
 	if (result == 1) {
+		out.println("alert('닉네임 변경이 완료되었습니다.');");
 		out.println("location.href='/ktbwos/member/member_info.jsp';");
 	rs = stmt.executeQuery("select * from t_member_info where mi_status <> 'c' and mi_id = '" + mi_id + "' and mi_pw = '" + mi_pw + "'");
 	if (rs.next()) {
 		MemberInfo mi = new MemberInfo();
 		mi.setMi_id(mi_id);
 		mi.setMi_pw(mi_pw);
+		mi.setMi_idx(rs.getInt("mi_idx"));
 		mi.setMi_email(rs.getString("mi_email"));
 		mi.setMi_nick(rs.getString("mi_nick"));
 		mi.setMi_status(rs.getString("mi_status"));

@@ -254,10 +254,8 @@ select * from t_request_list;
 
 
 
-select * from t_mem
 
-
-
+select rl_name from t_request_list where rl_table_name = '';
 
 
 
