@@ -90,9 +90,7 @@ try {
 <% 
 if (rs.next()) {
 	int num = rcnt - ((cpage -1) * psize);
-	String qlisanswer = rs.getString("ql_isanswer");
-	if(qlisanswer.equals("n")) qlisanswer = "[답변대기중]";
-	else qlisanswer= "[답변완료]";
+	
 	do {
 		String title = rs.getString("ql_title");
 		String allTitle = null, title2 = "";
@@ -112,7 +110,7 @@ if (rs.next()) {
 <td align="left"><%=title2 %></td>
 <td><%=rs.getString("mi_nick") %></td>
 <td><%=rs.getString("ql_qdate").substring(0, 10) %></td>
-<td><%=qlisanswer%></td>
+<td><%=rs.getString("ql_isanswer").equals("y") ? "[답변완료]" : "[답변대기중]" %></td>
 </tr>
 
 <% 
