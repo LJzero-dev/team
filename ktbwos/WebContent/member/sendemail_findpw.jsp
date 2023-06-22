@@ -78,21 +78,6 @@ function setEmailDomain(domain) {
 	document.getElementById("emaildomain").value = domain;
 }
 
-function chkValId(form) {
-	if (form.codein.value == "") {
-		alert("이메일 확인을 완료해주세요.");
-		form.codein.focus();
-		return false;
-	}
-	
-	if (form.isUser.value == "n") {
-		alert("유효하지 않은 회원이메일입니다.");
-		return false;
-	}
-	
-	return true;
-}
-
 
 function codeSending() {
 	
@@ -100,13 +85,18 @@ function codeSending() {
 	var emaildomain = document.getElementById("emaildomain").value;
 	var mi_email = emailid + "@" + emaildomain;
 	
+	
 	if (emailid == "" || emaildomain == "") {
 		alert("이메일을 입력해주세요");
 	} else {
+		var find = document.getElementById("find");
+		find.src = "user_email_chkp.jsp?mi_email=" + mi_email;
+		
 		var userEmail = parent.frmfindpw.userEmail;
 		userEmail.value = mi_email;
 		
 		send();
+		alert("인증코드 ")
 	}
 	
 	
@@ -120,7 +110,7 @@ function send() {
 
 
 </script>
-<iframe src="user_email_chk.jsp" id="find" style="width:300px; height:200px; border:1px black solid; display:none;" ></iframe>
+<iframe src="" id="find" style="width:300px; height:200px; border:1px black solid; display:none;" ></iframe>
 <form id="frmfindpw" action="mailSend" method="post" >	<!-- mailSend는 서블릿 -->
 <table width="100%" cellpadding="5" >
 		<input type="hidden" name="isUser" value="n" />

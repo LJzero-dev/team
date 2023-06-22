@@ -24,12 +24,6 @@ function chkValId(form) {
 		return false;
 	}
 	
-	if (document.frmfindid.isUser.value == "n") {
-		alert("유효하지 않은 회원 이메일입니다.");
-		form.mi_id.focus();
-		return false;
-	}
-	
 	return true;
 }
 
