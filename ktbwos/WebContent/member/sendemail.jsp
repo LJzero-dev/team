@@ -132,7 +132,7 @@ function send() {
 <iframe src="" id="dup" style="width:300px; height:200px; border:1px black solid; display:none;" ></iframe>
 <form id="frmmail" action="mailSend" method="post" >	<!-- mailSend는 서블릿 -->
 <table width="100%" cellpadding="5" >
-<tr><th>이메일</th><td>
+<tr><th>이메일</th><td >
 		<input type="text" name="emailid" id="emailid" value="" title="이메일아이디" placeholder="이메일" maxlength="18" />
 		@
 		<input type="text" name="emaildomain" id="emaildomain" value="" title="이메일도메인" placeholder="이메일도메인" maxlength="18" />

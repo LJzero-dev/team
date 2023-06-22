@@ -118,7 +118,7 @@ function rightcode() {	// 입력 받은 인증코드가 이메일로 보낸 인�
 	<!-- 중복검사 여부와 사용가능 여부를 저장할 hidden객체 -->
 	<table width="1100" cellpadding="5" >
 	<tr>
-	<th>&nbsp;&nbsp;&nbsp;아이디&nbsp;&nbsp;&nbsp;</th><td>
+	<th width="345.5px">&nbsp;&nbsp;&nbsp;아이디&nbsp;&nbsp;&nbsp;</th><td>
 		<input type="text" name="mi_id" onkeyup="dupID(this.value);" maxlength="20" /><br />
 		<span id="imsg">아이디는 4~20자 이내로 입력하세요.</span>
 	</td>
@@ -135,7 +135,7 @@ function rightcode() {	// 입력 받은 인증코드가 이메일로 보낸 인�
 	<input type="hidden" name="userEmail" value="user" />
 
 	<table width="1100" cellpadding="5" >
-		<tr><th>&nbsp;인증번호 입력  &nbsp;</th><td>
+		<tr><th width="345.5px">&nbsp;인증번호 입력  &nbsp;</th><td>
 		<input type="text" id="codein" value="" title="인증코드 입력" maxlength="20" />
 		<input type="button" value="확인" onclick="rightcode();" /></td></tr>
 	<tr><th>&nbsp;닉네임  &nbsp;</th><td>
