@@ -57,9 +57,9 @@ if (kind.equals("up")) {	// QnA글 수정 폼일 경우
 	<a href="/ktbwos/bbs/qna_list.jsp" class="alltext">전체글</a>
 	<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">QnA</span> <!--  현재 게시판 위치 표시  -->
 <br><br><br>
-	<style>
+	<!--  <style>
 	#box { width:1100px; height:600px; margin:0px auto 0; border:1px solid black; font-size:15px; }
-	</style>
+	</style> -->
 	<div id="box">	
 		<form name="frm" action="<%=action %>" method="post">
 		<% if (kind.equals("up")) {%>
@@ -75,16 +75,15 @@ if (kind.equals("up")) {	// QnA글 수정 폼일 경우
 			<div>
 			<br />
 				&nbsp;&nbsp;제목
-				<input type="text" name="ql_title" size="100" value="<%=ql_title%>">
+				<input type="text" name="ql_title" size="110" placeholder="제목을 입력해주세요" value="<%=ql_title%>">
 			</div>
 		
-			<br />&nbsp;&nbsp;&nbsp;
-			<textarea name="ql_content" rows="30" cols="80"><%=ql_content%></textarea><br>
-			<br>
+			<br />&nbsp;&nbsp;&nbsp;&nbsp;
+			<textarea name="ql_content" rows="30" cols="120" placeholder="내용을 입력해주세요"><%=ql_content%></textarea>
 	<div align = "right">
-		<input type="submit" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" value="<%=caption %>">
+		<input type="submit" style="background-color: white; border: 1px solid black; mirgin : 10px; padding : 10px; border-radius: 1px; cursor: pointer;" value="<%=caption %>">
 	</div>
-		</form>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		</form>
 	</div>
 	<br />
 </div>
