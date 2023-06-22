@@ -37,7 +37,7 @@ try {
 		sql = "update t_free_list set fl_reply = fl_reply + 1 where fl_idx = " + fl_idx;
 		stmt.executeUpdate(sql);	// 게시글의 댓글 수 증가 쿼리 실행
 		
-		sql = "insert into t_free_reply (fl_idx, fr_ismem, fr_writer, fr_pw, fr_content, fr_ip) values" + "(" + fl_idx + ", '" + fr_ismem + "', '" + fr_writer + "', " + fr_pw + ", '" + fr_content + "', '" + fl_ip + "')" ;
+		sql = "insert into t_free_reply (fl_idx, fr_ismem, fr_writer, fr_pw, fr_content, fr_ip) values" + "(" + fl_idx + ", '" + fr_ismem + "', '" + fr_writer + "', '" + fr_pw + "', '" + fr_content + "', '" + fl_ip + "')" ;
 		
 		System.out.println(sql);
 	} else if (kind.equals("del")) {	// 댓글 삭제일 경우 
