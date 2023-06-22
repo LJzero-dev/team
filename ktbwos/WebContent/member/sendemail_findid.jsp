@@ -94,6 +94,7 @@ function codeSending() {
 		userEmail.value = mi_email;
 		
 		send();
+		alert("인증코드 발송이 완료되었습니다. ");
 	}
 }
 

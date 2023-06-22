@@ -112,11 +112,13 @@ function codeSending() {
 				
 				userEmail.value = email;
 				send();
+				alert("인증코드 발송이 완료되었습니다. ");
 			}
 		}
 	} else {
 		userEmail.value = email;
 		send();
+		alert("인증코드 발송이 완료되었습니다. ");
 	}
 }
 
