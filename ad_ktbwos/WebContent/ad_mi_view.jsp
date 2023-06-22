@@ -17,13 +17,13 @@ if (schtype != null && !schtype.equals("") && keyword != null && !keyword.equals
 }	// 링크에 검색관련 값들을 쿼리스트링으로 연결해줌
 // view 화면에서 보여줄 게시글의 정보들을 저장할 변수들
 String mi_id = "", mi_email = "", mi_nick = "", mi_status = "", mi_date = "", milastlogin = "";
-int mi_idx = 0, mi_count = 0;
+int mi_idx = 0, mi_count = 0, qlidx = 0;
 
 try {
 	stmt = conn.createStatement();
 	
-	sql = "select mi_idx, mi_id, mi_email, mi_nick, mi_status, mi_date, mi_count, ifnull(mi_lastlogin, '로그인 내역 없음....') milastlogin " + 
-	"from t_member_info where mi_idx = " + idx;
+	sql = "select a.mi_idx, a.mi_id, a.mi_email, a.mi_nick, a.mi_status, a.mi_date, a.mi_count, ifnull(a.mi_lastlogin, '로그인 내역 없음....') milastlogin, count(b.ql_idx) qlidx " + 
+	"from t_member_info a left join t_qna_list b on a.mi_idx = b.mi_idx where a.mi_idx = " + idx;
 	rs = stmt.executeQuery(sql);
 	if (rs.next()) {
 		mi_idx = rs.getInt("mi_idx");
@@ -34,6 +34,7 @@ try {
 		mi_date = rs.getString("mi_date");
 		milastlogin = rs.getString("milastlogin");
 		mi_count = rs.getInt("mi_count");
+		qlidx = rs.getInt("qlidx");
 		
 		
 		
@@ -86,6 +87,7 @@ if (mistatus.equals("a")) {
 <th width="10%">작성한 게시글 수</th>
 <th><%=rs.getInt("mi_count") %></th>
 <th width="10%">QnA등록횟수</th>
+<th><%=rs.getInt("qlidx") %></th>
 <th></th>
 </tr>
 
