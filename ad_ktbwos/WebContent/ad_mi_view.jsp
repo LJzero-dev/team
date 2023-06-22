@@ -55,7 +55,7 @@ try {
 </style>
 <div style="width:1100px; margin:0 auto;">
 <a href="/ad_ktbwos/ad_mi_list.jsp" class="alltext">목록</a>
-<h2 align="center">회원 목록</h2>
+<h2 align="center">회원 정보 보기</h2>
 <table width="1100" border="0" cellpadding="5" cellspacing="0" id="list">
 <tr height="30">
 <th width="15%">아이디</th>
