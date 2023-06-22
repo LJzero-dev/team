@@ -61,7 +61,7 @@ try {
 
 <div style="width:1100px; margin:0 auto;">
 	<a href="/ad_ktbwos/bbs/ad_free_list.jsp" class="alltext">전체글</a>
-	<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">자유게시판</span>
+	<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">자유게시판 관리</span>
 	<form name="frmSch" style="margin-bottom:0;">
 		<fieldset style=" width:335px; margin-left:737px; background:#1E4B79;">
 			<select name="schtype">
@@ -99,6 +99,14 @@ try {
 				title = "<a href='ad_free_view.jsp?idx=" + rs.getInt("fl_idx") + "&cpage=" + cpage + schargs + "'>" + title + "</a>" + reply;
 				
 				String writer = rs.getString("fl_writer");
+				String ip = rs.getString("fl_ip");
+				
+				ip = ip.replace(":", "-");		
+				ip = ip.replace(".", "-");				
+				String[] iparr = ip.split("-");
+				if (rs.getString("fl_ismem").equals("n")) {
+					 writer += " (" + iparr[0] + "." + iparr[1] + ")";
+				}	
 				
 			
 		%>
@@ -106,7 +114,7 @@ try {
 			<td><b><%=num %></b></td>
 			<td align="left">&nbsp;<%=title %></td>
 			<% if (rs.getString("fl_ismem").equals("n")) { %>
-			<td><%=writer %><span style="color:silver;">(<%=rs.getString("fl_ip").substring(0, 9) %>)</span></td>
+			<td><%=writer %></td>
 			<% } %>
 			<% if (rs.getString("fl_ismem").equals("y")) { %>
 			<td><%=writer %></td>

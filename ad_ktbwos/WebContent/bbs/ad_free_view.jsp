@@ -12,7 +12,7 @@ if (schtype != null && !schtype.equals("") && keyword != null && !keyword.equals
 	// 링크에 검색 관련 값들을 쿼리스트링으로 연결해줌
 }
 
-String fl_ismem = "", fl_writer = "", fl_title = "", fl_content = "", fl_ip = "", fl_date = "";
+String fl_ismem = "", fl_writer = "", fl_title = "", fl_content = "", fl_ip = "", fl_date = "", nwriter = "";
 int fl_read = 0,  fl_reply = 0;
 
 try {
@@ -31,6 +31,13 @@ try {
 		fl_date = rs.getString("fl_date").substring(0, 10);
 		fl_read = rs.getInt("fl_read");
 		fl_reply = rs.getInt("fl_reply");
+		fl_ip = rs.getString("fl_ip");
+		fl_ip = fl_ip.replace(":", "-");
+		fl_ip = fl_ip.replace(".", "-");
+		String[] iparr = fl_ip.split("-");
+		if (fl_ismem.equals("n"))
+			nwriter = fl_writer + " (" + iparr[0] + "." + iparr[1] + ")";
+		
 
 		
 	} else {
@@ -60,7 +67,7 @@ try {
 	<a href="/ktbwos/bbs/free_list.jsp" class="alltext">전체글</a>
 	<table width="1100" cellpadding="5">
 		<tr>
-			<td width="60%" style="text-align:left;"><b><%=fl_writer %></b></td>
+			<td width="60%" style="text-align:left;"><b><%=fl_ismem.equals("y") ? fl_writer : nwriter %></b></td>
 			<td width="*"><b><%=fl_date %></b></td>
 			<td width="10%"><b>조회수 : <%=fl_read %></b></td>
 		</tr>
@@ -86,7 +93,7 @@ try {
 				}
 			}
 		</script>
-		<a href="javascript:isDel();" class="btn">삭제</a>
+		<a href="javascript:isDel();" class="btn delbtn">삭제</a>
 	</div>
 
 	
