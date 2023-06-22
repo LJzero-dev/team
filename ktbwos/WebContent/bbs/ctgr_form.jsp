@@ -64,9 +64,31 @@ if (kind.equals("up")) {	// 게시글 수정 폼일 경우
 		}
 	}
 }
-
 %>
-<form name="frm" action="<%=action %>" method="post">
+<script>
+	function chkVal (frm){
+		if (frm.title.value == "") {
+			alert("게시글 제목을 입력해주세요.");
+			return false;
+		}
+		if (frm.content.value == "") {
+			alert("게시글 내용을 입력해주세요.");
+			return false;
+		}
+		<% if (!isLogin) {%>
+		if (frm.writer.value == "") {
+			alert("닉네임을 입력해주세요.");
+			return false;
+		}
+		if (frm.pw.value == "") {
+			alert("비밀번호를 입력해주세요.");
+			return false;
+		}
+		<% } %>
+		return true;
+	}
+</script>
+<form name="frm" action="<%=action %>" method="post" onsubmit="return chkVal(this);">
 <% if (kind.equals("up")) { %>
 <input type="hidden" name="idx" value="<%=idx %>" />
 <input type="hidden" name="cpage" value="<%=cpage %>" />

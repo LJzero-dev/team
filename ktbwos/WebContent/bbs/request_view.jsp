@@ -130,11 +130,8 @@ boolean isPms = (loginInfo != null) ? true : false ;
 		<tr>			
 			<td colspan="4">※ 개설 승인, 반려는 매우 많은 시간이 필요합니다.</td>
 		</tr>
-	</table><br />
-	
-	
+	</table><br />	
 	<span style="display:inline-block; float:right; margin-top:5px; margin-left:10px;">
-	
 	<%	if (isPms && rl_writer.equals(loginInfo.getMi_nick()) && rl_status.equals("a")) {  %>
 	<input type="button" value="수정" onclick="location.href='<%=upLink %>';" />
 <script>

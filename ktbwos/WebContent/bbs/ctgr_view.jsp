@@ -78,6 +78,23 @@ function goLogin() {
 		location.href = "../login_form.jsp?";
 	}
 }
+function chkVal (frmReply){
+	if (frmReply.content.value == "") {
+		alert("댓글 내용을 입력해주세요.");
+		return false;
+	}
+	<% if (!isLogin) {%>
+	if (frmReply.writer.value == "") {
+		alert("닉네임을 입력해주세요.");
+		return false;
+	}
+	if (frmReply.pw.value == "") {
+		alert("비밀번호를 입력해주세요.");
+		return false;
+	}
+	<% } %>
+	return true;
+}
 </script>
 <div style="width:1100px; margin:0 auto;">
 	<a href="/ktbwos/bbs/table_list.jsp?rl_table_name=<%=rl_table_name %>" class="alltext">전체글</a>
@@ -195,7 +212,7 @@ function goLogin() {
 			%>
 		</table>
 		
-		<form name="frmReply" action="ctgr_reply_proc.jsp<%=args %>&rl_table_name=<%=rl_table_name %>" method="post">
+		<form name="frmReply" action="ctgr_reply_proc.jsp<%=args %>&rl_table_name=<%=rl_table_name %>" method="post" onsubmit="return chkVal(this);">
 		<input type="hidden" name="kind" value="in" />
 		<input type="hidden" name="idx" value="<%=idx %>" />
 		<input type="hidden" name="rl_table_name" value="<%=rl_table_name %>" />
