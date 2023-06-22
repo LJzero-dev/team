@@ -67,7 +67,28 @@ if (kind.equals("up")) {
 	} 
 }
 %>
-
+<script>
+	function checkform() {
+		var writer = document.forms["frm"]["fl_writer"].value;
+		var pw = document.forms["frm"]["fl_pw"].value;
+		var title = document.forms["frm"]["fl_title"].value;
+		var content = document.forms["frm"]["fl_content"].value;
+		
+		if (writer === "" || writer.trim() === "") {
+		  	alert("작성자를 입력해주세요.");
+		 		return false;
+		} else if (pw === "" || pw.trim() === "") {
+			alert("비밀번호를 입력해주세요.");
+			return false;
+		}  else if (title === "" || title.trim() === "") {
+			alert("제목을 입력해주세요.");
+			return false;
+		} else if (content === "" || content.trim() === "") {
+			alert("내용을 입력해주세요.");
+			return false;
+		}
+	}
+</script>
 <form name="frm" action="<%=action %>" method="post">
 <% if (kind.equals("up")) { %>
 <input type="hidden" name="idx" value="<%=idx %>" />
@@ -121,7 +142,7 @@ if (kind.equals("in")) {
 </tr>
 <tr>
 	<td colspan="4" style="text-align:right;">
-		<input type="submit" value="<%=caption %>" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" />&nbsp;
+		<input type="submit" value="<%=caption %>" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" onclick="return checkform();" />&nbsp;
 		<input type="reset" value="취소" style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" onclick="location.href='free_list.jsp?cpage=<%=cpage + args %>';" />
 	</td>
 </tr>

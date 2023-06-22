@@ -10,13 +10,8 @@ import java.sql.*;
 @WebServlet("/uploadPartProc")
 @MultipartConfig(
 	fileSizeThreshold = 0,
-<<<<<<< HEAD
-	location = "E:/team/ad_ktbwos/WebContent/bbs/pds_upload"
-)
-=======
 	location = "E:/esm/projectcode/ad_ktbwos/WebContent/bbs/pds_upload"
 )	
->>>>>>> origin/main
 public class UploadPartProc extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

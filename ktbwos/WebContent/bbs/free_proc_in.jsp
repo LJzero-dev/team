@@ -19,14 +19,18 @@ if (isLogin) {
 
 try {
 	stmt = conn.createStatement();
+	if (isLogin) {
+		sql = "update t_member_info set mi_count = mi_count +1 where mi_nick = '" + fl_writer + "' ";
+		stmt.executeUpdate(sql);
+	}
 	int idx = 1;
 	sql = "select max(fl_idx) + 1 from t_free_list";
 	rs = stmt.executeQuery(sql);
 	if (rs.next())	idx = rs.getInt(1);
-	
+	if (idx == 0) idx = 1;
 	sql = "insert into t_free_list (fl_idx, fl_ismem,fl_writer, fl_pw, fl_title, fl_content, fl_ip) values (?, ?, ?, ?, ?, ?, ?)";
 	
-//	System.out.println(sql);
+	System.out.println(sql);
 	
 	PreparedStatement pstmt = conn.prepareStatement(sql);
 	pstmt.setInt(1, idx);

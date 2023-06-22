@@ -12,7 +12,7 @@ if (schtype != null && !schtype.equals("") && keyword != null && !keyword.equals
 	// 링크에 검색 관련 값들을 쿼리스트링으로 연결해줌
 }
 
-String fl_ismem = "", fl_writer = "", fl_title = "", fl_content = "", fl_ip = "", fl_date = "";
+String fl_ismem = "", fl_writer = "", fl_title = "", fl_content = "", fl_ip = "", fl_date = "", nwriter = "";
 int fl_read = 0,  fl_reply = 0;
 
 try {
@@ -31,7 +31,12 @@ try {
 		fl_date = rs.getString("fl_date").substring(0, 10);
 		fl_read = rs.getInt("fl_read");
 		fl_reply = rs.getInt("fl_reply");
-
+		fl_ip = rs.getString("fl_ip");
+		fl_ip = fl_ip.replace(":", "-");
+		fl_ip = fl_ip.replace(".", "-");
+		String[] iparr = fl_ip.split("-");
+		if (fl_ismem.equals("n"))
+			nwriter = fl_writer + " (" + iparr[0] + "." + iparr[1] + ")";
 		
 	} else {
 		out.println("<script>");
@@ -60,7 +65,7 @@ try {
 	<a href="/ktbwos/bbs/free_list.jsp" class="alltext">전체글</a>
 	<table width="1100" cellpadding="5">
 		<tr>
-			<td width="60%" style="text-align:left;"><b><%=fl_writer %></b></td>
+			<td width="60%" style="text-align:left;"><b><%=fl_ismem.equals("y") ? fl_writer : nwriter %></b></td>
 			<td width="*"><b><%=fl_date %></b></td>
 			<td width="10%"><b>조회수 : <%=fl_read %></b></td>
 		</tr>
@@ -119,14 +124,19 @@ try {
 				rs = stmt.executeQuery(sql);
 				if (rs.next()) {	// 해당 게시글에 댓글이 있을 경우
 					do {
+						String fr_ip = rs.getString("fr_ip");
+						fr_ip = fr_ip.replace(":", "-");
+						fr_ip = fr_ip.replace(".", "-");
+						String[] iparr = fr_ip.split("-");
 			%>
 			<%
 			boolean isPms2 = false;	// 수정과 삭제 버튼을 현 사용자에게 보여줄지 여부를 저장할 변수
 			String delLink2 = "";	// 수정과 삭제용 링크를 저장할 변수
-			
+
 			if (rs.getString("fr_ismem").equals("n")) {	// 현재 글이 비회원 글일 경우
 				isPms2 = true;
 				delLink2 = "free_reply_form_pw.jsp" + args + "&kind=del&idx=" + idx + "&fr_idx=" + rs.getInt("fr_idx");
+				nwriter = rs.getString("fr_writer") + " (" + iparr[0] + "." + iparr[1] + ")";
 			} else {
 				if (isLogin && loginInfo.getMi_nick().equals(rs.getString("fr_writer"))) {
 				// 현재 로그인이 되어있는 상태에서 현 사용자 닉네임이 현 댓글 입력한 회원일 경우
@@ -136,7 +146,7 @@ try {
 			}
 			%>
 			<tr>
-				<td style="width:370px; padding: 6px;"><%=rs.getString("fr_writer") %></td>
+				<td style="width:370px; padding: 6px;"><%=(rs.getString("fr_ismem").equals("y")) ? rs.getString("fr_writer") : nwriter %></td>
 				<td style="padding:14px 10px 14px 54px; text-align:left; vertical-align:text-top;" rowspan="2">
 					<span style="display: block; width: 647px; overflow: hidden; word-wrap: break-word;"><%=rs.getString("fr_content").replace("\r\n", "<br />") %></span>
 				</td>
@@ -171,7 +181,23 @@ try {
 			}  
 			%>
 		</table>
-		
+
+			
+		<script>
+			function checkform() {
+			  var writer = document.forms["frmReply"]["fr_writer"].value;
+			  var pw = document.forms["frmReply"]["fr_pw"].value;
+			  if (writer === "" || writer.trim() === "") {
+			    	alert("닉네임을 입력해주세요.");
+			   		return false;
+			  } else if (writer.length <= 1 ) {
+				  	alert("닉네임을 2~20자 이내로 입력하세요.")
+			  } else if (pw === "" || pw.trim() === "") {
+				 	alert("비밀번호를 입력해주세요.");
+				 	return false;
+			  }
+			}
+		</script>
 		<form name="frmReply" action="free_reply_proc.jsp<%=args %>" method="post">
 		<input type="hidden" name="kind" value="in" />
 		<input type="hidden" name="fl_idx" value="<%=idx %>" />
@@ -186,7 +212,7 @@ try {
 					<textarea name="fr_content" class="txt" onkeyup=""></textarea>
 				</td>
 				<td width="*" valign="top" rowspan="2">
-					<input type="submit" value="등록" class="btn" />
+					<input type="submit" value="등록" class="btn" onclick="return checkform();"/>
 				</td>
 			</tr>
 			<tr>

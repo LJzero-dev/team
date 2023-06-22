@@ -21,9 +21,9 @@ if (schtype == null || schtype.equals("") || keyword == null || keyword.equals("
 	URLEncoder.encode(keyword, "UTF-8");
 	
 	if (schtype.equals("total")) {
-		where += " where (pl_title like '%" + keyword + "%' or pl_content like '%" + keyword + "%') ";
+		where += " and (pl_title like '%" + keyword + "%' or pl_content like '%" + keyword + "%') ";
 	} else {	// 검색조건이 '제목'이거나 '내용'일 경우
-		where += " where pl_" + schtype + " like '%" + keyword + "%' ";
+		where += " and pl_" + schtype + " like '%" + keyword + "%' ";
 	}
 	schargs = "&schtype=" + schtype + "&keyword=" + keyword;
 }

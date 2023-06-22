@@ -16,6 +16,10 @@ if (fl_ismem != null && fl_ismem.equals("n")) {	// 비회원글 삭제일 경우
 
 try {
 	stmt = conn.createStatement();
+	if (isLogin) {
+		sql = "update t_member_info set mi_count = mi_count -1 where mi_nick = '" + loginInfo.getMi_nick() + "' ";
+		stmt.executeUpdate(sql);
+	}
 	sql = "update t_free_list set fl_isview = 'n' " + where;
 	System.out.println(sql);
 	int result = stmt.executeUpdate(sql);
