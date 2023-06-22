@@ -20,9 +20,9 @@ if (schtype == null || schtype.equals("") || keyword == null || keyword.equals("
 	URLEncoder.encode(keyword, "UTF-8");
 	
 	if (schtype.equals("total")) {
-		where += " where (pl_title like '%" + keyword + "%' or pl_content like '%" + keyword + "%') ";
+		where += " and (pl_title like '%" + keyword + "%' or pl_content like '%" + keyword + "%') ";
 	} else {	// 검색조건이 '제목'이거나 '내용'일 경우
-		where += " where pl_" + schtype + " like '%" + keyword + "%' ";
+		where += " and pl_" + schtype + " like '%" + keyword + "%' ";
 	}
 	schargs = "&schtype=" + schtype + "&keyword=" + keyword;
 }
@@ -65,8 +65,8 @@ try {
 		<fieldset style=" width:335px; margin-left:737px; background:#1E4B79;">
 			<select name="schtype">
 				<option value="total"<% if(schtype.equals("total")) { %>selected="selected" <% } %>>전체</option>
-				<option value="title"<% if(schtype.equals("title")) { %>selected="selected" <% } %>>제목</option>
-				<option value="content"<% if(schtype.equals("content")) { %>selected="selected" <% } %>>내용</option>
+				<option value="title" <% if(schtype.equals("title")) { %>selected="selected" <% } %>>제목</option>
+				<option value="content" <% if(schtype.equals("content")) { %>selected="selected" <% } %>>내용</option>
 			</select>
 			<input type="text" name="keyword" value="<%=keyword %>" />
 			<input type="submit" value="검색" />&nbsp;&nbsp;&nbsp;&nbsp;
