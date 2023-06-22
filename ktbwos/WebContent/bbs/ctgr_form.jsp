@@ -17,7 +17,9 @@ if (schtype != null && !schtype.equals("") && keyword != null && !keyword.equals
 	args += "&schtype=" + schtype + "&keyword=" + keyword;
 }	// 링크에 검색 관련 값들을 쿼리스트링으로 연결해줌
 
-String ismem = request.getParameter("ismem");		// 현재 수정상태이면서 해당 글이 비회원 글일 경우에만 'n'의 값이 있음
+String ismem = request.getParameter("ismem"), table_name = "";		// 현재 수정상태이면서 해당 글이 비회원 글일 경우에만 'n'의 값이 있음
+rs = conn.createStatement().executeQuery("select rl_name from t_request_list where rl_table_name = '" + rl_table_name + "'");	rs.next();
+table_name = rs.getString(1);
 if (ismem == null)	ismem = "y";
 String pw = request.getParameter("pw");
 if (kind.equals("up")) {	// 게시글 수정 폼일 경우
@@ -122,7 +124,7 @@ if (kind.equals("up")) {	// 게시글 수정 폼일 경우
 	<th>글제목</th>
 	<td width="50%"><input type="text" name="title" size="60" style="width:100%; height:30px; border:0;" placeholder="제목을 입력해주세요." ></td>
 	<th width="15%">게시판 이름</th>
-	<td><%=request.getParameter("table_name") %></td>
+	<td><%=table_name  %></td>
 	</tr>
 	<tr>
 	<th>내용</th>
@@ -137,7 +139,7 @@ if (kind.equals("up")) {	// 게시글 수정 폼일 경우
 	<th>글제목</th>
 	<td width="50%"><input type="text" name="title" size="60" style="width:100%; height:30px; border:0;" placeholder="제목을 입력해주세요." value="<%=title %>" ></td>
 	<th width="15%">게시판 이름</th>
-	<td><%=rl_table_name %></td>
+	<td><%=table_name %></td>
 	</tr>
 	<tr>
 	<th>내용</th>

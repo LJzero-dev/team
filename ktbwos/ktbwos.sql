@@ -65,7 +65,7 @@ create table t_free_list (
    fl_idx int primary key auto_increment,	-- 글번호
    fl_ismem char(1) default 'y',			-- 회원 여부
    fl_writer varchar(20) not null,			-- 작성자
-   fl_pw varchar(20) not null,				-- 비밀번호
+   fl_pw varchar(20),				-- 비밀번호
    fl_title varchar(100) not null,			-- 제목
    fl_content text not null,				-- 내용
    fl_reply int default 0,					-- 댓글 개수
@@ -130,6 +130,7 @@ create table t_request_list (
    rl_content text not null,					-- 요청 내용
    rl_date datetime default now()				-- 요청일
 );
+
 show tables;
 select * from t_request_list;
 select * from t_request_list  where 1=1  and rl_title like '%1%' order by rl_status ;
@@ -249,12 +250,11 @@ select * from t_qna_list;
 
 
 
+select * from t_request_list;
 
 
 
-
-
-
+select * from t_mem
 
 
 
