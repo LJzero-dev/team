@@ -40,7 +40,7 @@ function memDel() {
 	<%-- &nbsp;회원가입일  &nbsp;&nbsp;<%=loginInfo.getMi_date().substring(0, 10) %><br /><br /> --%>
 	&nbsp;<a href="/ktbwos/member/change_pw.jsp">비밀번호 변경하기</a><br /><br />
 	<a href="/ktbwos/index.jsp" class="alltext">확인</a>
-	<input type="button" value="회원탈퇴" onclick="memDel();"  />
+	<input type="button"  style="background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" value="회원탈퇴" onclick="memDel();"  />
 	</form>
 	
 </div>

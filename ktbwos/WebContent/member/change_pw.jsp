@@ -54,9 +54,11 @@ function pwCheck(form) {
 <form name="frmpw">
 <div style="width:1100px; margin:0 auto;">
 <div id="box">
+<br />
 	&nbsp;현재 비밀번호&nbsp;&nbsp;<input type="password" name="pw" placeholder="현재비밀번호 입력" value="" maxlength="8" /><br /><br />
 	&nbsp;비밀번호 변경&nbsp;&nbsp;<input type="password" name="cpw1" placeholder="비밀번호 입력" value="" maxlength="8" /><br /><br />
-	&nbsp;비밀번호 변경 확인&nbsp;&nbsp;<input type="password" name="cpw2" placeholder="비밀번호 확인" value="" maxlength="8" /><br /><br />
+	&nbsp;비밀번호 변경 확인&nbsp;&nbsp;<input type="password" name="cpw2" placeholder="비밀번호 확인" value="" maxlength="8" /><br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;비밀번호는 4자~20자 이내로 입력해주세요.
 	<input type="button" onclick="pwCheck(form);" value="수정완료" />
 	<input type="button" value="취소" onclick="history.back();" />
 </div>
