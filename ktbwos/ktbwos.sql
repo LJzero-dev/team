@@ -186,12 +186,7 @@ update t_request_list set rl_read = rl_read + 1 where rl_table_name = '';
 select * from t_member_info;
 select rl_ctgr, rl_name, rl_table_name from t_request_list where rl_status = 'y' order by rl_read desc limit 10;
 select nl_idx, nl_title, date(nl_date) from t_notice_list;
-select ai_iax, ;
-show tables;
-select * from t_request_list;
-select rl_name, from t_request_list where rl_status = 'y' order by rl_idx desc limit 10;
-select * 
-select * from t_aa_reply;
+
 
 update t_requset_list set rl_status = 'n', rl_title = '', rl_reason = '' where fr_idx ='';
 
@@ -249,6 +244,19 @@ group by a.rl_ctgr, a.rl_name, a.rl_table_name order by sum(b.bl_count) desc;
 
 
 select * from t_member_info;
+select * from t_qna_list;
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

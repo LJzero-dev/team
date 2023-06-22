@@ -19,7 +19,7 @@ try {
 //	System.out.println(sql);
 	// 자유게시판 레코드 개수(검색조건 포함)를 받아 올 쿼리
 	stmt.executeUpdate(sql);
-	
+	response.sendRedirect(ROOT_URL);
 	
 } catch(Exception e) {
 	out.println("회원등록에서 문제가 발생했습니다.");
