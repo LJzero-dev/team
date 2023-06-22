@@ -120,7 +120,7 @@ function goLogin() {
 }
 </script>
 <div style="width: 1100px; margin: 0 auto;">
-	<a href="/ktbwos/bbs/table_list.jsp?rl_table_name=<%=rl_table_name%>"
+	<a href="/ad_ktbwos/bbs/table_list.jsp?rl_table_name=<%=rl_table_name%>"
 		class="alltext">전체글</a>
 	<table width="1100" cellpadding="5">
 		<tr>

@@ -109,8 +109,8 @@ function dupTableName(table) {
 </style>
 <iframe src="" id="dup" style="width:500px;  height:200px border:1px black solid; display:none;"></iframe>
 <div style="width:1100px; margin:0 auto;">
-	<a href="/ktbwos/bbs/request_list.jsp" class="alltext">전체글</a>
-	<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">자유게시판</span>
+	<a href="/ad_ktbwos/bbs/request_list.jsp" class="alltext">전체글</a>
+	<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">요청 게시판</span>
 	<form name="frmSch" style="margin-bottom:0;" action="<%=action %>" method="post" >
 	<input type="hidden" name="cpage" value="<%=cpage %>">
 	<input type="hidden" name="schtype" value="<%=schtype %>">
@@ -145,6 +145,10 @@ function dupTableName(table) {
 		<tr>
 			<td>게시판 이름</td>
 			<td colspan="3"><%=rl_status.equals("n") ? rl_name.substring((""+idx).length(),rl_name.lastIndexOf((""+idx))) : rl_name %></td>
+		</tr>		
+		<tr>
+			<td>요청 내용</td>
+			<td colspan="3"><%=rl_content %></td>
 		</tr>
 		<tr>
 			<% if (rl_status.equals("y")) { %>
