@@ -65,7 +65,7 @@ function isDel(link) {
 <body>
 <div style="width:1100px; margin:0 auto;">
 <a style="display:inline-block; margin-top:50px; margin-left:700px;  position:fixed;" href="/ad_ktbwos/bbs/request_list.jsp">승인 대기중인 게시판 : <% rs = conn.createStatement().executeQuery("select count(*) from t_request_list where rl_status = 'a'"); rs.next(); out.print(rs.getInt(1)); %></a>
-<a style="display:inline-block; margin-top:50px; margin-left:500px;  position:fixed;" href="/ad_ktbwos/bbs/qna_list.jsp">답변 대기중인 QnA : <% rs = conn.createStatement().executeQuery("select count(*) from t_qna_list where ql_isanswer = 'n' and ql_isview = 'y'"); rs.next(); out.print(rs.getInt(1)); %></a>
+<a style="display:inline-block; margin-top:50px; margin-left:500px;  position:fixed;" href="/ad_ktbwos/bbs/ad_qna_list.jsp">답변 대기중인 QnA : <% rs = conn.createStatement().executeQuery("select count(*) from t_qna_list where ql_isanswer = 'n' and ql_isview = 'y'"); rs.next(); out.print(rs.getInt(1)); %></a>
 <a href="<%=ROOT_URL %>"><img style="width:200px" src="/ad_ktbwos/img/ktbwos.png"></a>
 <% if (isLogin) { %>
 <a style="display:inline-block; margin-top:50px; margin-left:700px;  position:fixed;" href="/ad_ktbwos/ad_logout.jsp">로그아웃 </a>
