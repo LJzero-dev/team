@@ -62,7 +62,7 @@ try {
 	<a href="/ad_ktbwos/bbs/ctgr_list.jsp" class="alltext">전체글</a>
 	<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">카테고리 게시판</span>
 	<form name="frmSch" style="margin-bottom:0;">
-		<fieldset style=" width:335px; margin-left:737px; background:#1E4B79;">
+		<fieldset style=" width:335px; margin-left:737px; background:#d3d3d3;">
 			<select name="schtype">
 			<option value="all" <% if (schtype.equals("all")) { %>selected="selected"<% } %>>전체</option>
 			<option value="a" <% if (schtype.equals("a")) { %>selected="selected"<% } %>>분류</option>

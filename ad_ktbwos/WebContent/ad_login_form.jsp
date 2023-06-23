@@ -70,7 +70,7 @@ else				url = url.replace('~', '&');
 #box { width:300px; height:200px; margin:30px auto 0; border:1px solid black; text-align:center; font-size:12px; }
 #login { width:245px; height:25px; }
 </style>
-<h2 align="center">로그인 폼</h2>
+<h2 align="center">관리자 로그인</h2>
 <form name="frmLogin" action="ad_login_proc.jsp" method="post">
 <div style="width:1100px; margin:0 auto;">
 <div id="box">

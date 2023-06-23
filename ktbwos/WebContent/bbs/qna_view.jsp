@@ -56,7 +56,7 @@ try {
          .alltext {display:inline-block; float:left; width:80px; padding:5px 0; border:1px solid #000; text-align:center;}
       </style>  
       <a href="/ktbwos/bbs/qna_list.jsp" class="alltext">전체글</a>
-      <span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">QnA관리</span> <!--  현재 게시판 위치 표시  -->
+      <span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">QnA</span> <!--  현재 게시판 위치 표시  -->
    <br><br><br>
    <!-- <style>
    #box { width:1100px; height:600px; margin:0px auto 0; border:1px solid black; font-size:15px; }

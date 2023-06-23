@@ -63,7 +63,7 @@ try {
 	<a href="/ad_ktbwos/bbs/ad_free_list.jsp" class="alltext">전체글</a>
 	<span style="display:inline-block; float:left; margin-top:5px; margin-left:10px;">자유게시판 관리</span>
 	<form name="frmSch" style="margin-bottom:0;">
-		<fieldset style=" width:335px; margin-left:737px; background:#1E4B79;">
+		<fieldset style=" width:335px; margin-left:737px; background:#d3d3d3;">
 			<select name="schtype">
 				<option value="total"<% if(schtype.equals("total")) { %>selected="selected" <% } %>>전체</option>
 				<option value="title" <% if(schtype.equals("title")) { %>selected="selected" <% } %>>제목</option>
