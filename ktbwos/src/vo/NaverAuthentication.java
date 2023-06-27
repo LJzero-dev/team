@@ -6,7 +6,7 @@ public class NaverAuthentication extends Authenticator {
 	PasswordAuthentication passAuth;
 	
 	public NaverAuthentication() {
-		passAuth = new PasswordAuthentication("solmi2012", "8301425a!");
+		passAuth = new PasswordAuthentication("solmi2012", "password");
 	}
 	public PasswordAuthentication getPasswordAuthentication() {
 		return passAuth;
